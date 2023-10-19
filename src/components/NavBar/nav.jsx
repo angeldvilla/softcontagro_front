@@ -1,9 +1,5 @@
-const nav = () => {
-  return (
-    <div>
-      
-    </div>
-  )
-}
+const Nav = () => {
+  return <div></div>;
+};
 
-export default nav
+export default Nav;

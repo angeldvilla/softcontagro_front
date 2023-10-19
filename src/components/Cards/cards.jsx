@@ -1,9 +1,5 @@
-const cards = () => {
-  return (
-    <div>
-      
-    </div>
-  )
-}
+const Cards = () => {
+  return <div></div>;
+};
 
-export default cards
+export default Cards;

@@ -1,9 +1,5 @@
-const dashboard = () => {
-  return (
-    <div>
-      
-    </div>
-  )
-}
+const DashBoard = () => {
+  return <div></div>;
+};
 
-export default dashboard
+export default DashBoard;
