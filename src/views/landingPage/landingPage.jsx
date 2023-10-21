@@ -1,5 +1,9 @@
 const LandingPage = () => {
-  return <div></div>;
+  return (
+    <div>
+      <h1>BIENVENIDOS A SOFTCONTAGRO</h1>
+    </div>
+  );
 };
 
 export default LandingPage;
