@@ -2,15 +2,13 @@ import React, { Fragment, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { MDBDataTable } from "mdbreact";
 
-import MetaData from "../layout/MetaData";
 import Loader from "../layout/Loader";
 
-import { useAlert } from "react-alert";
+import { toast, Toaster } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
 import { myOrders, clearErrors } from "../../actions/orderActions";
 
 const ListOrders = () => {
-  const alert = useAlert();
   const dispatch = useDispatch();
 
   const { loading, error, orders } = useSelector((state) => state.myOrders);
@@ -19,10 +17,10 @@ const ListOrders = () => {
     dispatch(myOrders());
 
     if (error) {
-      alert.error(error);
+      toast.error("error");
       dispatch(clearErrors());
     }
-  }, [dispatch, alert, error]);
+  }, [dispatch, toast, error]);
 
   const setOrders = () => {
     const data = {
@@ -81,8 +79,6 @@ const ListOrders = () => {
 
   return (
     <div className="container">
-      <MetaData title={"My Orders"} />
-
       <h1 className="my-5 text-center">
         <b>My Orders</b>
       </h1>
@@ -98,6 +94,7 @@ const ListOrders = () => {
           hover
         />
       )}
+      <Toaster position="top-right" richColors />
     </div>
   );
 };

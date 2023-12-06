@@ -2,7 +2,6 @@ import React, { Fragment, useState, useEffect } from "react";
 import { Carousel } from "react-bootstrap";
 
 import Loader from "../layout/Loader";
-import MetaData from "../layout/MetaData";
 import ListReviews from "../review/ListReviews";
 import { useAlert } from "react-alert";
 import { useDispatch, useSelector } from "react-redux";
@@ -128,7 +127,7 @@ const ProductDetails = ({ match }) => {
         <Loader />
       ) : (
         <Fragment>
-          <MetaData title={product.name} />
+          <h1>{product.name}</h1>
 
           <section className="prod-details pt-100 mt-5 mb-5">
             <div className="container">

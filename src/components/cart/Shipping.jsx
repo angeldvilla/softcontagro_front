@@ -1,7 +1,5 @@
 import React, { Fragment, useState } from 'react'
 import { countries } from 'countries-list'
-
-import MetaData from '../layout/MetaData'
 import CheckoutSteps from './CheckoutSteps'
 
 import { useDispatch, useSelector } from 'react-redux'
@@ -31,7 +29,7 @@ const Shipping = ({ history }) => {
     return (
         <Fragment>
 
-            <MetaData title={'Shipping Info'} />
+            <h1>Shipping Info</h1>
 
             <CheckoutSteps shipping />
 

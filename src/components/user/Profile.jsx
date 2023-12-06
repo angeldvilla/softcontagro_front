@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 import Loader from '../layout/Loader'
-import MetaData from '../layout/MetaData'
 
 const Profile = () => {
 
@@ -13,7 +12,7 @@ const Profile = () => {
         <Fragment>
             {loading ? <Loader /> : (
                 <Fragment>
-                    <MetaData title={'Your Profile'} />
+                    <h1>Your Profile</h1>
 
                     <h2 className="mt-5 ml-5">My Profile</h2>
                     <div className="row justify-content-around mt-5 user-info">

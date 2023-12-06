@@ -1,7 +1,6 @@
 import React, { Fragment, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 
-import MetaData from '../layout/MetaData'
 import Loader from '../layout/Loader'
 import Sidebar from './Sidebar'
 
@@ -44,7 +43,7 @@ const Dashboard = () => {
 
 					{loading ? <Loader /> : (
 						<Fragment>
-							<MetaData title={'Admin Dashboard'} />
+							<h1>Admin Dashboard</h1>
 
 							<div className="row pr-4">
 								<div className="col-xl-12 col-sm-12 mb-3">

@@ -1,11 +1,10 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import { MDBDataTable } from 'mdbreact'
 
-import MetaData from '../layout/MetaData'
 import Loader from '../layout/Loader'
 import Sidebar from './Sidebar'
 
-import { useAlert } from 'react-alert'
+import { toast, Toaster } from 'sonner'
 import { useDispatch, useSelector } from 'react-redux'
 import { getProductReviews, deleteReview, clearErrors } from '../../actions/productActions'
 import { DELETE_REVIEW_RESET } from '../../constants/productConstants'
@@ -14,7 +13,6 @@ const ProductReviews = () => {
 
 	const [productId, setProductId] = useState('')
 
-	const alert = useAlert();
 	const dispatch = useDispatch();
 
 	const { error, reviews } = useSelector(state => state.productReviews);
@@ -23,12 +21,12 @@ const ProductReviews = () => {
 	useEffect(() => {
 
 		if (error) {
-			alert.error(error);
+			toast.error("error");
 			dispatch(clearErrors())
 		}
 
 		if (deleteError) {
-			alert.error(deleteError);
+			toast.error("deleteError");
 			dispatch(clearErrors())
 		}
 
@@ -37,13 +35,13 @@ const ProductReviews = () => {
 		}
 
 		if (isDeleted) {
-			alert.success('Review deleted successfully');
+			toast.success('Review deleted successfully');
 			dispatch({ type: DELETE_REVIEW_RESET })
 		}
 
 
 
-	}, [dispatch, alert, error, productId, isDeleted, deleteError])
+	}, [dispatch, toast, error, productId, isDeleted, deleteError])
 
 	const deleteReviewHandler = (id) => {
 		dispatch(deleteReview(id, productId))
@@ -104,7 +102,7 @@ const ProductReviews = () => {
 
 	return (
 		<Fragment>
-			<MetaData title={'Product Reviews'} />
+			<h1>Product Reviews</h1>
 			<div className="row mt-5">
 				<div className="col-12 col-md-2 mt-4">
 					<Sidebar />
@@ -154,7 +152,7 @@ const ProductReviews = () => {
 					</Fragment>
 				</div>
 			</div>
-
+		<Toaster position='top-center' richColors />
 		</Fragment>
 	)
 }

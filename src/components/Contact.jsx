@@ -9,73 +9,71 @@ const Contact = () => {
         search="false"
         text="Contact Us"
       />
-      <section class="contact-section pt-100 pb-100">
-        <div class="container">
-          <div class="row justify-content-center mb-40">
-            <div class="col-md-6 text-center">
-              <h5 class="title-25 text-uppercase">
+      <section className="contact-section pt-16 pb-16 bg-gray-100">
+        <div className="container">
+          <div className="row justify-content-center mb-10">
+            <div className="col-md-6 text-center">
+              <h5 className="text-3xl font-semibold">
                 Get in touch! <br />
-                will contact you soon
+                We will contact you soon
               </h5>
             </div>
           </div>
-          <div class="row">
-            <div class="col-12">
-              <div class="contact-form-area">
-                <div class="form-wrap box--shadow">
-                  <h4 class="title-25 contact-form-title mb-8">Get In Touch</h4>
-                  <p>
+          <div className="row">
+            <div className="col-12">
+              <div className="contact-form-area">
+                <div className="form-wrap shadow-lg">
+                  <h4 className="text-3xl font-semibold mb-4">Get In Touch</h4>
+                  <p className="mb-4">
                     Your email address will not be published. Required fields
                     are marked *
                   </p>
                   <form
-                    class="contact-form-title"
+                    className="contact-form-title"
                     action="https://formsubmit.co/hy106625@gmail.com"
                     method="post"
                   >
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-inner">
-                          <label>Your Name</label>
-                          <input
-                            type="text"
-                            name="fname"
-                            placeholder="Your name"
-                          />
-                        </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="mb-4">
+                        <label className="block text-sm font-medium text-gray-700">
+                          Your Name
+                        </label>
+                        <input
+                          type="text"
+                          name="fname"
+                          placeholder="Your name"
+                          className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+                        />
                       </div>
-                      <div class="col-md-6">
-                        <div class="form-inner">
-                          <label>Email</label>
-                          <input
-                            type="text"
-                            name="fname"
-                            placeholder="Your Email"
-                          />
-                        </div>
+                      <div className="mb-4">
+                        <label className="block text-sm font-medium text-gray-700">
+                          Email
+                        </label>
+                        <input
+                          type="text"
+                          name="fname"
+                          placeholder="Your Email"
+                          className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+                        />
                       </div>
-                      <div class="col-12 mb-40">
-                        <div class="form-inner">
-                          <textarea
-                            name="message"
-                            placeholder="Your message"
-                            rows="3"
-                          ></textarea>
-                        </div>
+                      <div className="col-span-2 mb-8">
+                        <label className="block text-sm font-medium text-gray-700">
+                          Your Message
+                        </label>
+                        <textarea
+                          name="message"
+                          placeholder="Your message"
+                          rows="3"
+                          className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+                        ></textarea>
                       </div>
-                      <div class="col-12 pb-3">
-                        <a href="#" class="primary--btn contact-btn">
-                          <button
-                            type="submit"
-                            style={{
-                              border: "none",
-                              background: "none",
-                              color: "white",
-                            }}
-                          >
-                            Send Message
-                          </button>
-                        </a>
+                      <div className="col-span-2 pb-3">
+                        <button
+                          type="submit"
+                          className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
+                        >
+                          Send Message
+                        </button>
                       </div>
                     </div>
                   </form>
@@ -83,14 +81,14 @@ const Contact = () => {
               </div>
             </div>
           </div>
-          <div class="row contact-info-area g-4 justify-content-center pt-100">
-            <div class="col-lg-4 col-md-6">
-              <div class="branch-info-item">
-                <div class="branch-info-header">
+          <div className="row contact-info-area g-4 justify-content-center pt-16">
+            <div className="col-lg-4 col-md-6">
+              <div className="branch-info-item">
+                <div className="branch-info-header">
                   <h4>Branch No 01</h4>
                 </div>
-                <div class="branch-info-body box--shadow">
-                  <ul class="text-center">
+                <div className="branch-info-body shadow-md">
+                  <ul className="text-center">
                     <li>Address: 168/170, Ave 01, Mirpur DOHS, Pakistan</li>
                     <li>Email: info.example@gmail.com</li>
                     <li>Phone: +92 000 0000000</li>
@@ -99,13 +97,13 @@ const Contact = () => {
                 </div>
               </div>
             </div>
-            <div class="col-lg-4 col-md-6">
-              <div class="branch-info-item">
-                <div class="branch-info-header">
+            <div className="col-lg-4 col-md-6">
+              <div className="branch-info-item">
+                <div className="branch-info-header">
                   <h4>Branch No 02</h4>
                 </div>
-                <div class="branch-info-body box--shadow">
-                  <ul class="text-center">
+                <div className="branch-info-body shadow-md">
+                  <ul className="text-center">
                     <li>
                       Address: 150 lane Nagano Sitijet National Park, Pakistan
                     </li>
@@ -116,13 +114,13 @@ const Contact = () => {
                 </div>
               </div>
             </div>
-            <div class="col-lg-4 col-md-6">
-              <div class="branch-info-item">
-                <div class="branch-info-header">
+            <div className="col-lg-4 col-md-6">
+              <div className="branch-info-item">
+                <div className="branch-info-header">
                   <h4>Branch No 03</h4>
                 </div>
-                <div class="branch-info-body box--shadow">
-                  <ul class="text-center">
+                <div className="branch-info-body shadow-md">
+                  <ul className="text-center">
                     <li>
                       Address: 150/58 Fujimi Navana lane Sitijet Nagano Pakistan
                     </li>

@@ -4,22 +4,20 @@ import Search from "./Search";
 
 const Banner = ({ src, search, text, text2 }) => {
   return (
-    <div>
-      <div class="hero-area hero-style-one">
-        <div
-          style={{
-            backgroundImage: `url(${src})`,
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-            position: "absolute",
-            inset: " 0",
-            zIndex: "-1",
-          }}
-        ></div>
-        <div class="container">
-          <div class="hero-content-wrap">
-            <h2>{text}</h2>
-            <p>{text2}</p>
+    <div className="relative">
+      <div
+        className="hero-area hero-style-one h-screen flex items-center justify-center text-white"
+        style={{
+          backgroundImage: `url(${src})`,
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+        }}
+      >
+        <div className="absolute inset-0 bg-black opacity-50"></div>
+        <div className="container relative z-10 text-center">
+          <div className="hero-content-wrap">
+            <h2 className="text-4xl md:text-6xl font-bold mb-4">{text}</h2>
+            <p className="text-lg md:text-xl">{text2}</p>
             {search === "true" ? (
               <Route render={({ history }) => <Search history={history} />} />
             ) : (

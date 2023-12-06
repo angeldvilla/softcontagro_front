@@ -26,7 +26,7 @@ const Product = ({ product, col }) => {
             <div className="eg-product-card-price">
               <ins>
                 <span className="price-amount">
-                  <bdi>PKR {product.price}</bdi>
+                  <span>${product.price}</span>
                 </span>
               </ins>
             </div>

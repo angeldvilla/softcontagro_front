@@ -1,8 +1,5 @@
 import React, { Fragment, useState, useEffect } from "react";
-
-import MetaData from "../layout/MetaData";
-
-import { useAlert } from "react-alert";
+import { toast, Toaster } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
 import { register, clearErrors } from "../../actions/userActions";
 import { Link, useHistory } from "react-router-dom";
@@ -21,7 +18,6 @@ const Register = () => {
     "/images/default_avatar.jpg"
   );
 
-  const alert = useAlert();
   const dispatch = useDispatch();
 
   const { isAuthenticated, error, loading } = useSelector(
@@ -35,7 +31,7 @@ const Register = () => {
     }
 
     if (error) {
-      alert.error(error);
+      toast.error("error");
       dispatch(clearErrors());
     }
   }, [dispatch, alert, isAuthenticated, error, history]);
@@ -71,7 +67,7 @@ const Register = () => {
 
   return (
     <Fragment>
-      <MetaData title={"Register User"} />
+      <h1>Register User</h1>
 
       <h3 className="title-30 text-center mb-35">Register Your Account</h3>
 
@@ -164,6 +160,7 @@ const Register = () => {
           </div>
         </div>
       </form>
+      <Toaster position="top-right" richColors />
     </Fragment>
   );
 };

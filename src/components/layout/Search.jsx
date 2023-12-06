@@ -14,18 +14,25 @@ const Search = ({ history }) => {
   };
 
   return (
-    <form method="post" id="search_form-one" onSubmit={searchHandler}>
-      <div class="hero-search-form search-form-style-one">
-        <input
-          type="text"
-          placeholder="Search Your Products..."
-          class="search-field"
-          onChange={(e) => setKeyword(e.target.value)}
-        />
-        <button type="submit" class="search-submit" onClick={searchHandler}>
-          SEARCH
-        </button>
-      </div>
+    <form
+      method="post"
+      id="search_form-one"
+      onSubmit={searchHandler}
+      className="hero-search-form search-form-style-one"
+    >
+      <input
+        type="text"
+        placeholder="Search Your Products..."
+        className="search-field bg-white border border-gray-300 px-4 py-2 rounded-l-md focus:outline-none focus:ring focus:border-blue-300"
+        onChange={(e) => setKeyword(e.target.value)}
+      />
+      <button
+        type="submit"
+        className="search-submit bg-blue-500 text-white px-4 py-2 rounded-r-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
+        onClick={searchHandler}
+      >
+        SEARCH
+      </button>
     </form>
   );
 };

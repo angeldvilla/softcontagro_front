@@ -1,11 +1,10 @@
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
-import MetaData from "../layout/MetaData";
 
 const OrderSuccess = () => {
   return (
     <Fragment>
-      <MetaData title={"Order Success"} />
+      <h1>Order Success</h1>
 
       <div
         className="row justify-content-center"

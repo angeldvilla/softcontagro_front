@@ -1,9 +1,6 @@
 import React, { Fragment, useEffect } from "react";
-
-import MetaData from "../layout/MetaData";
 import CheckoutSteps from "./CheckoutSteps";
-
-import { useAlert } from "react-alert";
+import { toast, Toaster } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
 import { createOrder, clearErrors } from "../../actions/orderActions";
 
@@ -29,7 +26,6 @@ const options = {
 };
 
 const Payment = ({ history }) => {
-  const alert = useAlert();
   const stripe = useStripe();
   const elements = useElements();
   const dispatch = useDispatch();
@@ -40,10 +36,10 @@ const Payment = ({ history }) => {
 
   useEffect(() => {
     if (error) {
-      alert.error(error);
+      toast.error("error");
       dispatch(clearErrors());
     }
-  }, [dispatch, alert, error]);
+  }, [dispatch, toast, error]);
 
   const order = {
     orderItems: cartItems,
@@ -94,7 +90,7 @@ const Payment = ({ history }) => {
       });
 
       if (result.error) {
-        alert.error(result.error.message);
+        toast.error(result.error.message);
         document.querySelector("#pay_btn").disabled = false;
       } else {
         // The payment is processed or not
@@ -108,18 +104,18 @@ const Payment = ({ history }) => {
 
           history.push("/success");
         } else {
-          alert.error("There is some issue while payment processing");
+          toast.error("There is some issue while payment processing");
         }
       }
     } catch (error) {
       document.querySelector("#pay_btn").disabled = false;
-      alert.error(error.response.data.message);
+      toast.error(error.response.data.message);
     }
   };
 
   return (
     <Fragment>
-      <MetaData title={"Payment"} />
+      <h1>Payment</h1>
 
       <CheckoutSteps shipping confirmOrder payment />
 
@@ -163,6 +159,7 @@ const Payment = ({ history }) => {
           </form>
         </div>
       </div>
+      <Toaster position="top-center" richColors />
     </Fragment>
   );
 };

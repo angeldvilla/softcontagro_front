@@ -1,9 +1,6 @@
 import React, { Fragment } from 'react'
 import { Link } from 'react-router-dom'
-
-import MetaData from '../layout/MetaData'
 import CheckoutSteps from './CheckoutSteps'
-
 import { useSelector } from 'react-redux'
 
 const ConfirmOrder = ({ history }) => {
@@ -32,7 +29,7 @@ const ConfirmOrder = ({ history }) => {
     return (
         <Fragment>
 
-            <MetaData title={'Confirm Order'} />
+            <h1>Confirm Order</h1>
 
             <CheckoutSteps shipping confirmOrder />
 

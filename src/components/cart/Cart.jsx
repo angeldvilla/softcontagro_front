@@ -1,9 +1,5 @@
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
-
-import MetaData from "../layout/MetaData";
-
-import { useAlert } from "react-alert";
 import { useDispatch, useSelector } from "react-redux";
 import { addItemToCart, removeItemFromCart } from "../../actions/cartActions";
 
@@ -38,7 +34,7 @@ const Cart = ({ history }) => {
 
   return (
     <Fragment>
-      <MetaData title={"Your Cart"} />
+      <h1>Your Cart</h1>
       {cartItems.length === 0 ? (
         <h2 style={{ marginTop: "200px" }}>Your Cart is Empty</h2>
       ) : (

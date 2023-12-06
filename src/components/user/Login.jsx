@@ -1,11 +1,8 @@
 import React, { Fragment, useState, useEffect } from "react";
-import { Link, useHistory, useLocation } from "react-router-dom";
-
+import { Link, useLocation } from "react-router-dom";
 import Loader from "../layout/Loader";
-import MetaData from "../layout/MetaData";
-
 import { useAlert } from "react-alert";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector, useHistory } from "react-redux";
 import { login, clearErrors } from "../../actions/userActions";
 
 const Login = () => {
@@ -44,7 +41,7 @@ const Login = () => {
         <Loader />
       ) : (
         <Fragment>
-          <MetaData title={"Login"} />
+          <h1>Login</h1>
 
           <h3 className="title-30 text-center mb-35">Login Your Account</h3>
           <form className="login-form" onSubmit={submitHandler}>
