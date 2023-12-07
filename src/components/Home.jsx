@@ -7,7 +7,7 @@ import CategorySection from "./layout/CategorySection";
 import Features from "./layout/Features";
 import { getProducts } from "../actions/productActions";
 import { toast, Toaster } from "sonner";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { Carousel } from "react-responsive-carousel";
 import Header from "./layout/Header";
 import Footer from "./layout/Footer";
@@ -18,6 +18,7 @@ const Home = ({ match }) => {
   const [catagory, setCatagory] = useState("");
   const [rating, setRating] = useState(0);
   const location = useLocation();
+  const { keyword } = useParams();
 
   const { category } = useSelector((state) => state.category);
 
@@ -32,14 +33,12 @@ const Home = ({ match }) => {
     filteredProductsCount,
   } = useSelector((state) => state.products);
 
-  const keyword = match.params?.keyword;
-
   useEffect(() => {
     if (error) {
       return toast.error("error");
     }
     dispatch(getProducts(keyword, currentPage, price, catagory, rating));
-  }, [dispatch, toast, error, keyword, currentPage, price, catagory, rating]);
+  }, [dispatch, error, keyword, currentPage, price, catagory, rating]);
 
   function setCurrentPageNo(pageNumber) {
     setCurrentPage(pageNumber);

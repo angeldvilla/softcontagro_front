@@ -72,12 +72,12 @@ const ListReviews = ({ reviews }) => {
                               <div className="comment-footer">
                                 <ul className="footer-icon-list d-flex justify-content-start align-items-center">
                                   <li>
-                                    <a href="#">
+                                    <a href="/" >
                                       <i className="fa fa-thumbs-up"></i>
                                     </a>
                                   </li>
                                   <li>
-                                    <a href="#">
+                                    <a href="/">
                                       <i className="fa fa-heart"></i>
                                     </a>
                                   </li>

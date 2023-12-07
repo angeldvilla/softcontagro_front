@@ -20,9 +20,7 @@ const Register = ({ history }) => {
 
   const dispatch = useDispatch();
 
-  const { isAuthenticated, error, loading } = useSelector(
-    (state) => state.auth
-  );
+  const { isAuthenticated, error } = useSelector((state) => state.auth);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -33,7 +31,7 @@ const Register = ({ history }) => {
       toast.error("error");
       dispatch(clearErrors());
     }
-  }, [dispatch, alert, isAuthenticated, error, history]);
+  }, [dispatch, isAuthenticated, error, history]);
 
   const submitHandler = (e) => {
     e.preventDefault();

@@ -28,7 +28,7 @@ const UsersList = ({ history }) => {
       history.push("/admin/users");
       dispatch({ type: DELETE_USER_RESET });
     }
-  }, [dispatch, toast, error, isDeleted, history]);
+  }, [dispatch, error, isDeleted, history]);
 
   const deleteUserHandler = (id) => {
     dispatch(deleteUser(id));
@@ -86,7 +86,7 @@ const UsersList = ({ history }) => {
     }));
 
     return { columns, rows };
-  }, [users]);
+  }, [users, columns]);
 
   return (
     <Fragment>

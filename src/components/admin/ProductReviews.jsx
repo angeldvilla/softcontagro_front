@@ -1,6 +1,5 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { useTable } from "react-table";
-import Loader from "../layout/Loader";
 import Sidebar from "./Sidebar";
 import { toast, Toaster } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
@@ -40,7 +39,7 @@ const ProductReviews = () => {
       toast.success("Review deleted successfully");
       dispatch({ type: DELETE_REVIEW_RESET });
     }
-  }, [dispatch, toast, error, productId, isDeleted, deleteError]);
+  }, [dispatch, error, productId, isDeleted, deleteError]);
 
   const deleteReviewHandler = (id) => {
     dispatch(deleteReview(id, productId));
@@ -82,7 +81,7 @@ const ProductReviews = () => {
         ),
       },
     ],
-    []
+    [deleteReviewHandler]
   );
 
   const data = React.useMemo(() => reviews, [reviews]);

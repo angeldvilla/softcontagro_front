@@ -46,7 +46,7 @@ const ProductDetails = ({ match }) => {
       toast.success("Reivew posted successfully");
       dispatch({ type: NEW_REVIEW_RESET });
     }
-  }, [dispatch, toast, error, reviewError, match.params.id, success]);
+  }, [dispatch, error, reviewError, match.params.id, success]);
 
   const addToCart = () => {
     dispatch(addItemToCart(match.params.id, quantity));
@@ -174,8 +174,9 @@ const ProductDetails = ({ match }) => {
                         ></div>
                       </div>
                       <li>
-                        <a href="#" className="review-no"></a> (
-                        {product.numofReviews} Review)
+                        <a href="/" className="review-no">
+                          {`${product.numofReviews} Review`}
+                        </a>
                       </li>
                     </ul>
                     <h3 className="eg-title1 mb-25">{product.name}</h3>
@@ -239,7 +240,7 @@ const ProductDetails = ({ match }) => {
                         disabled={product.stock === 0}
                         style={{ background: "none", border: "none" }}
                       >
-                        <a href="" className="eg-btn md--btn primary--btn">
+                        <a href="/" className="eg-btn md--btn primary--btn">
                           Add to cart
                         </a>
                       </button>

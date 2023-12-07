@@ -31,7 +31,7 @@ const OrdersList = ({ history }) => {
       history.push("/admin/orders");
       dispatch({ type: DELETE_ORDER_RESET });
     }
-  }, [dispatch, toast, error, isDeleted, history]);
+  }, [dispatch, error, isDeleted, history]);
 
   const deleteOrderHandler = (id) => {
     dispatch(deleteOrder(id));
@@ -82,7 +82,7 @@ const OrdersList = ({ history }) => {
         ),
       },
     ],
-    []
+    [deleteOrderHandler]
   );
 
   const data = React.useMemo(() => orders, [orders]);

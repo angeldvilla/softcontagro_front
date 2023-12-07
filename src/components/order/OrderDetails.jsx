@@ -29,7 +29,7 @@ const OrderDetails = ({ match }) => {
       toast.error("error");
       dispatch(clearErrors());
     }
-  }, [dispatch, toast, error, match.params.id]);
+  }, [dispatch, error, match.params.id]);
 
   const shippingDetails =
     shippingInfo &&

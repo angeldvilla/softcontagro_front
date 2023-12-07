@@ -75,16 +75,7 @@ const UpdateProduct = ({ match, history }) => {
       toast.success("Product updated successfully");
       dispatch({ type: UPDATE_PRODUCT_RESET });
     }
-  }, [
-    dispatch,
-    toast,
-    error,
-    isUpdated,
-    history,
-    updateError,
-    product,
-    productId,
-  ]);
+  }, [dispatch, error, isUpdated, history, updateError, product, productId]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -101,7 +92,7 @@ const UpdateProduct = ({ match, history }) => {
       formData.append("images", image);
     });
 
-    dispatch(updateProduct(product._id, formData));
+    dispatch(updateProduct(product.id, formData));
   };
 
   const onChange = (e) => {

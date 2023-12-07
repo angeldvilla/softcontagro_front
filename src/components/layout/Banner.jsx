@@ -1,5 +1,4 @@
 import React from "react";
-import { Route } from "react-router-dom";
 import Search from "./Search";
 
 const Banner = ({ src, search, text, text2 }) => {
@@ -18,11 +17,7 @@ const Banner = ({ src, search, text, text2 }) => {
           <div className="hero-content-wrap">
             <h2 className="text-4xl md:text-6xl font-bold mb-4">{text}</h2>
             <p className="text-lg md:text-xl">{text2}</p>
-            {search === "true" ? (
-              <Route render={({ history }) => <Search history={history} />} />
-            ) : (
-              <></>
-            )}
+            {search === "true" && <Search />}
           </div>
         </div>
       </div>

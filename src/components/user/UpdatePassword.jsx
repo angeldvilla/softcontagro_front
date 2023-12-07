@@ -27,7 +27,7 @@ const UpdatePassword = ({ history }) => {
         type: UPDATE_PASSWORD_RESET,
       });
     }
-  }, [dispatch, toast, error, history, isUpdated]);
+  }, [dispatch, error, history, isUpdated]);
 
   const submitHandler = (e) => {
     e.preventDefault();

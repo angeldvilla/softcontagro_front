@@ -21,7 +21,7 @@ const NewPassword = ({ history, match }) => {
       toast.success("Password updated successfully");
       history.push("/login");
     }
-  }, [dispatch, toast, error, success, history]);
+  }, [dispatch, error, success, history]);
 
   const submitHandler = (e) => {
     e.preventDefault();

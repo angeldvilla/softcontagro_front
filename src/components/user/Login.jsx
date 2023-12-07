@@ -26,7 +26,7 @@ const Login = ({ history }) => {
       toast.error("error");
       dispatch(clearErrors());
     }
-  }, [dispatch, toast, isAuthenticated, error, history]);
+  }, [dispatch, isAuthenticated, error, history, redirect]);
 
   const submitHandler = (e) => {
     e.preventDefault();

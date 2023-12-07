@@ -37,7 +37,11 @@ const CategorysList = ({ history }) => {
       history.push("/admin/Category");
       dispatch({ type: DELETE_CATEGORY_RESET });
     }
-  }, [dispatch, toast, error, deleteError, isDeleted, history]);
+  }, [dispatch, error, deleteError, isDeleted, history]);
+
+  const deleteCategoryHandler = (id) => {
+    dispatch(dltCategory(id));
+  };
 
   const columns = React.useMemo(
     () => [
@@ -64,17 +68,13 @@ const CategorysList = ({ history }) => {
         ),
       },
     ],
-    []
+    [deleteCategoryHandler]
   );
 
   const data = React.useMemo(() => category, [category]);
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({ columns, data });
-
-  const deleteCategoryHandler = (id) => {
-    dispatch(dltCategory(id));
-  };
 
   return (
     <Fragment>

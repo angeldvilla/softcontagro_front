@@ -33,7 +33,7 @@ const NewProduct = ({ history }) => {
       toast.success("Product created successfully");
       dispatch({ type: NEW_PRODUCT_RESET });
     }
-  }, [dispatch, toast, error, success, history]);
+  }, [dispatch, error, success, history]);
 
   const submitHandler = (e) => {
     e.preventDefault();

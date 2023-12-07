@@ -26,7 +26,7 @@ const NewCategory = ({ history }) => {
       toast.success("Category created successfully");
       dispatch({ type: NEW_CATRGORY_RESET });
     }
-  }, [dispatch, toast, error, success, history]);
+  }, [dispatch, error, success, history]);
 
   const submitHandler = (e) => {
     e.preventDefault();

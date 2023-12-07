@@ -17,15 +17,17 @@ const RelatedProducts = ({ category }) => {
                 </div>
               </div>
               <div className="row">
-                {products.map(function (product) {
-                  if (product.category === category) {
-                    return (
-                      <>
-                        <Product key={product._id} product={product} col={3} />
-                      </>
-                    );
-                  }
-                })}
+                {products &&
+                  products.map(function (product) {
+                    if (product.id === i) {
+                      return (
+                        <>
+                          <Product key={product.id} product={product} col={3} />
+                        </>
+                      );
+                    }
+                    return null;
+                  })}
               </div>
             </div>
           </section>

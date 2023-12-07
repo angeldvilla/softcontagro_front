@@ -12,6 +12,7 @@ import {
   DELETE_CATEGORY_FAIL,
   CLEAR_ERRORS,
 } from "../constants/categoryConstants";
+import { path } from "../constants/path";
 
 export const newCategory = (formData) => async (dispatch) => {
   try {
@@ -24,7 +25,7 @@ export const newCategory = (formData) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      `/api/v1/admin/genres/addgenre`,
+      `${path}/api/v1/admin/genres/addgenre`,
       formData,
       config
     );
@@ -44,7 +45,7 @@ export const getCategory = () => async (dispatch) => {
   try {
     dispatch({ type: ALL_CATEGORY_REQUEST });
 
-    const { data } = await axios.get("/api/v1/genres");
+    const { data } = await axios.get(`${path}/api/v1/genres`);
 
     dispatch({
       type: ALL_CATEGORY_SUCCESS,
@@ -63,7 +64,7 @@ export const dltCategory = (id) => async (dispatch) => {
   try {
     dispatch({ type: DELETE_CATEGORY_REQUEST });
 
-    const { data } = await axios.delete(`/api/v1/movies/${id}`);
+    const { data } = await axios.delete(`${path}/api/v1/movies/${id}`);
 
     dispatch({
       type: DELETE_CATEGORY_SUCCESS,

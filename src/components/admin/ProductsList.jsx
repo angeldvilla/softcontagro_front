@@ -39,7 +39,7 @@ const ProductsList = ({ history }) => {
       history.push("/admin/products");
       dispatch({ type: DELETE_PRODUCT_RESET });
     }
-  }, [dispatch, toast, error, deleteError, isDeleted, history]);
+  }, [dispatch, error, deleteError, isDeleted, history]);
 
   const columns = React.useMemo(
     () => [

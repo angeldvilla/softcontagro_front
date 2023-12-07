@@ -45,6 +45,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import UserPage from "./components/user/UserPage";
 import Contact from "./components/Contact";
+import { path } from "./constants/path";
 
 function App() {
   const [stripeApiKey, setStripeApiKey] = useState("");
@@ -53,7 +54,7 @@ function App() {
     store.dispatch(loadUser());
 
     async function getStripApiKey() {
-      const { data } = await axios.get("/api/v1/stripeapi");
+      const { data } = await axios.get(`${path}/api/v1/stripeapi`);
 
       setStripeApiKey(data.stripeApiKey);
     }
@@ -156,7 +157,6 @@ function App() {
       {/* Rutas de administrador */}
       <Route
         path="/dashboard"
-        isAdmin={true}
         element={
           <ProtectedRoute>
             <Dashboard />
@@ -165,7 +165,6 @@ function App() {
       />
       <Route
         path="/admin/products"
-        isAdmin={true}
         element={
           <ProtectedRoute>
             <ProductsList />
@@ -174,7 +173,6 @@ function App() {
       />
       <Route
         path="/admin/product"
-        isAdmin={true}
         element={
           <ProtectedRoute>
             <NewProduct />
@@ -183,7 +181,6 @@ function App() {
       />
       <Route
         path="/admin/category"
-        isAdmin={true}
         element={
           <ProtectedRoute>
             <CategorysList />
@@ -192,7 +189,6 @@ function App() {
       />
       <Route
         path="/admin/category/new"
-        isAdmin={true}
         element={
           <ProtectedRoute>
             <NewCategory />
@@ -201,7 +197,6 @@ function App() {
       />
       <Route
         path="/admin/product/:id"
-        isAdmin={true}
         element={
           <ProtectedRoute>
             <UpdateProduct />
@@ -210,7 +205,6 @@ function App() {
       />
       <Route
         path="/admin/orders"
-        isAdmin={true}
         element={
           <ProtectedRoute>
             <OrdersList />
@@ -219,7 +213,6 @@ function App() {
       />
       <Route
         path="/admin/order/:id"
-        isAdmin={true}
         element={
           <ProtectedRoute>
             <ProcessOrder />
@@ -228,7 +221,6 @@ function App() {
       />
       <Route
         path="/admin/users"
-        isAdmin={true}
         element={
           <ProtectedRoute>
             <UsersList />
@@ -237,7 +229,6 @@ function App() {
       />
       <Route
         path="/admin/user/:id"
-        isAdmin={true}
         element={
           <ProtectedRoute>
             <UpdateUser />
@@ -246,7 +237,6 @@ function App() {
       />
       <Route
         path="/admin/reviews"
-        isAdmin={true}
         element={
           <ProtectedRoute>
             <ProductReviews />

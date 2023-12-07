@@ -41,7 +41,7 @@ const ProcessOrder = ({ match }) => {
       toast.success("Order updated successfully");
       dispatch({ type: UPDATE_ORDER_RESET });
     }
-  }, [dispatch, toast, error, isUpdated, orderId]);
+  }, [dispatch, error, isUpdated, orderId]);
 
   const updateOrderHandler = (id) => {
     const formData = new FormData();

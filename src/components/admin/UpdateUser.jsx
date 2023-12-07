@@ -45,7 +45,7 @@ const UpdateUser = ({ history, match }) => {
         type: UPDATE_USER_RESET,
       });
     }
-  }, [dispatch, toast, error, history, isUpdated, userId, user]);
+  }, [dispatch, error, history, isUpdated, userId, user]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -55,7 +55,7 @@ const UpdateUser = ({ history, match }) => {
     formData.set("email", email);
     formData.set("role", role);
 
-    dispatch(updateUser(user._id, formData));
+    dispatch(updateUser(user.id, formData));
   };
 
   return (

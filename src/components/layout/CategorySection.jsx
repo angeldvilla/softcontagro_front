@@ -24,7 +24,7 @@ const CategorySection = () => {
               >
                 <div className="category-icon">
                   <Link to={`/search/${category.name}`}>
-                    <img src={category.images[0].url} />
+                    <img src={category.images[0].url} alt="imagenes-categorias"/>
                   </Link>
                 </div>
                 <h5 className="category-title">
