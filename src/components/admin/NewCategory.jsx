@@ -1,10 +1,9 @@
 import React, { Fragment, useState, useEffect } from "react";
-import Sidebar from "./Sidebar";
-
 import { toast, Toaster } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
 import { NEW_CATRGORY_RESET } from "../../constants/categoryConstants";
 import { newCategory, clearErrors } from "../../actions/categoryActions";
+import Sidebar from "./Sidebar";
 import Loader from "../layout/Loader";
 
 const NewCategory = ({ history }) => {

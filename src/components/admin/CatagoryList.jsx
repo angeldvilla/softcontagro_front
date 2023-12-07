@@ -1,9 +1,7 @@
 import React, { Fragment, useEffect } from "react";
-import { MDBDataTable } from "mdbreact";
-
+import { useTable } from "react-table";
 import Loader from "../layout/Loader";
 import Sidebar from "./Sidebar";
-
 import { toast, Toaster } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -41,46 +39,38 @@ const CategorysList = ({ history }) => {
     }
   }, [dispatch, toast, error, deleteError, isDeleted, history]);
 
-  const setCategorys = () => {
-    const data = {
-      columns: [
-        {
-          label: "ID",
-          field: "id",
-          sort: "asc",
-        },
-        {
-          label: "Name",
-          field: "name",
-          sort: "asc",
-        },
-        {
-          label: "Action",
-          field: "actions",
-        },
-      ],
-      rows: [],
-    };
-
-    category.forEach((category) => {
-      data.rows.push({
-        id: category._id,
-        name: category.name,
-        actions: (
+  const columns = React.useMemo(
+    () => [
+      {
+        Header: "ID",
+        accessor: "id",
+      },
+      {
+        Header: "Name",
+        accessor: "name",
+      },
+      {
+        Header: "Actions",
+        accessor: "actions",
+        Cell: ({ row }) => (
           <Fragment>
             <button
               className="btn btn-danger py-1 px-2 ml-2"
-              onClick={() => deleteCategoryHandler(category._id)}
+              onClick={() => deleteCategoryHandler(row.original.id)}
             >
               <i className="fa fa-trash"></i>
             </button>
           </Fragment>
         ),
-      });
-    });
+      },
+    ],
+    []
+  );
 
-    return data;
-  };
+  const data = React.useMemo(() => category, [category]);
+
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
+    useTable({ columns, data });
 
   const deleteCategoryHandler = (id) => {
     dispatch(dltCategory(id));
@@ -88,7 +78,7 @@ const CategorysList = ({ history }) => {
 
   return (
     <Fragment>
-      <h1>All Category</h1>
+      <h1>All Categories</h1>
       <div className="row mt-5">
         <div className="col-12 col-md-2 mt-4">
           <Sidebar />
@@ -96,18 +86,38 @@ const CategorysList = ({ history }) => {
 
         <div className="col-12 col-md-10 mt-5">
           <Fragment>
-            <h1 className="my-5">All Categorys</h1>
+            <h1 className="my-5">All Categories</h1>
 
             {loading ? (
               <Loader />
             ) : (
-              <MDBDataTable
-                data={setCategorys()}
-                className="px-3"
-                bordered
-                striped
-                hover
-              />
+              <table {...getTableProps()} className="table">
+                <thead>
+                  {headerGroups.map((headerGroup) => (
+                    <tr {...headerGroup.getHeaderGroupProps()}>
+                      {headerGroup.headers.map((column) => (
+                        <th {...column.getHeaderProps()}>
+                          {column.render("Header")}
+                        </th>
+                      ))}
+                    </tr>
+                  ))}
+                </thead>
+                <tbody {...getTableBodyProps()}>
+                  {rows.map((row) => {
+                    prepareRow(row);
+                    return (
+                      <tr {...row.getRowProps()}>
+                        {row.cells.map((cell) => (
+                          <td {...cell.getCellProps()}>
+                            {cell.render("Cell")}
+                          </td>
+                        ))}
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
             )}
           </Fragment>
         </div>

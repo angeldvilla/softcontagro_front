@@ -1,8 +1,6 @@
 import React, { Fragment, useEffect } from "react";
 import { Link } from "react-router-dom";
-
-import Loader from "../layout/Loader";
-
+import Loader from "../layout/Loader"
 import { toast, Toaster } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
 import { getOrderDetails, clearErrors } from "../../actions/orderActions";

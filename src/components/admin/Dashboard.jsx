@@ -1,11 +1,8 @@
 import React, { Fragment, useEffect } from 'react'
 import { Link } from 'react-router-dom';
-
 import Loader from '../layout/Loader'
 import Sidebar from './Sidebar'
-
 import { useDispatch, useSelector } from 'react-redux'
-
 import { getAdminProducts } from '../../actions/productActions'
 import { allOrders } from '../../actions/orderActions'
 import { allUsers } from '../../actions/userActions'

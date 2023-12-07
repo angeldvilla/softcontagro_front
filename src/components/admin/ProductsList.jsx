@@ -1,18 +1,17 @@
 import React, { Fragment, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { MDBDataTable } from "mdbreact";
-
+import { useTable } from "react-table";
+import { FaPencilAlt, FaTrash } from "react-icons/fa";
 import Loader from "../layout/Loader";
 import Sidebar from "./Sidebar";
-
-import { toast, Toaster } from "sonner";
-import { useDispatch, useSelector } from "react-redux";
 import {
   getAdminProducts,
   deleteProduct,
   clearErrors,
 } from "../../actions/productActions";
 import { DELETE_PRODUCT_RESET } from "../../constants/productConstants";
+import { toast, Toaster } from "sonner";
 
 const ProductsList = ({ history }) => {
   const dispatch = useDispatch();
@@ -42,64 +41,56 @@ const ProductsList = ({ history }) => {
     }
   }, [dispatch, toast, error, deleteError, isDeleted, history]);
 
-  const setProducts = () => {
-    const data = {
-      columns: [
-        {
-          label: "ID",
-          field: "id",
-          sort: "asc",
-        },
-        {
-          label: "Name",
-          field: "name",
-          sort: "asc",
-        },
-        {
-          label: "Price",
-          field: "price",
-          sort: "asc",
-        },
-        {
-          label: "Stock",
-          field: "stock",
-          sort: "asc",
-        },
-        {
-          label: "Actions",
-          field: "actions",
-        },
-      ],
-      rows: [],
-    };
-
-    products.forEach((product) => {
-      data.rows.push({
-        id: product._id,
-        name: product.name,
-        price: `$${product.price}`,
-        stock: product.stock,
-        actions: (
+  const columns = React.useMemo(
+    () => [
+      {
+        Header: "ID",
+        accessor: "_id",
+        sort: "asc",
+      },
+      {
+        Header: "Name",
+        accessor: "name",
+        sort: "asc",
+      },
+      {
+        Header: "Price",
+        accessor: "price",
+        sort: "asc",
+      },
+      {
+        Header: "Stock",
+        accessor: "stock",
+        sort: "asc",
+      },
+      {
+        Header: "Actions",
+        accessor: "actions",
+        Cell: ({ row }) => (
           <Fragment>
             <Link
-              to={`/admin/product/${product._id}`}
+              to={`/admin/product/${row.original._id}`}
               className="btn btn-primary py-1 px-2"
             >
-              <i className="fa fa-pencil"></i>
+              <FaPencilAlt />
             </Link>
             <button
               className="btn btn-danger py-1 px-2 ml-2"
-              onClick={() => deleteProductHandler(product._id)}
+              onClick={() => deleteProductHandler(row.original._id)}
             >
-              <i className="fa fa-trash"></i>
+              <FaTrash />
             </button>
           </Fragment>
         ),
-      });
-    });
+      },
+    ],
+    []
+  );
 
-    return data;
-  };
+  const data = React.useMemo(() => products, [products]);
+
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
+    useTable({ columns, data });
 
   const deleteProductHandler = (id) => {
     dispatch(deleteProduct(id));
@@ -120,13 +111,33 @@ const ProductsList = ({ history }) => {
             {loading ? (
               <Loader />
             ) : (
-              <MDBDataTable
-                data={setProducts()}
-                className="px-3"
-                bordered
-                striped
-                hover
-              />
+              <table {...getTableProps()} className="table">
+                <thead>
+                  {headerGroups.map((headerGroup) => (
+                    <tr {...headerGroup.getHeaderGroupProps()}>
+                      {headerGroup.headers.map((column) => (
+                        <th {...column.getHeaderProps()}>
+                          {column.render("Header")}
+                        </th>
+                      ))}
+                    </tr>
+                  ))}
+                </thead>
+                <tbody {...getTableBodyProps()}>
+                  {rows.map((row) => {
+                    prepareRow(row);
+                    return (
+                      <tr {...row.getRowProps()}>
+                        {row.cells.map((cell) => (
+                          <td {...cell.getCellProps()}>
+                            {cell.render("Cell")}
+                          </td>
+                        ))}
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
             )}
           </Fragment>
         </div>

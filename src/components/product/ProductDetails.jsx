@@ -1,9 +1,7 @@
 import React, { Fragment, useState, useEffect } from "react";
-import { Carousel } from "react-bootstrap";
-
 import Loader from "../layout/Loader";
 import ListReviews from "../review/ListReviews";
-import { useAlert } from "react-alert";
+import { toast, Toaster } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getProducts,
@@ -14,6 +12,7 @@ import {
 import { addItemToCart } from "../../actions/cartActions";
 import { NEW_REVIEW_RESET } from "../../constants/productConstants";
 import RelatedProducts from "./RelatedProducts";
+import { Carousel } from "react-responsive-carousel";
 
 const ProductDetails = ({ match }) => {
   const [quantity, setQuantity] = useState(1);
@@ -21,7 +20,6 @@ const ProductDetails = ({ match }) => {
   const [comment, setComment] = useState("");
 
   const dispatch = useDispatch();
-  const alert = useAlert();
 
   const { loading, error, product } = useSelector(
     (state) => state.productDetails
@@ -35,24 +33,24 @@ const ProductDetails = ({ match }) => {
     dispatch(getProducts());
 
     if (error) {
-      alert.error(error);
+      toast.error("error");
       dispatch(clearErrors());
     }
 
     if (reviewError) {
-      alert.error(reviewError);
+      toast.error("reviewError");
       dispatch(clearErrors());
     }
 
     if (success) {
-      alert.success("Reivew posted successfully");
+      toast.success("Reivew posted successfully");
       dispatch({ type: NEW_REVIEW_RESET });
     }
-  }, [dispatch, alert, error, reviewError, match.params.id, success]);
+  }, [dispatch, toast, error, reviewError, match.params.id, success]);
 
   const addToCart = () => {
     dispatch(addItemToCart(match.params.id, quantity));
-    alert.success("Item Added to Cart");
+    toast.success("Item Added to Cart");
   };
 
   const increaseQty = () => {
@@ -362,6 +360,7 @@ const ProductDetails = ({ match }) => {
           )}
         </Fragment>
       )}
+      <Toaster position="top-center" richColors />
     </Fragment>
   );
 };

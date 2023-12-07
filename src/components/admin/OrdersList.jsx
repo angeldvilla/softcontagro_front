@@ -1,10 +1,8 @@
 import React, { Fragment, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { MDBDataTable } from "mdbreact";
-
+import { useTable } from "react-table";
 import Loader from "../layout/Loader";
 import Sidebar from "./Sidebar";
-
 import { toast, Toaster } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -39,70 +37,58 @@ const OrdersList = ({ history }) => {
     dispatch(deleteOrder(id));
   };
 
-  const setOrders = () => {
-    const data = {
-      columns: [
-        {
-          label: "Order ID",
-          field: "id",
-          sort: "asc",
-        },
-        {
-          label: "No of Items",
-          field: "numofItems",
-          sort: "asc",
-        },
-        {
-          label: "Amount",
-          field: "amount",
-          sort: "asc",
-        },
-        {
-          label: "Status",
-          field: "status",
-          sort: "asc",
-        },
-        {
-          label: "Actions",
-          field: "actions",
-        },
-      ],
-      rows: [],
-    };
-
-    orders.forEach((order) => {
-      data.rows.push({
-        id: order._id,
-        numofItems: order.orderItems.length,
-        amount: `$${order.totalPrice}`,
-        status:
-          order.orderStatus &&
-          String(order.orderStatus).includes("Delivered") ? (
-            <p style={{ color: "green" }}>{order.orderStatus}</p>
-          ) : (
-            <p style={{ color: "red" }}>{order.orderStatus}</p>
-          ),
-        actions: (
+  const columns = React.useMemo(
+    () => [
+      {
+        Header: "Order ID",
+        accessor: "id",
+      },
+      {
+        Header: "No of Items",
+        accessor: "orderItems.length",
+      },
+      {
+        Header: "Amount",
+        accessor: "totalPrice",
+        Cell: ({ value }) => `$${value}`,
+      },
+      {
+        Header: "Status",
+        accessor: "orderStatus",
+        Cell: ({ value }) => (
+          <p style={{ color: value.includes("Delivered") ? "green" : "red" }}>
+            {value}
+          </p>
+        ),
+      },
+      {
+        Header: "Actions",
+        accessor: "actions",
+        Cell: ({ row }) => (
           <Fragment>
             <Link
-              to={`/admin/order/${order._id}`}
+              to={`/admin/order/${row.original.id}`}
               className="btn btn-primary py-1 px-2"
             >
               <i className="fa fa-eye"></i>
             </Link>
             <button
               className="btn btn-danger py-1 px-2 ml-2"
-              onClick={() => deleteOrderHandler(order._id)}
+              onClick={() => deleteOrderHandler(row.original.id)}
             >
               <i className="fa fa-trash"></i>
             </button>
           </Fragment>
         ),
-      });
-    });
+      },
+    ],
+    []
+  );
 
-    return data;
-  };
+  const data = React.useMemo(() => orders, [orders]);
+
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
+    useTable({ columns, data });
 
   return (
     <Fragment>
@@ -119,13 +105,33 @@ const OrdersList = ({ history }) => {
             {loading ? (
               <Loader />
             ) : (
-              <MDBDataTable
-                data={setOrders()}
-                className="px-3"
-                bordered
-                striped
-                hover
-              />
+              <table {...getTableProps()} className="table">
+                <thead>
+                  {headerGroups.map((headerGroup) => (
+                    <tr {...headerGroup.getHeaderGroupProps()}>
+                      {headerGroup.headers.map((column) => (
+                        <th {...column.getHeaderProps()}>
+                          {column.render("Header")}
+                        </th>
+                      ))}
+                    </tr>
+                  ))}
+                </thead>
+                <tbody {...getTableBodyProps()}>
+                  {rows.map((row) => {
+                    prepareRow(row);
+                    return (
+                      <tr {...row.getRowProps()}>
+                        {row.cells.map((cell) => (
+                          <td {...cell.getCellProps()}>
+                            {cell.render("Cell")}
+                          </td>
+                        ))}
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
             )}
           </Fragment>
         </div>

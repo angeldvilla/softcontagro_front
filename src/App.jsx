@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
-
-import Header from "./components/layout/Header";
-import Footer from "./components/layout/Footer";
+import { Routes, Route } from "react-router-dom";
 
 import Home from "./components/Home";
 import ProductDetails from "./components/product/ProductDetails";
@@ -65,111 +62,198 @@ function App() {
   }, []);
 
   return (
-    <Router>
-      <div className="App">
-        <Header />
-        <div className="">
-          <Route path="/" component={Home} exact />
-          <Route path="/contact" component={Contact} exact />
-          <Route path="/search/:keyword" component={Home} />
-          <Route path="/product/:id" component={ProductDetails} exact />
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/contact" element={<Contact />} />
+      <Route path="/search/:keyword" element={<Home />} />
+      <Route path="/product/:id" element={<ProductDetails />} />
 
-          <Route path="/cart" component={Cart} exact />
-          <ProtectedRoute path="/shipping" component={Shipping} />
-          <ProtectedRoute path="/confirm" component={ConfirmOrder} exact />
-          <ProtectedRoute path="/success" component={OrderSuccess} />
-          {stripeApiKey && (
-            <Elements stripe={loadStripe(stripeApiKey)}>
-              <ProtectedRoute path="/payment" component={Payment} />
-            </Elements>
-          )}
-
-          <Route path="/login" component={UserPage} />
-          {/* <Route path="/register" component={Register} /> */}
-          <Route path="/password/forgot" component={ForgotPassword} exact />
-          <Route path="/password/reset/:token" component={NewPassword} exact />
-          <ProtectedRoute path="/me" component={Profile} exact />
-          <ProtectedRoute path="/me/update" component={UpdateProfile} exact />
-          <ProtectedRoute
-            path="/password/update"
-            component={UpdatePassword}
-            exact
+      {/* Rutas del carrito */}
+      <Route path="/cart" element={<Cart />} />
+      <Route
+        path="/shipping"
+        element={
+          <ProtectedRoute>
+            <Shipping />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/confirm"
+        element={
+          <ProtectedRoute>
+            <ConfirmOrder />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/success"
+        element={
+          <ProtectedRoute>
+            <OrderSuccess />
+          </ProtectedRoute>
+        }
+      />
+      {stripeApiKey && (
+        <Elements stripe={loadStripe(stripeApiKey)}>
+          <Route
+            path="/payment"
+            element={
+              <ProtectedRoute>
+                <Payment />
+              </ProtectedRoute>
+            }
           />
+        </Elements>
+      )}
 
-          <ProtectedRoute path="/orders/me" component={ListOrders} exact />
-          <ProtectedRoute path="/order/:id" component={OrderDetails} exact />
-        </div>
+      {/* Rutas de usuario */}
+      <Route path="/login" element={<UserPage />} />
+      <Route path="/password/forgot" element={<ForgotPassword />} />
+      <Route path="/password/reset/:token" element={<NewPassword />} />
 
-        <ProtectedRoute
-          path="/dashboard"
-          isAdmin={true}
-          component={Dashboard}
-          exact
-        />
-        <ProtectedRoute
-          path="/admin/products"
-          isAdmin={true}
-          component={ProductsList}
-          exact
-        />
-        <ProtectedRoute
-          path="/admin/product"
-          isAdmin={true}
-          component={NewProduct}
-          exact
-        />
-        <ProtectedRoute
-          path="/admin/category"
-          isAdmin={true}
-          component={CategorysList}
-          exact
-        />
-        <ProtectedRoute
-          path="/admin/category/new"
-          isAdmin={true}
-          component={NewCategory}
-          exact
-        />
-        <ProtectedRoute
-          path="/admin/product/:id"
-          isAdmin={true}
-          component={UpdateProduct}
-          exact
-        />
-        <ProtectedRoute
-          path="/admin/orders"
-          isAdmin={true}
-          component={OrdersList}
-          exact
-        />
-        <ProtectedRoute
-          path="/admin/order/:id"
-          isAdmin={true}
-          component={ProcessOrder}
-          exact
-        />
-        <ProtectedRoute
-          path="/admin/users"
-          isAdmin={true}
-          component={UsersList}
-          exact
-        />
-        <ProtectedRoute
-          path="/admin/user/:id"
-          isAdmin={true}
-          component={UpdateUser}
-          exact
-        />
-        <ProtectedRoute
-          path="/admin/reviews"
-          isAdmin={true}
-          component={ProductReviews}
-          exact
-        />
-        <Footer />
-        {/* {!loading && (!isAuthenticated || user.role !== "admin") && } */}
-      </div>
-    </Router>
+      <Route
+        path="/me"
+        element={
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/me/update"
+        element={
+          <ProtectedRoute>
+            <UpdateProfile />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/password/update"
+        element={
+          <ProtectedRoute>
+            <UpdatePassword />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/orders/me"
+        element={
+          <ProtectedRoute>
+            <ListOrders />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/order/:id"
+        element={
+          <ProtectedRoute>
+            <OrderDetails />
+          </ProtectedRoute>
+        }
+      />
+
+      {/* Rutas de administrador */}
+      <Route
+        path="/dashboard"
+        isAdmin={true}
+        element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/products"
+        isAdmin={true}
+        element={
+          <ProtectedRoute>
+            <ProductsList />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/product"
+        isAdmin={true}
+        element={
+          <ProtectedRoute>
+            <NewProduct />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/category"
+        isAdmin={true}
+        element={
+          <ProtectedRoute>
+            <CategorysList />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/category/new"
+        isAdmin={true}
+        element={
+          <ProtectedRoute>
+            <NewCategory />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/product/:id"
+        isAdmin={true}
+        element={
+          <ProtectedRoute>
+            <UpdateProduct />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/orders"
+        isAdmin={true}
+        element={
+          <ProtectedRoute>
+            <OrdersList />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/order/:id"
+        isAdmin={true}
+        element={
+          <ProtectedRoute>
+            <ProcessOrder />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/users"
+        isAdmin={true}
+        element={
+          <ProtectedRoute>
+            <UsersList />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/user/:id"
+        isAdmin={true}
+        element={
+          <ProtectedRoute>
+            <UpdateUser />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/reviews"
+        isAdmin={true}
+        element={
+          <ProtectedRoute>
+            <ProductReviews />
+          </ProtectedRoute>
+        }
+      />
+    </Routes>
   );
 }
 

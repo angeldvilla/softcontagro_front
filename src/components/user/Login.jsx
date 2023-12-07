@@ -1,17 +1,15 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import Loader from "../layout/Loader";
-import { useAlert } from "react-alert";
-import { useDispatch, useSelector, useHistory } from "react-redux";
+import { toast, Toaster } from "sonner";
+import { useDispatch, useSelector } from "react-redux";
 import { login, clearErrors } from "../../actions/userActions";
 
-const Login = () => {
+const Login = ({ history }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const alert = useAlert();
   const dispatch = useDispatch();
-  const history = useHistory();
 
   const { isAuthenticated, error, loading } = useSelector(
     (state) => state.auth
@@ -25,10 +23,10 @@ const Login = () => {
     }
 
     if (error) {
-      alert.error(error);
+      toast.error("error");
       dispatch(clearErrors());
     }
-  }, [dispatch, alert, isAuthenticated, error, history]);
+  }, [dispatch, toast, isAuthenticated, error, history]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -98,6 +96,7 @@ const Login = () => {
           </form>
         </Fragment>
       )}
+      <Toaster position="top-center" richColors />
     </Fragment>
   );
 };

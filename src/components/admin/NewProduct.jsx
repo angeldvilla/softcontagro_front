@@ -1,11 +1,10 @@
 import React, { Fragment, useState, useEffect } from "react";
-import Sidebar from "./Sidebar";
-
-import { toast, Toaster } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
+import { toast, Toaster } from "sonner";
+import Loader from "../layout/Loader";
+import Sidebar from "./Sidebar";
 import { newProduct, clearErrors } from "../../actions/productActions";
 import { NEW_PRODUCT_RESET } from "../../constants/productConstants";
-import Loader from "../layout/Loader";
 
 const NewProduct = ({ history }) => {
   const [name, setName] = useState("");

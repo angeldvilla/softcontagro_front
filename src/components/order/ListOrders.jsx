@@ -1,9 +1,7 @@
-import React, { Fragment, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { MDBDataTable } from "mdbreact";
-
+import { useTable } from "react-table";
 import Loader from "../layout/Loader";
-
 import { toast, Toaster } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
 import { myOrders, clearErrors } from "../../actions/orderActions";
@@ -22,60 +20,47 @@ const ListOrders = () => {
     }
   }, [dispatch, toast, error]);
 
-  const setOrders = () => {
-    const data = {
-      columns: [
-        {
-          label: "Order ID",
-          field: "id",
-          sort: "asc",
-        },
-        {
-          label: "Num of Items",
-          field: "numOfItems",
-          sort: "asc",
-        },
-        {
-          label: "Amount",
-          field: "amount",
-          sort: "asc",
-        },
-        {
-          label: "Status",
-          field: "status",
-          sort: "asc",
-        },
-        {
-          label: "Actions",
-          field: "actions",
-          sort: "asc",
-        },
-      ],
-      rows: [],
-    };
-
-    orders.forEach((order) => {
-      data.rows.push({
-        id: order._id,
-        numOfItems: order.orderItems.length,
-        amount: `$${order.totalPrice}`,
-        status:
-          order.orderStatus &&
-          String(order.orderStatus).includes("Delivered") ? (
-            <p style={{ color: "green" }}>{order.orderStatus}</p>
-          ) : (
-            <p style={{ color: "red" }}>{order.orderStatus}</p>
-          ),
-        actions: (
-          <Link to={`/order/${order._id}`} className="btn btn-primary">
+  const columns = React.useMemo(
+    () => [
+      {
+        Header: "Order ID",
+        accessor: "id",
+      },
+      {
+        Header: "Num of Items",
+        accessor: "orderItems.length",
+      },
+      {
+        Header: "Amount",
+        accessor: "totalPrice",
+        Cell: ({ value }) => `$${value}`,
+      },
+      {
+        Header: "Status",
+        accessor: "orderStatus",
+        Cell: ({ value }) => (
+          <p style={{ color: value.includes("Delivered") ? "green" : "red" }}>
+            {value}
+          </p>
+        ),
+      },
+      {
+        Header: "Actions",
+        accessor: "actions",
+        Cell: ({ row }) => (
+          <Link to={`/order/${row.original.id}`} className="btn btn-primary">
             <i className="fa fa-eye"></i>
           </Link>
         ),
-      });
-    });
+      },
+    ],
+    []
+  );
 
-    return data;
-  };
+  const data = React.useMemo(() => orders, [orders]);
+
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
+    useTable({ columns, data });
 
   return (
     <div className="container">
@@ -86,13 +71,31 @@ const ListOrders = () => {
       {loading ? (
         <Loader />
       ) : (
-        <MDBDataTable
-          data={setOrders()}
-          className="px-3 "
-          bordered
-          striped
-          hover
-        />
+        <table {...getTableProps()} className="table">
+          <thead>
+            {headerGroups.map((headerGroup) => (
+              <tr {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map((column) => (
+                  <th {...column.getHeaderProps()}>
+                    {column.render("Header")}
+                  </th>
+                ))}
+              </tr>
+            ))}
+          </thead>
+          <tbody {...getTableBodyProps()}>
+            {rows.map((row) => {
+              prepareRow(row);
+              return (
+                <tr {...row.getRowProps()}>
+                  {row.cells.map((cell) => (
+                    <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                  ))}
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
       )}
       <Toaster position="top-right" richColors />
     </div>

@@ -2,9 +2,9 @@ import React, { Fragment, useState, useEffect } from "react";
 import { toast, Toaster } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
 import { register, clearErrors } from "../../actions/userActions";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-const Register = () => {
+const Register = ({ history }) => {
   const [user, setUser] = useState({
     name: "",
     email: "",
@@ -23,7 +23,6 @@ const Register = () => {
   const { isAuthenticated, error, loading } = useSelector(
     (state) => state.auth
   );
-  const history = useHistory();
 
   useEffect(() => {
     if (isAuthenticated) {

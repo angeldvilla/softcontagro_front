@@ -5,11 +5,12 @@ import Loader from "./layout/Loader";
 import Banner from "./layout/Banner";
 import CategorySection from "./layout/CategorySection";
 import Features from "./layout/Features";
-
 import { getProducts } from "../actions/productActions";
 import { toast, Toaster } from "sonner";
 import { useLocation } from "react-router-dom";
 import { Carousel } from "react-responsive-carousel";
+import Header from "./layout/Header";
+import Footer from "./layout/Footer";
 
 const Home = ({ match }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -31,7 +32,7 @@ const Home = ({ match }) => {
     filteredProductsCount,
   } = useSelector((state) => state.products);
 
-  const keyword = match.params.keyword;
+  const keyword = match.params?.keyword;
 
   useEffect(() => {
     if (error) {
@@ -59,6 +60,7 @@ const Home = ({ match }) => {
         <Loader />
       ) : (
         <div>
+          <Header />
           <h1>Buy Best Products Online</h1>
           {isHome && (
             <Banner
@@ -150,6 +152,7 @@ const Home = ({ match }) => {
         </div>
       )}
       <Toaster position="top-right" richColors />
+      <Footer />
     </div>
   );
 };

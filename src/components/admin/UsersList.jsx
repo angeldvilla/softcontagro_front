@@ -1,10 +1,9 @@
 import React, { Fragment, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { MDBDataTable } from "mdbreact";
-
+import { useTable } from "react-table";
+import { FaPencilAlt, FaTrash } from "react-icons/fa";
 import Loader from "../layout/Loader";
 import Sidebar from "./Sidebar";
-
 import { toast, Toaster } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
 import { allUsers, deleteUser, clearErrors } from "../../actions/userActions";
@@ -35,65 +34,59 @@ const UsersList = ({ history }) => {
     dispatch(deleteUser(id));
   };
 
-  const setUsers = () => {
-    const data = {
-      columns: [
-        {
-          label: "User ID",
-          field: "id",
-          sort: "asc",
-        },
-        {
-          label: "Name",
-          field: "name",
-          sort: "asc",
-        },
-        {
-          label: "Email",
-          field: "email",
-          sort: "asc",
-        },
-        {
-          label: "Role",
-          field: "role",
-          sort: "asc",
-        },
-        {
-          label: "Actions",
-          field: "actions",
-        },
-      ],
-      rows: [],
-    };
+  const columns = [
+    {
+      Header: "User ID",
+      accessor: "id",
+      sortType: "basic",
+    },
+    {
+      Header: "Name",
+      accessor: "name",
+      sortType: "basic",
+    },
+    {
+      Header: "Email",
+      accessor: "email",
+      sortType: "basic",
+    },
+    {
+      Header: "Role",
+      accessor: "role",
+      sortType: "basic",
+    },
+    {
+      Header: "Actions",
+      accessor: "actions",
+      Cell: ({ row }) => (
+        <Fragment>
+          <Link
+            to={`/admin/user/${row.original.id}`}
+            className="btn btn-primary py-1 px-2"
+          >
+            <FaPencilAlt />
+          </Link>
+          <button
+            className="btn btn-danger py-1 px-2 ml-2"
+            onClick={() => deleteUserHandler(row.original.id)}
+          >
+            <FaTrash />
+          </button>
+        </Fragment>
+      ),
+    },
+  ];
 
-    users.forEach((user) => {
-      data.rows.push({
-        id: user._id,
-        name: user.name,
-        email: user.email,
-        role: user.role,
+  const data = React.useMemo(() => {
+    const rows = users.map((user) => ({
+      id: user._id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+    }));
 
-        actions: (
-          <Fragment>
-            <Link
-              to={`/admin/user/${user._id}`}
-              className="btn btn-primary py-1 px-2"
-            >
-              <i className="fa fa-pencil"></i>
-            </Link>
-            <button
-              className="btn btn-danger py-1 px-2 ml-2"
-              onClick={() => deleteUserHandler(user._id)}
-            >
-              <i className="fa fa-trash"></i>
-            </button>
-          </Fragment>
-        ),
-      });
-    });
-
-    return data;
-  };
+    return { columns, rows };
+  }, [users]);
 
   return (
     <Fragment>
@@ -107,22 +100,43 @@ const UsersList = ({ history }) => {
           <Fragment>
             <h1 className="my-5">All Users</h1>
 
-            {loading ? (
-              <Loader />
-            ) : (
-              <MDBDataTable
-                data={setUsers()}
-                className="px-3"
-                bordered
-                striped
-                hover
-              />
-            )}
+            {loading ? <Loader /> : <UsersTable data={data} />}
           </Fragment>
         </div>
       </div>
       <Toaster position="top-center" richColors />
     </Fragment>
+  );
+};
+
+const UsersTable = ({ data }) => {
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
+    useTable(data);
+
+  return (
+    <table {...getTableProps()} className="table">
+      <thead>
+        {headerGroups.map((headerGroup) => (
+          <tr {...headerGroup.getHeaderGroupProps()}>
+            {headerGroup.headers.map((column) => (
+              <th {...column.getHeaderProps()}>{column.render("Header")}</th>
+            ))}
+          </tr>
+        ))}
+      </thead>
+      <tbody {...getTableBodyProps()}>
+        {rows.map((row) => {
+          prepareRow(row);
+          return (
+            <tr {...row.getRowProps()}>
+              {row.cells.map((cell) => (
+                <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+              ))}
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
   );
 };
 
