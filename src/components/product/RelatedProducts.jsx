@@ -13,7 +13,9 @@ const RelatedProducts = ({ category }) => {
             <div className="container">
               <div className="row">
                 <div className="col-12">
-                  <h3 className="eg-title1 eg-title2 mb-50">Related Product</h3>
+                  <h3 className="eg-title1 eg-title2 mb-50">
+                    Producto relacionado
+                  </h3>
                 </div>
               </div>
               <div className="row">

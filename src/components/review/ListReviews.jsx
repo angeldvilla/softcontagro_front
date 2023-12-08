@@ -6,7 +6,7 @@ const ListReviews = ({ reviews }) => {
       <div className="container">
         <div className="row">
           <div className="col-12">
-            <h3 className="eg-title1 eg-title2 mb-50">Product Reviews</h3>
+            <h3 className="eg-title1 eg-title2 mb-50">Reseñas de Productos</h3>
             <div className="row g-4">
               <div className="col-lg-3">
                 <div
@@ -26,7 +26,7 @@ const ListReviews = ({ reviews }) => {
                     aria-selected="true"
                     style={{ border: "none" }}
                   >
-                    Reviews ({reviews.length})
+                    Reseñas ({reviews.length})
                   </button>
                 </div>
               </div>
@@ -53,7 +53,7 @@ const ListReviews = ({ reviews }) => {
                                     {review.name}
                                     <span className="commnt-date">
                                       {" "}
-                                      - 8th Jan 2021
+                                      - 8 de Octubre de 2021
                                     </span>
                                   </h5>
                                   <div class="rating-outer">
@@ -72,7 +72,7 @@ const ListReviews = ({ reviews }) => {
                               <div className="comment-footer">
                                 <ul className="footer-icon-list d-flex justify-content-start align-items-center">
                                   <li>
-                                    <a href="/" >
+                                    <a href="/">
                                       <i className="fa fa-thumbs-up"></i>
                                     </a>
                                   </li>

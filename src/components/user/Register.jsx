@@ -84,7 +84,7 @@ const RegisterForm = ({ history }) => {
           encType="multipart/form-data"
           onSubmit={submitHandler}
         >
-          <h1 className="text-center text-3xl font-bold mt-10 mb-5">
+          <h1 className="text-center text-3xl font-bold mt-10 mb-5 font-sans">
             Registro de Usuario
           </h1>
           <div className="mb-4">
@@ -99,7 +99,7 @@ const RegisterForm = ({ history }) => {
                 placeholder="Nombre Completo"
                 value={name}
                 onChange={onchange}
-                className="w-full py-2 text-gray-700 focus:outline-none mb-2"
+                className="w-full py-2 text-gray-700 focus:outline-none mb-2 font-sans"
               />
             </div>
           </div>
@@ -115,7 +115,7 @@ const RegisterForm = ({ history }) => {
                 placeholder="Correo Electrónico"
                 value={email}
                 onChange={onchange}
-                className="w-full py-2 text-gray-700 focus:outline-none mb-2"
+                className="w-full py-2 text-gray-700 focus:outline-none mb-2 font-sans"
               />
             </div>
           </div>
@@ -131,7 +131,7 @@ const RegisterForm = ({ history }) => {
                 placeholder="Contraseña"
                 value={password}
                 onChange={onchange}
-                className="w-full py-2 text-gray-700 focus:outline-none mb-2 pr-10"
+                className="w-full py-2 text-gray-700 focus:outline-none mb-2 pr-10 font-sans"
               />
               <div
                 className="cursor-pointer absolute right-2 top-1/2 transform -translate-y-1/2"
@@ -165,7 +165,7 @@ const RegisterForm = ({ history }) => {
                 <input
                   type="file"
                   name="avatar"
-                  className="custom-file-input"
+                  className="custom-file-input font-sans"
                   id="customFile"
                   onChange={onchange}
                 />
@@ -178,7 +178,7 @@ const RegisterForm = ({ history }) => {
               onClick={submitHandler}
               style={{ border: "none", background: "none" }}
             >
-              <button className="primary--btn login-btn rounded-full w-full">
+              <button className="primary--btn login-btn rounded-full w-full font-sans text-sm">
                 CREAR CUENTA
               </button>
             </button>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { toast, Toaster } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import { forgotPassword, clearErrors } from "../../actions/userActions";
 import Header from "../layout/Header";
 import Footer from "../layout/Footer";
@@ -9,6 +10,7 @@ import { Input } from "@material-tailwind/react";
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { error, loading, message } = useSelector(
     (state) => state.forgotPassword
@@ -35,6 +37,7 @@ const ForgotPassword = () => {
     formData.set("email", email);
 
     dispatch(forgotPassword(formData));
+    navigate("/");
   };
 
   return (
@@ -72,6 +75,11 @@ const ForgotPassword = () => {
               Enviar correo electrónico
             </button>
           </form>
+          <div className="mt-4 text-center">
+            <Link to="/login" className="text-blue-500 hover:underline">
+              <p>Volver a inicio de sesión</p>
+            </Link>
+          </div>
         </div>
       </div>
       <Footer />

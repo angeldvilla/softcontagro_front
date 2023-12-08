@@ -1,11 +1,9 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 
 const OrderSuccess = () => {
   return (
-    <Fragment>
-      <h1>Order Success</h1>
-
+    <div>
       <div
         className="row justify-content-center"
         style={{ marginTop: "200px" }}
@@ -19,12 +17,12 @@ const OrderSuccess = () => {
             height="200"
           />
 
-          <h2>Your Order has been placed successfully.</h2>
+          <h2>Su pedido se ha realizado con éxito.</h2>
 
-          <Link to="/orders/me">Go to Orders</Link>
+          <Link to="/orders/me">Ir a pedidos</Link>
         </div>
       </div>
-    </Fragment>
+    </div>
   );
 };
 

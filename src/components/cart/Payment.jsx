@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { useEffect } from "react";
 import CheckoutSteps from "./CheckoutSteps";
 import { toast, Toaster } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
@@ -114,17 +114,14 @@ const Payment = ({ history }) => {
   };
 
   return (
-    <Fragment>
-      <h1>Payment</h1>
-
+    <div>
       <CheckoutSteps shipping confirmOrder payment />
-
       <div className="row wrapper">
         <div className="col-10 col-lg-5">
           <form className="shadow-lg" onSubmit={submitHandler}>
-            <h1 className="mb-4">Card Info</h1>
+            <h1 className="mb-4">Información de la tarjeta</h1>
             <div className="form-group">
-              <label htmlFor="card_num_field">Card Number</label>
+              <label htmlFor="card_num_field">Número de tarjeta</label>
               <CardNumberElement
                 type="text"
                 id="card_num_field"
@@ -134,7 +131,7 @@ const Payment = ({ history }) => {
             </div>
 
             <div className="form-group">
-              <label htmlFor="card_exp_field">Card Expiry</label>
+              <label htmlFor="card_exp_field">Caducidad de la tarjeta</label>
               <CardExpiryElement
                 type="text"
                 id="card_exp_field"
@@ -144,7 +141,7 @@ const Payment = ({ history }) => {
             </div>
 
             <div className="form-group">
-              <label htmlFor="card_cvc_field">Card CVC</label>
+              <label htmlFor="card_cvc_field">Tarjeta CVC</label>
               <CardCvcElement
                 type="text"
                 id="card_cvc_field"
@@ -154,13 +151,13 @@ const Payment = ({ history }) => {
             </div>
 
             <button id="pay_btn" type="submit" className="btn btn-block py-3">
-              Pay {` - ${orderInfo && orderInfo.totalPrice}`}
+              Pagar {` - ${orderInfo && orderInfo.totalPrice}`}
             </button>
           </form>
         </div>
       </div>
-      <Toaster position="top-center" richColors />
-    </Fragment>
+      <Toaster position="top-right" richColors />
+    </div>
   );
 };
 

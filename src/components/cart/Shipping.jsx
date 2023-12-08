@@ -1,5 +1,5 @@
-import React, { Fragment, useState } from "react";
-import CountryList from 'react-select-country-list';
+import React, { useState } from "react";
+import CountryList from "react-select-country-list";
 import CheckoutSteps from "./CheckoutSteps";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -28,17 +28,15 @@ const Shipping = ({ history }) => {
   };
 
   return (
-    <Fragment>
-      <h1>Shipping Info</h1>
-
+    <div>
       <CheckoutSteps shipping />
 
       <div className="row wrapper">
         <div className="col-10 col-lg-5">
           <form className="shadow-lg" onSubmit={submitHandler}>
-            <h1 className="mb-4">Shipping Info</h1>
+            <h1 className="mb-4">Datos de envío</h1>
             <div className="form-group">
-              <label htmlFor="address_field">Address</label>
+              <label htmlFor="address_field">Dirección</label>
               <input
                 type="text"
                 id="address_field"
@@ -50,7 +48,7 @@ const Shipping = ({ history }) => {
             </div>
 
             <div className="form-group">
-              <label htmlFor="city_field">City</label>
+              <label htmlFor="city_field">Ciudad</label>
               <input
                 type="text"
                 id="city_field"
@@ -62,7 +60,7 @@ const Shipping = ({ history }) => {
             </div>
 
             <div className="form-group">
-              <label htmlFor="phone_field">Phone No</label>
+              <label htmlFor="phone_field">Telefono</label>
               <input
                 type="phone"
                 id="phone_field"
@@ -74,7 +72,7 @@ const Shipping = ({ history }) => {
             </div>
 
             <div className="form-group">
-              <label htmlFor="postal_code_field">Postal Code</label>
+              <label htmlFor="postal_code_field">Codigo Postal</label>
               <input
                 type="number"
                 id="postal_code_field"
@@ -86,7 +84,7 @@ const Shipping = ({ history }) => {
             </div>
 
             <div className="form-group">
-              <label htmlFor="country_field">Country</label>
+              <label htmlFor="country_field">País</label>
               <CountryList
                 name="country"
                 classes="form-control"
@@ -100,12 +98,12 @@ const Shipping = ({ history }) => {
               type="submit"
               className="btn btn-block py-3"
             >
-              CONTINUE
+              CONTINUAR
             </button>
           </form>
         </div>
       </div>
-    </Fragment>
+    </div>
   );
 };
 

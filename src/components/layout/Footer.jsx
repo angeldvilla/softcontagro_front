@@ -17,7 +17,7 @@ const Footer = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <div className="mb-8">
               <div className="footer-title">
-                <h3 className="text-2xl font-bold mb-4 hover:text-3xl transition-all duration-300">
+                <h3 className="text-2xl font-bold mb-4 hover:text-3xl transition-all duration-300 font-sans">
                   SoftContAgro
                 </h3>
               </div>
@@ -28,18 +28,18 @@ const Footer = () => {
               </div>
               <div className="footer-address mt-8">
                 <ul>
-                  <li className="flex items-center text-lg hover:text-2xl transition-all duration-300">
+                  <p className="flex items-center text-lg hover:text-2xl transition-all duration-300">
                     <FaPhone className="mr-2" />
                     +57 312558468
-                  </li>
-                  <li className="flex items-center text-lg hover:text-2xl transition-all duration-300">
+                  </p>
+                  <p className="flex items-center text-lg hover:text-2xl transition-all duration-300">
                     <FaEnvelope className="mr-2" />
                     fincalalolita@gmail.com
-                  </li>
-                  <li className="flex items-center text-lg hover:text-2xl transition-all duration-300">
+                  </p>
+                  <p className="flex items-center text-lg hover:text-2xl transition-all duration-300">
                     <FaLocationArrow className="mr-2" />
                     Colombia - La Union, Valle
-                  </li>
+                  </p>
                 </ul>
               </div>
             </div>
@@ -57,27 +57,27 @@ const Footer = () => {
             </div>
             <div className="mb-8">
               <div className="footer-title">
-                <h3 className="text-2xl font-bold hover:text-3xl transition-all duration-300">
+                <h3 className="text-2xl font-bold hover:text-3xl transition-all duration-300 font-sans">
                   Redes Sociales
                 </h3>
               </div>
               <div className="footer-link mt-4">
                 <ul>
-                  <li className="flex items-center text-xl hover:text-2xl transition-all duration-300">
+                  <p className="flex items-center text-xl hover:text-2xl transition-all duration-300">
                     <FaFacebook className="mr-2" />
                     Facebook
-                  </li>
-                  <li className="flex items-center text-xl hover:text-2xl transition-all duration-300">
+                  </p>
+                  <p className="flex items-center text-xl hover:text-2xl transition-all duration-300">
                     <FaInstagram className="mr-2" /> Instagram
-                  </li>
-                  <li className="flex items-center text-xl hover:text-2xl transition-all duration-300">
+                  </p>
+                  <p className="flex items-center text-xl hover:text-2xl transition-all duration-300">
                     <FaTwitter className="mr-2" /> Twitter
-                  </li>
-                  <li className="flex items-center text-xl hover:text-2xl transition-all duration-300">
+                  </p>
+                  <p className="flex items-center text-xl hover:text-2xl transition-all duration-300">
                     <FaYoutube className="mr-2" />
                     Youtube
-                  </li>
-                  <li className="flex items-center text-xl hover:text-2xl transition-all duration-300"></li>
+                  </p>
+                  <p className="flex items-center text-xl hover:text-2xl transition-all duration-300"></p>
                 </ul>
               </div>
             </div>

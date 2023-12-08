@@ -41,13 +41,13 @@ const Product = ({ product, col }) => {
                     ></div>
                   </div>
                   <span id="no_of_reviews">
-                    ({product.numOfReviews} Reviews)
+                    ({product.numOfReviews} Reseñas)
                   </span>
                 </div>
               </ul>
               <div className="product-add-btn">
                 <Link to={`/product/${product._id}`}>
-                  View Details <i className="fa fa-plus"></i>
+                  Ver Detalles <i className="fa fa-plus"></i>
                 </Link>
               </div>
             </div>

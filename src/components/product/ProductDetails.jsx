@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Loader from "../layout/Loader";
 import ListReviews from "../review/ListReviews";
 import { toast, Toaster } from "sonner";
@@ -120,11 +120,11 @@ const ProductDetails = ({ match }) => {
   };
 
   return (
-    <Fragment>
+    <div>
       {loading ? (
         <Loader />
       ) : (
-        <Fragment>
+        <div>
           <h1>{product.name}</h1>
 
           <section className="prod-details pt-100 mt-5 mb-5">
@@ -241,13 +241,13 @@ const ProductDetails = ({ match }) => {
                         style={{ background: "none", border: "none" }}
                       >
                         <a href="/" className="eg-btn md--btn primary--btn">
-                          Add to cart
+                        Añadir al carrito
                         </a>
                       </button>
                     </div>
                     <ul className="prod-info">
                       <li>
-                        <span>Stock:</span>
+                        <span>Cantidad:</span>
                         <b
                           className={
                             product.stock ? "text-success" : "text-danger"
@@ -257,7 +257,7 @@ const ProductDetails = ({ match }) => {
                         </b>
                       </li>
                       <li>
-                        <span>Category:</span>
+                        <span>Categoria:</span>
                         {product.category}
                       </li>
                       <li>
@@ -270,11 +270,11 @@ const ProductDetails = ({ match }) => {
                             data-target="#ratingModal"
                             onClick={setUserRatings}
                           >
-                            Submit Your Review
+                            Envíe su opinión
                           </button>
                         ) : (
                           <div className="alert alert-danger mt-5" type="alert">
-                            Login to post your review.
+                            Inicie sesión para publicar su reseña.
                           </div>
                         )}
                       </li>
@@ -296,7 +296,7 @@ const ProductDetails = ({ match }) => {
                                   className="modal-title"
                                   id="ratingModalLabel"
                                 >
-                                  Submit Review
+                                  Enviar opinión
                                 </h5>
                                 <button
                                   type="button"
@@ -340,7 +340,7 @@ const ProductDetails = ({ match }) => {
                                   data-dismiss="modal"
                                   aria-label="Close"
                                 >
-                                  Submit
+                                  Entregar
                                 </button>
                               </div>
                             </div>
@@ -359,10 +359,10 @@ const ProductDetails = ({ match }) => {
           {product.reviews && product.reviews.length > 0 && (
             <ListReviews reviews={product.reviews} />
           )}
-        </Fragment>
+        </div>
       )}
       <Toaster position="top-center" richColors />
-    </Fragment>
+    </div>
   );
 };
 

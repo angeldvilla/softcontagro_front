@@ -65,7 +65,7 @@ const ListOrders = () => {
   return (
     <div className="container">
       <h1 className="my-5 text-center">
-        <b>My Orders</b>
+        <b>Mis ordenes</b>
       </h1>
 
       {loading ? (

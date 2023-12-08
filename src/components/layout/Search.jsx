@@ -30,7 +30,7 @@ const Search = () => {
         onChange={(e) => setKeyword(e.target.value)}
         outline="true"
         size="lg"
-        className="gap-2 text-white focus:!border-white rounded-full text-center"
+        className="gap-2 text-white focus:!border-white rounded-full text-center font-sans"
         labelProps={{
           className: "before:content-none after:content-none",
         }}

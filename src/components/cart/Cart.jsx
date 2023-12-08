@@ -39,7 +39,7 @@ const Cart = ({ history }) => {
           <Header />
           {cartItems.length === 0 ? (
             <div className="flex flex-col items-center mt-28">
-              <h2 className="text-4xl">Tu carrito está vacío</h2>
+              <h2 className="text-4xl font-sans">Tu carrito está vacío</h2>
               <p className="text-gray-500 text-xl">
                 ¡Descubre nuestros productos y encuentra algo que te guste!
               </p>

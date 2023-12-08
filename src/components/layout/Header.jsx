@@ -1,11 +1,13 @@
 import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { scrollSpy, scroller } from "react-scroll";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "sonner";
 import { logout } from "../../actions/userActions";
 import { getCategory } from "../../actions/categoryActions";
 import { FaUser, FaShoppingCart } from "react-icons/fa";
 import { Button } from "@material-tailwind/react";
+
 import "../../App.css";
 
 const Header = () => {
@@ -15,6 +17,15 @@ const Header = () => {
   useEffect(() => {
     dispatch(getCategory());
   }, [dispatch]);
+
+  const scrollToSection = (section) => {
+    scroller.scrollTo(section, {
+      duration: 800,
+      delay: 0,
+      smooth: "easeInOutQuart",
+    });
+  };
+  
 
   const { isAuthenticated, user } = useSelector((state) => state.auth);
   const { cartItems } = useSelector((state) => state.cart);
@@ -39,30 +50,32 @@ const Header = () => {
           <div className="flex items-center space-x-4">
             <nav className="hidden lg:block">
               <ul className="flex items-center space-x-4">
-                <li>
+                <p>
                   <Link
                     to="/"
-                    className="text-md text-black hover:text-gray-700"
+                    onClick={() => scrollToSection("inicio")}
+                    className="text-md text-black 
+                    hover:text-gray-700"
                   >
                     INICIO
                   </Link>
-                </li>
-                <li>
+                </p>
+                <p>
                   <Link
-                    to="/contact"
+                    onClick={() => scrollToSection("productos")}
                     className="text-md text-black hover:text-gray-700"
                   >
                     NUESTROS PRODUCTOS
                   </Link>
-                </li>
-                <li>
+                </p>
+                <p>
                   <Link
                     to="/contact"
                     className="text-md text-black hover:text-gray-700"
                   >
                     CONTACTO
                   </Link>
-                </li>
+                </p>
               </ul>
             </nav>
 

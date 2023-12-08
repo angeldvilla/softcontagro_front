@@ -1,6 +1,6 @@
-import React, { Fragment, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import Loader from "../layout/Loader"
+import Loader from "../layout/Loader";
 import { toast, Toaster } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
 import { getOrderDetails, clearErrors } from "../../actions/orderActions";
@@ -39,40 +39,40 @@ const OrderDetails = ({ match }) => {
     paymentInfo && paymentInfo.status === "succeeded" ? true : false;
 
   return (
-    <Fragment>
-      <h1>Order Details</h1>
+    <div>
+      <h1>Detalles del pedido</h1>
 
       {loading ? (
         <Loader />
       ) : (
-        <Fragment>
+        <div>
           <div className="row d-flex justify-content-between">
             <div className="col-12 col-lg-8 mt-5 order-details">
-              <h1 className="my-5">Order # {order._id}</h1>
+              <h1 className="my-5">Pedido # {order._id}</h1>
 
               <h4 className="mb-4">Shipping Info</h4>
               <p>
-                <b>Name:</b> {user && user.name}
+                <b>Nombre Completo:</b> {user && user.name}
               </p>
               <p>
-                <b>Phone:</b> {shippingInfo && shippingInfo.phoneNo}
+                <b>Telefono:</b> {shippingInfo && shippingInfo.phoneNo}
               </p>
               <p className="mb-4">
-                <b>Address:</b>
+                <b>Dirección:</b>
                 {shippingDetails}
               </p>
               <p>
-                <b>Amount:</b> ${totalPrice}
+                <b>Cantidad:</b> ${totalPrice}
               </p>
 
               <hr />
 
-              <h4 className="my-4">Payment</h4>
+              <h4 className="my-4">Pago</h4>
               <p className={isPaid ? "greenColor" : "redColor"}>
                 <b>{isPaid ? "PAID" : "NOT PAID"}</b>
               </p>
 
-              <h4 className="my-4">Order Status:</h4>
+              <h4 className="my-4">Estado del pedido:</h4>
               <p
                 className={
                   order.orderStatus &&
@@ -84,7 +84,7 @@ const OrderDetails = ({ match }) => {
                 <b>{orderStatus}</b>
               </p>
 
-              <h4 className="my-4">Order Items:</h4>
+              <h4 className="my-4">Productos encargados:</h4>
 
               <hr />
               <div className="cart-item my-1">
@@ -111,7 +111,7 @@ const OrderDetails = ({ match }) => {
                       </div>
 
                       <div className="col-4 col-lg-3 mt-4 mt-lg-0">
-                        <p>{item.quantity} Piece(s)</p>
+                        <p>{item.quantity} kg(s)</p>
                       </div>
                     </div>
                   ))}
@@ -119,10 +119,10 @@ const OrderDetails = ({ match }) => {
               <hr />
             </div>
           </div>
-        </Fragment>
+        </div>
       )}
       <Toaster position="top-right" richColors />
-    </Fragment>
+    </div>
   );
 };
 

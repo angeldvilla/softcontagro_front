@@ -53,7 +53,7 @@ const Login = ({ history }) => {
             onSubmit={submitHandler}
           >
             <div className="mb-4">
-              <h3 className="text-3xl font-semibold mb-6 text-center">
+              <h3 className="text-3xl font-semibold mb-6 text-center font-sans">
                 Iniciar Sesión
               </h3>
               <label htmlFor="email_field" className="sr-only">
@@ -67,7 +67,7 @@ const Login = ({ history }) => {
                   onChange={(e) => setEmail(e.target.value)}
                   name="email"
                   placeholder="Correo Electrónico"
-                  className="w-full py-2 text-gray-700 focus:outline-none mb-2"
+                  className="w-full py-2 text-gray-700 focus:outline-none mb-2 font-sans"
                 />
               </div>
             </div>
@@ -83,7 +83,7 @@ const Login = ({ history }) => {
                   placeholder="Contraseña"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full py-2 text-gray-700 focus:outline-none mb-2 pr-10"
+                  className="w-full py-2 text-gray-700 focus:outline-none mb-2 pr-10 font-sans"
                 />
                 <div
                   className="cursor-pointer absolute right-2 top-1/2 transform -translate-y-1/2"
@@ -101,7 +101,7 @@ const Login = ({ history }) => {
               <label></label>
               <Link
                 to="/password/forgot"
-                className="text-blue-500 hover:underline"
+                className="text-blue-500 hover:underline font-sans"
               >
                 ¿Contraseña olvidada?
               </Link>
@@ -112,7 +112,7 @@ const Login = ({ history }) => {
                 onClick={submitHandler}
                 style={{ border: "none", background: "none" }}
               >
-                <span className="primary--btn login-btn rounded-full w-full">
+                <span className="primary--btn login-btn rounded-full w-full font-sans text-sm">
                   INGRESAR
                 </span>
               </button>
