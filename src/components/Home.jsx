@@ -63,7 +63,7 @@ const Home = ({ match }) => {
           {isHome && (
             <Banner
               src="https://res.cloudinary.com/dxe4igvmq/image/upload/v1702013780/SoftContAgro/wb8utjwtm4mzxlsfif7e.jpg"
-              /* src="https://res.cloudinary.com/hba-solver/image/upload/v1657880938/banner/bg1_jszeky.png" */
+             /*  src="https://res.cloudinary.com/hba-solver/image/upload/v1657880938/banner/bg1_jszeky.png" */
               search="true"
               text="BIENVENIDOS A FINCA LA LOLITA"
               text1="Los mejores productos campesinos y la mejor calidad los encuentras en FINCA LA LOLITA"

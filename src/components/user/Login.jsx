@@ -1,13 +1,17 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import Loader from "../layout/Loader";
+import Header from "../layout/Header";
+import Footer from "../layout/Footer";
 import { toast, Toaster } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
 import { login, clearErrors } from "../../actions/userActions";
+import { FaEnvelope, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Login = ({ history }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -34,70 +38,96 @@ const Login = ({ history }) => {
   };
 
   return (
-    <Fragment>
+    <div className="flex flex-col items-center justify-center h-screen mt-80">
       {loading ? (
         <Loader />
       ) : (
-        <Fragment>
-          <h1>Login</h1>
-
-          <h3 className="title-30 text-center mb-35">Login Your Account</h3>
-          <form className="login-form" onSubmit={submitHandler}>
-            <div className="row">
-              <div className="col-12">
-                <div className="form-inner">
-                  <label htmlFor="email_field">Email</label>
-                  <input
-                    type="text"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    name="fname"
-                    placeholder="Email"
-                  />
-                </div>
+        <div className="w-full">
+          <Header isLogin={true} />
+          <form
+            className="login-form max-w-md mx-auto  p-8 rounded-lg shadow-lg"
+            onSubmit={submitHandler}
+          >
+            <div className="mb-4">
+              <h3 className="text-3xl font-semibold mb-6 text-center">
+                Iniciar Sesión
+              </h3>
+              <label htmlFor="email_field" className="sr-only">
+                Correo Electrónico
+              </label>
+              <div className="flex items-center border-b border-gray-300">
+                <FaEnvelope className="mr-2 text-gray-500" />
+                <input
+                  type="text"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  name="correoElectronico"
+                  placeholder="Correo Electrónico"
+                  className="w-full py-2 text-gray-700 focus:outline-none mb-2"
+                />
               </div>
-              <div className="col-12">
-                <div className="form-inner hidden-icon">
-                  <label htmlFor="email_password">Passwords</label>
-                  <input
-                    type="password"
-                    name="name"
-                    placeholder="abcdef*****"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                </div>
-              </div>
-              <div className="col-12">
-                <div className="form-inner d-flex justify-content-between">
-                  <label></label>
-                  <Link to="/password/forgot" className="forget-password">
-                    Forgotten password?
-                  </Link>
-                </div>
-              </div>
-              <div className="col-12">
-                <div className="form-inner">
-                  <button
-                    className="primary--btn login-btn"
-                    type="submit"
-                    style={{ border: "none", background: "none" }}
-                  >
-                    <Link
-                      to=""
-                      className="primary--btn login-btn text-uppercase"
-                    >
-                      login ACCOUNT
-                    </Link>
-                  </button>
+            </div>
+            <div className="mb-4">
+              <label htmlFor="email_password" className="sr-only">
+                Contraseña
+              </label>
+              <div className="flex items-center border-b border-gray-300">
+                <FaLock className="mr-2 text-gray-500" />
+                <input
+                  type={showPassword ? "text" : "password"}
+                  name="contraseña"
+                  placeholder="Contraseña"
+                  className="w-full py-2 text-gray-700 focus:outline-none mb-2"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <div
+                  className="cursor-pointer"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? (
+                    <FaEyeSlash className="text-gray-500" />
+                  ) : (
+                    <FaEye className="text-gray-500" />
+                  )}
                 </div>
               </div>
             </div>
+            <div className="flex justify-between mt-2">
+              <label></label>
+              <Link
+                to="/password/forgot"
+                className="text-blue-500 hover:underline"
+              >
+                ¿Contraseña olvidada?
+              </Link>
+            </div>
+            <div className="mt-6">
+              <button
+                className="primary--btn login-btn"
+                onClick={submitHandler}
+                style={{ border: "none", background: "none" }}
+              >
+                <button className="primary--btn login-btn rounded-full">
+                  Ingresar
+                </button>
+              </button>
+            </div>
           </form>
-        </Fragment>
+
+          <div className="mt-4 text-center">
+            <p className="text-gray-600">
+              ¿No tienes una cuenta?{" "}
+              <Link to="/register" className="text-blue-500 hover:underline">
+                Regístrate aquí
+              </Link>
+            </p>
+          </div>
+        </div>
       )}
       <Toaster position="top-center" richColors />
-    </Fragment>
+      <Footer />
+    </div>
   );
 };
 

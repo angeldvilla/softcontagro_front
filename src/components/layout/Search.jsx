@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { path } from "../../constants/path";
 import { Input, Button } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
 
@@ -11,7 +10,7 @@ const Search = () => {
     e.preventDefault();
 
     if (keyword.trim()) {
-      navigate(`${path}/search/${keyword}`);
+      navigate(`/search/${keyword}`);
     } else {
       navigate("/");
     }
@@ -31,7 +30,10 @@ const Search = () => {
         onChange={(e) => setKeyword(e.target.value)}
         outline="true"
         size="lg"
-        className="gap-2 text-white focus:border-white rounded-full text-center"
+        className="gap-2 text-white focus:!border-white rounded-full text-center"
+        labelProps={{
+          className: "before:content-none after:content-none",
+        }}
       />
       <Button
         type="filled"

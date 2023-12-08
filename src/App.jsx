@@ -3,6 +3,9 @@ import { Routes, Route } from "react-router-dom";
 
 import Home from "./components/Home";
 import ProductDetails from "./components/product/ProductDetails";
+import Login from "./components/user/Login";
+import RegisterForm from "./components/user/Register";
+import Contact from "./components/Contact";
 
 // Componentes de carrito
 import Cart from "./components/cart/Cart";
@@ -43,8 +46,6 @@ import axios from "axios";
 // Pagos
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import UserPage from "./components/user/UserPage";
-import Contact from "./components/Contact";
 import { path } from "./constants/path";
 
 function App() {
@@ -109,7 +110,8 @@ function App() {
       )}
 
       {/* Rutas de usuario */}
-      <Route path="/login" element={<UserPage />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<RegisterForm />} />
       <Route path="/password/forgot" element={<ForgotPassword />} />
       <Route path="/password/reset/:token" element={<NewPassword />} />
 

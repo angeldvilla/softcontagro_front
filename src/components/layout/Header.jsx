@@ -28,13 +28,13 @@ const Header = () => {
     <>
       <header className="bg-gray-100 shadow-lg fixed top-0 w-full py-4 z-50">
         <div className="container mx-auto flex justify-between items-center">
-          <Link to="/" className="text-2xl font-bold text-gray-800">
+          <a href="/" className="text-2xl font-bold text-gray-800">
             <img
-              src="images/logo.png"
+              src="https://res.cloudinary.com/dxe4igvmq/image/upload/v1702051130/SoftContAgro/eb2emrt90t6vpse9dapa.png"
               className="w-20"
               alt="logo-finca-la-lolita"
             />
-          </Link>
+          </a>
 
           <div className="flex items-center space-x-4">
             <nav className="hidden lg:block">

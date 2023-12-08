@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { register, clearErrors } from "../../actions/userActions";
 import { Link } from "react-router-dom";
 
-const Register = ({ history }) => {
+const RegisterForm = ({ history }) => {
   const [user, setUser] = useState({
     name: "",
     email: "",
@@ -162,4 +162,4 @@ const Register = ({ history }) => {
   );
 };
 
-export default Register;
+export default RegisterForm;
