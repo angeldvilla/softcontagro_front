@@ -1,10 +1,20 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { toast, Toaster } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
 import { register, clearErrors } from "../../actions/userActions";
 import { Link } from "react-router-dom";
+import Header from "../layout/Header";
+import Footer from "../layout/Footer";
+import {
+  FaEnvelope,
+  FaLock,
+  FaUserCircle,
+  FaEye,
+  FaEyeSlash,
+} from "react-icons/fa";
 
 const RegisterForm = ({ history }) => {
+  const [showPassword, setShowPassword] = useState(false);
   const [user, setUser] = useState({
     name: "",
     email: "",
@@ -15,7 +25,7 @@ const RegisterForm = ({ history }) => {
 
   const [avatar, setAvatar] = useState("");
   const [avatarPreview, setAvatarPreview] = useState(
-    "/images/default_avatar.jpg"
+    "https://res.cloudinary.com/dxe4igvmq/image/upload/v1701735128/avatars/vq3vfsnac9izn50yvgpw.png"
   );
 
   const dispatch = useDispatch();
@@ -35,6 +45,9 @@ const RegisterForm = ({ history }) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
+    if (!name || !email || !password) {
+      return toast.error("Por favor, rellene todos los campos");
+    }
 
     const formData = new FormData();
     formData.set("name", name);
@@ -63,71 +76,92 @@ const RegisterForm = ({ history }) => {
   };
 
   return (
-    <Fragment>
-      <h1>Register User</h1>
-
-      <h3 className="title-30 text-center mb-35">Register Your Account</h3>
-
-      <form
-        className="login-form"
-        encType="multipart/form-data"
-        onSubmit={submitHandler}
-      >
-        <div className="row">
-          <div className="col-12">
-            <div className="form-inner">
-              <label htmlFor="name_field">Name</label>
+    <div>
+      <div className="flex flex-col items-center justify-center h-screen">
+        <Header />
+        <form
+          className="max-w-md mx-auto p-8 rounded-lg shadow-lg mt-12"
+          encType="multipart/form-data"
+          onSubmit={submitHandler}
+        >
+          <h1 className="text-center text-3xl font-bold mt-10 mb-5">
+            Registro de Usuario
+          </h1>
+          <div className="mb-4">
+            <label htmlFor="name_field" className="sr-only">
+              Nombre
+            </label>
+            <div className="flex items-center border-gray-300">
+              <FaUserCircle className="mr-2 text-gray-500" />
               <input
-                type="name"
+                type="text"
                 name="name"
-                placeholder="Your Name"
+                placeholder="Nombre Completo"
                 value={name}
                 onChange={onchange}
+                className="w-full py-2 text-gray-700 focus:outline-none mb-2"
               />
             </div>
           </div>
-          <div className="col-12">
-            <div className="form-inner">
-              <label htmlFor="email_field">Email</label>
+          <div className="mb-4">
+            <label htmlFor="email_field" className="sr-only">
+              Correo Electrónico
+            </label>
+            <div className="flex items-center border-gray-300">
+              <FaEnvelope className="mr-2 text-gray-500" />
               <input
-                type="email"
+                type="text"
                 name="email"
-                placeholder="Your Email"
+                placeholder="Correo Electrónico"
                 value={email}
                 onChange={onchange}
+                className="w-full py-2 text-gray-700 focus:outline-none mb-2"
               />
             </div>
           </div>
-          <div className="col-12">
-            <div className="form-inner hidden-icon">
-              <label htmlFor="password_field">Password *</label>
+          <div className="mb-4 relative">
+            <label htmlFor="password_field" className="sr-only">
+              Contraseña
+            </label>
+            <div className="flex items-center border-gray-300">
+              <FaLock className="mr-2 text-gray-500" />
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 name="password"
-                placeholder="abcdef*****"
+                placeholder="Contraseña"
                 value={password}
                 onChange={onchange}
+                className="w-full py-2 text-gray-700 focus:outline-none mb-2 pr-10"
               />
+              <div
+                className="cursor-pointer absolute right-2 top-1/2 transform -translate-y-1/2"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? (
+                  <FaEyeSlash className="text-gray-500" />
+                ) : (
+                  <FaEye className="text-gray-500" />
+                )}
+              </div>
             </div>
           </div>
-          <div className="form-group">
+          <div className="mb-14">
             <label htmlFor="avatar_upload">Avatar</label>
-            <div className="d-flex align-items-center">
+            <div className="flex items-center">
               <div>
-                <figure className="avatar mr-3 item-rtl">
+                <figure className="avatar mr-3">
                   <img
                     src={avatarPreview}
-                    className="rounded-pill"
+                    className="rounded-full"
                     alt="Avatar Preview"
-                    style={{
-                      width: "100px",
-                      height: "100px",
-                      borderRadius: "50%",
-                    }}
+                    style={{ width: "100%", height: "100%", marginTop: "2em" }}
                   />
                 </figure>
               </div>
               <div className="custom-file">
+                <label className="custom-file-label" htmlFor="customFile">
+                  Elegir Avatar
+                </label>
                 <input
                   type="file"
                   name="avatar"
@@ -135,30 +169,33 @@ const RegisterForm = ({ history }) => {
                   id="customFile"
                   onChange={onchange}
                 />
-                <label className="custom-file-label" htmlFor="customFile">
-                  Choose Avatar
-                </label>
               </div>
             </div>
           </div>
-          <div className="col-12 mt-5">
-            <div className="form-inner">
-              <button
-                className="primary--btn login-btn"
-                type="submit"
-                style={{ border: "none", background: "none" }}
-                // disabled={loading ? true : false}
-              >
-                <Link to="" className="primary--btn login-btn">
-                  CREATE AN ACCOUNT
-                </Link>
+          <div className="mt-6">
+            <button
+              className="primary--btn login-btn w-full"
+              onClick={submitHandler}
+              style={{ border: "none", background: "none" }}
+            >
+              <button className="primary--btn login-btn rounded-full w-full">
+                CREAR CUENTA
               </button>
-            </div>
+            </button>
           </div>
+        </form>
+        <div className="mt-4 text-center">
+          <p className="text-gray-600">
+            ¿Ya tienes una cuenta?{" "}
+            <Link to="/login" className="text-blue-500 hover:underline">
+              Inicia sesión
+            </Link>
+          </p>
         </div>
-      </form>
+      </div>
       <Toaster position="top-right" richColors />
-    </Fragment>
+      <Footer />
+    </div>
   );
 };
 

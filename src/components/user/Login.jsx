@@ -34,18 +34,22 @@ const Login = ({ history }) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
+    if(!email || !password) {
+      return toast.error("Por favor, rellene todos los campos");
+    }
     dispatch(login(email, password));
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen mt-80">
+    <div>
       {loading ? (
         <Loader />
       ) : (
-        <div className="w-full">
+        <div className="flex flex-col items-center justify-center h-screen">
           <Header isLogin={true} />
           <form
-            className="login-form max-w-md mx-auto  p-8 rounded-lg shadow-lg"
+            className="max-w-md mx-auto p-20 rounded-lg shadow-lg mt-12"
+            encType="multipart/form-data"
             onSubmit={submitHandler}
           >
             <div className="mb-4">
@@ -55,34 +59,34 @@ const Login = ({ history }) => {
               <label htmlFor="email_field" className="sr-only">
                 Correo Electrónico
               </label>
-              <div className="flex items-center border-b border-gray-300">
+              <div className="flex items-center border-gray-300">
                 <FaEnvelope className="mr-2 text-gray-500" />
                 <input
                   type="text"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  name="correoElectronico"
+                  name="email"
                   placeholder="Correo Electrónico"
                   className="w-full py-2 text-gray-700 focus:outline-none mb-2"
                 />
               </div>
             </div>
-            <div className="mb-4">
-              <label htmlFor="email_password" className="sr-only">
+            <div className="mb-4 relative">
+              <label htmlFor="password_field" className="sr-only">
                 Contraseña
               </label>
-              <div className="flex items-center border-b border-gray-300">
+              <div className="flex items-center border-gray-300">
                 <FaLock className="mr-2 text-gray-500" />
                 <input
                   type={showPassword ? "text" : "password"}
-                  name="contraseña"
+                  name="password"
                   placeholder="Contraseña"
-                  className="w-full py-2 text-gray-700 focus:outline-none mb-2"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  className="w-full py-2 text-gray-700 focus:outline-none mb-2 pr-10"
                 />
                 <div
-                  className="cursor-pointer"
+                  className="cursor-pointer absolute right-2 top-1/2 transform -translate-y-1/2"
                   onClick={() => setShowPassword(!showPassword)}
                 >
                   {showPassword ? (
@@ -104,13 +108,13 @@ const Login = ({ history }) => {
             </div>
             <div className="mt-6">
               <button
-                className="primary--btn login-btn"
+                className="primary--btn login-btn w-full"
                 onClick={submitHandler}
                 style={{ border: "none", background: "none" }}
               >
-                <button className="primary--btn login-btn rounded-full">
-                  Ingresar
-                </button>
+                <span className="primary--btn login-btn rounded-full w-full">
+                  INGRESAR
+                </span>
               </button>
             </div>
           </form>
@@ -125,8 +129,8 @@ const Login = ({ history }) => {
           </div>
         </div>
       )}
-      <Toaster position="top-center" richColors />
       <Footer />
+      <Toaster position="top-right" richColors />
     </div>
   );
 };

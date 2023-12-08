@@ -26,6 +26,9 @@ const ForgotPassword = () => {
   }, [dispatch, error, message]);
 
   const submitHandler = (e) => {
+    if (e.target.value === "") {
+      return toast.error("Por favor, ingrese su correo electrónico");
+    }
     e.preventDefault();
 
     const formData = new FormData();
@@ -36,20 +39,16 @@ const ForgotPassword = () => {
 
   return (
     <div>
-      <Header />
-      <div className="row wrapper mt-12">
-        <div className="col-10 col-lg-5 mt-32">
-          <form className="shadow-lg" onSubmit={submitHandler}>
+      <div className="flex flex-col items-center justify-center h-screen">
+        <Header />
+        <div className="col-10 col-lg-5">
+          <form
+            className="max-w-md mx-auto p-20 rounded-lg shadow-lg mt-12"
+            onSubmit={submitHandler}
+          >
             <h1 className="text-2xl mb-5">Si has olvidado tu contraseña</h1>
             <div className="form-group">
               <label htmlFor="email_field">Ingrese su correo electrónico</label>
-              {/*               <input
-                type="email"
-                id="email_field"
-                className="form-control"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              /> */}
               <Input
                 type="email"
                 name="correoElectronico"
@@ -76,7 +75,7 @@ const ForgotPassword = () => {
         </div>
       </div>
       <Footer />
-      <Toaster position="top-center" richColors />
+      <Toaster position="top-right" richColors />
     </div>
   );
 };

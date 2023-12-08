@@ -7,7 +7,6 @@ import { addItemToCart, removeItemFromCart } from "../../actions/cartActions";
 
 const Cart = ({ history }) => {
   const dispatch = useDispatch();
-
   const { cartItems } = useSelector((state) => state.cart);
   const { loading } = useSelector((state) => state.products);
 
@@ -17,17 +16,13 @@ const Cart = ({ history }) => {
 
   const increaseQty = (id, quantity, stock) => {
     const newQty = quantity + 1;
-
     if (newQty > stock) return;
-
     dispatch(addItemToCart(id, newQty));
   };
 
   const decreaseQty = (id, quantity) => {
     const newQty = quantity - 1;
-
     if (newQty <= 0) return;
-
     dispatch(addItemToCart(id, newQty));
   };
 
@@ -36,133 +31,109 @@ const Cart = ({ history }) => {
   };
 
   return (
-    <div>
+    <div className="container mx-auto my-10">
       {loading ? (
         <Loader />
       ) : (
-        <div>
+        <div className="flex flex-col items-center">
           <Header />
-
           {cartItems.length === 0 ? (
-            <h2 style={{ marginTop: "200px" }}>Your Cart is Empty</h2>
+            <div className="flex flex-col items-center mt-28">
+              <h2 className="text-4xl">Tu carrito está vacío</h2>
+              <p className="text-gray-500 text-xl">
+                ¡Descubre nuestros productos y encuentra algo que te guste!
+              </p>
+              <img
+                src="https://res.cloudinary.com/dxe4igvmq/image/upload/v1702060515/SoftContAgro/duepw2xuctrk12bssy2u.png"
+                alt="Empty Cart"
+                className="w-80 h-50 mt-16"
+              />
+            </div>
           ) : (
-            <div>
-              <h2 style={{ marginTop: "200px" }}>
-                Your Cart: <b>{cartItems.length} items</b>
-              </h2>
-
-              <div className="row d-flex justify-content-between">
-                <div className="col-12 col-lg-8">
-                  {cartItems.map((item) => (
-                    <div>
-                      <hr />
-
-                      <div className="cart-item" key={item.product}>
-                        <div className="row">
-                          <div className="col-4 col-lg-3">
-                            <img
-                              src={item.image}
-                              alt="Laptop"
-                              height="90"
-                              width="115"
-                            />
-                          </div>
-
-                          <div className="col-5 col-lg-3">
-                            <Link to={`/products/${item.product}`}>
-                              {item.name}
-                            </Link>
-                          </div>
-
-                          <div className="col-4 col-lg-2 mt-4 mt-lg-0">
-                            <p id="card_item_price">${item.price}</p>
-                          </div>
-
-                          <div className="col-4 col-lg-3 mt-4 mt-lg-0">
-                            <div className="stockCounter d-inline">
-                              <span
-                                className="btn btn-danger minus"
-                                onClick={() =>
-                                  decreaseQty(item.product, item.quantity)
-                                }
-                              >
-                                -
-                              </span>
-
-                              <input
-                                type="number"
-                                className="form-control count d-inline"
-                                value={item.quantity}
-                                readOnly
-                              />
-
-                              <span
-                                className="btn btn-primary plus"
-                                onClick={() =>
-                                  increaseQty(
-                                    item.product,
-                                    item.quantity,
-                                    item.stock
-                                  )
-                                }
-                              >
-                                +
-                              </span>
-                            </div>
-                          </div>
-
-                          <div className="col-4 col-lg-1 mt-4 mt-lg-0">
-                            <i
-                              id="delete_cart_item"
-                              className="fa fa-trash btn btn-danger"
-                              onClick={() =>
-                                removeCartItemHandler(item.product)
-                              }
-                            ></i>
-                          </div>
-                        </div>
-                      </div>
-                      <hr />
+            <div className="flex flex-col lg:flex-row justify-between my-8 w-full">
+              <div className="lg:w-8/12">
+                {cartItems.map((item) => (
+                  <div
+                    key={item.product}
+                    className="flex items-center justify-between border-b border-gray-300 py-4"
+                  >
+                    <div className="flex items-center space-x-4">
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="w-16 h-16 object-cover"
+                      />
+                      <Link
+                        to={`/products/${item.product}`}
+                        className="text-blue-500 hover:underline"
+                      >
+                        {item.name}
+                      </Link>
                     </div>
-                  ))}
-                </div>
 
-                <div className="col-12 col-lg-3 my-4">
-                  <div id="order_summary">
-                    <h4>Order Summary</h4>
-                    <hr />
-                    <p>
-                      Subtotal:{" "}
-                      <span className="order-summary-values">
-                        {cartItems.reduce(
-                          (acc, item) => acc + Number(item.quantity),
-                          0
-                        )}{" "}
-                        (Units)
-                      </span>
-                    </p>
-                    <p>
-                      Est. total:{" "}
-                      <span className="order-summary-values">
-                        $
-                        {cartItems
-                          .reduce(
-                            (acc, item) => acc + item.quantity * item.price,
-                            0
-                          )
-                          .toFixed(2)}
-                      </span>
-                    </p>
+                    <div className="flex items-center space-x-4">
+                      <p className="text-gray-700">${item.price}</p>
+                      <div className="flex items-center">
+                        <button
+                          onClick={() =>
+                            decreaseQty(item.product, item.quantity)
+                          }
+                          className="text-xl text-gray-500 focus:outline-none"
+                        >
+                          -
+                        </button>
+                        <p className="mx-2">{item.quantity}</p>
+                        <button
+                          onClick={() =>
+                            increaseQty(item.product, item.quantity, item.stock)
+                          }
+                          className="text-xl text-gray-500 focus:outline-none"
+                        >
+                          +
+                        </button>
+                      </div>
+                      <p className="text-gray-700">
+                        ${(item.quantity * item.price).toFixed(2)}
+                      </p>
+                    </div>
 
-                    <hr />
                     <button
-                      id="checkout_btn"
-                      className="btn btn-primary btn-block"
-                      onClick={checkoutHandler}
+                      onClick={() => removeCartItemHandler(item.product)}
+                      className="text-red-500 hover:text-red-700 focus:outline-none"
                     >
-                      Check out
+                      <i className="fa fa-trash"></i>
                     </button>
                   </div>
+                ))}
+              </div>
+
+              <div className="lg:w-4/12 mt-4 lg:mt-0">
+                <div className="bg-gray-100 p-4">
+                  <h4 className="text-2xl mb-4">Resumen del pedido</h4>
+                  <div className="flex justify-between">
+                    <p>Subtotal:</p>
+                    <p>
+                      ${cartItems.reduce((acc, item) => acc + item.quantity, 0)}
+                    </p>
+                  </div>
+                  <div className="flex justify-between mt-2">
+                    <p>Est. total:</p>
+                    <p>
+                      $
+                      {cartItems
+                        .reduce(
+                          (acc, item) => acc + item.quantity * item.price,
+                          0
+                        )
+                        .toFixed(2)}
+                    </p>
+                  </div>
+                  <button
+                    onClick={checkoutHandler}
+                    className="bg-blue-500 text-white py-2 px-4 mt-4 hover:bg-blue-700"
+                  >
+                    Verificar
+                  </button>
                 </div>
               </div>
             </div>

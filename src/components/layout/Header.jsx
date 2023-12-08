@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { toast, Toaster } from "sonner";
+import { toast } from "sonner";
 import { logout } from "../../actions/userActions";
 import { getCategory } from "../../actions/categoryActions";
 import { FaUser, FaShoppingCart } from "react-icons/fa";
@@ -45,6 +45,14 @@ const Header = () => {
                     className="text-md text-black hover:text-gray-700"
                   >
                     INICIO
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/contact"
+                    className="text-md text-black hover:text-gray-700"
+                  >
+                    NUESTROS PRODUCTOS
                   </Link>
                 </li>
                 <li>
@@ -138,7 +146,6 @@ const Header = () => {
           </div>
         </div>
       </header>
-      <Toaster position="top-center" richColors />
     </>
   );
 };

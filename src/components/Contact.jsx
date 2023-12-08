@@ -7,18 +7,17 @@ const Contact = () => {
   return (
     <>
       <Header />
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center justify-center h-screen">
         <div className="col-md-6 text-center mb-10">
           <h5 className="text-3xl font-semibold mt-32">
-            ¡Ponerse en contacto! <br />
-            Lo contactaremos pronto
+            ¡Ponerse en contacto!
           </h5>
         </div>
         <div className="w-full max-w-2xl">
           <div className="contact-form-area">
             <div className="form-wrap shadow-lg p-8">
               <h4 className="text-3xl font-semibold mb-4">
-                Ponerse en contacto
+              Lo contactaremos pronto
               </h4>
               <p className="mb-4">
                 Su dirección de correo electrónico no será publicada. Campos

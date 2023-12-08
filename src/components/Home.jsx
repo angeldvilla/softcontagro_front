@@ -160,7 +160,7 @@ const Home = ({ match }) => {
           <Features />
         </div>
       )}
-      <Toaster position="top-right" richColors />
+      {/* <Toaster position="top-right" richColors /> */}
       <Footer />
     </div>
   );
