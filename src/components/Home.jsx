@@ -5,12 +5,12 @@ import Loader from "./layout/Loader";
 import Banner from "./layout/Banner";
 import CategorySection from "./layout/CategorySection";
 import Features from "./layout/Features";
+import Header from "./layout/Header";
+import Footer from "./layout/Footer";
 import { getProducts } from "../actions/productActions";
 import { toast, Toaster } from "sonner";
 import { useLocation, useParams } from "react-router-dom";
 import { Carousel } from "react-responsive-carousel";
-import Header from "./layout/Header";
-import Footer from "./layout/Footer";
 
 const Home = ({ match }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -60,21 +60,31 @@ const Home = ({ match }) => {
       ) : (
         <div>
           <Header />
-          <h1>Buy Best Products Online</h1>
           {isHome && (
             <Banner
-              src="https://res.cloudinary.com/hba-solver/image/upload/v1657880938/banner/bg1_jszeky.png"
+              src="https://res.cloudinary.com/dxe4igvmq/image/upload/v1702013780/SoftContAgro/wb8utjwtm4mzxlsfif7e.jpg"
+              /* src="https://res.cloudinary.com/hba-solver/image/upload/v1657880938/banner/bg1_jszeky.png" */
               search="true"
-              text="Enjoy Your Shopping With The Best Quality"
-              text2="Get your products delivered at your shopsteps all day everyday"
+              text="BIENVENIDOS A FINCA LA LOLITA"
+              text1="Los mejores productos campesinos y la mejor calidad los encuentras en FINCA LA LOLITA"
             />
           )}
           {isHome && <CategorySection />}
           {isHome ? (
             <div className="col-lg-12 mt-5">
               <div className="section-head-style-one">
-                <h2>Best Deals This Week!</h2>
-                <p>A virtual assistant collects the product from your list</p>
+                <h2>LOS MEJORES PRODUCTOS AGRICOLAS</h2>
+                <p>
+                  Debido a que los productos campesinos no tienen que ser
+                  sometidos a unas largas cadenas de congelamiento o de
+                  almacenamiento,
+                </p>
+
+                <p>
+                  no es necesario añadirle aditivos como conservantes,
+                  colorantes o antihongos, siendo asi un gran beneficio para el
+                  consumidor
+                </p>
               </div>
             </div>
           ) : (
@@ -88,7 +98,7 @@ const Home = ({ match }) => {
               }
               <div className="col-lg-12 mt-5">
                 <div className="section-head-style-one">
-                  <h2>Product List</h2>
+                  <h2>LISTA DE PRODUCTOS</h2>
                 </div>
               </div>
             </>
@@ -108,12 +118,12 @@ const Home = ({ match }) => {
                 <div className="row">
                   {keyword ? (
                     products.map((product) => (
-                      <Product key={product._id} product={product} col={4} />
+                      <Product key={product.id} product={product} col={4} />
                     ))
                   ) : (
                     <Carousel>
                       {products.map((product) => (
-                        <Product key={product._id} product={product} col={3} />
+                        <Product key={product.id} product={product} col={3} />
                       ))}
                     </Carousel>
                   )}

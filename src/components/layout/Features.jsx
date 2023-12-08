@@ -14,8 +14,8 @@ const Features = () => {
                 />
               </div>
               <div className="feature-content">
-                <h5 className="text-lg font-bold">Fast Free Shipping</h5>
-                <p>Around the world</p>
+                <h5 className="text-lg font-bold">Envío rápido y gratuito</h5>
+                <p>A todo momento</p>
               </div>
             </div>
           </div>
@@ -28,8 +28,10 @@ const Features = () => {
                 />
               </div>
               <div className="feature-content">
-                <h5 className="text-lg font-bold">24/7 Supports</h5>
-                <p>Contact us 24 hours</p>
+                <h5 className="text-lg font-bold">
+                  Soporte 24 horas al día, 7 días a la semana
+                </h5>
+                <p>Contacta con nosotros las 24 horas</p>
               </div>
             </div>
           </div>
@@ -42,8 +44,10 @@ const Features = () => {
                 />
               </div>
               <div className="feature-content">
-                <h5 className="text-lg font-bold">100% Money Back</h5>
-                <p>Guarantee of money return</p>
+                <h5 className="text-lg font-bold">
+                  100% de devolución de dinero
+                </h5>
+                <p>Garantía de devolución de dinero</p>
               </div>
             </div>
           </div>
@@ -56,8 +60,8 @@ const Features = () => {
                 />
               </div>
               <div className="feature-content">
-                <h5 className="text-lg font-bold">100% Secure Payment</h5>
-                <p>Your payments are safe with us.</p>
+                <h5 className="text-lg font-bold">Pago 100% Seguro</h5>
+                <p>Sus pagos están seguros con nosotros.</p>
               </div>
             </div>
           </div>

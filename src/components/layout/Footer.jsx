@@ -1,114 +1,75 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import {
+  FaFacebook,
+  FaInstagram,
+  FaTwitter,
+  FaYoutube,
+  FaPhone,
+  FaLocationArrow,
+  FaMailBulk,
+} from "react-icons/fa";
 
 const Footer = () => {
   return (
     <>
-      <footer className="footer-area footer-design-1 bg-gray-800 text-white">
+      <footer className="footer-area footer-design-1 text-white">
         <div className="container mx-auto py-10">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <div className="mb-8">
               <div className="footer-title">
-                <h3 className="text-2xl font-bold mb-4">About Buy It</h3>
+                <h3 className="text-2xl font-bold mb-4 hover:text-3xl transition-all duration-300">SoftContAgro</h3>
               </div>
               <div className="footerabout-content">
-                <p>
-                  Buy It Store - Pakistan's first store since 2021. We sell many
-                  Category products on our web-site.
+                <p className="text-xl hover:text-2xl transition-all duration-300">
+                  Primera tienda virtual en La Unión Valle desde 2021.
                 </p>
               </div>
-              <div className="footer-address mt-4">
+              <div className="footer-address mt-8">
                 <ul>
-                  <li>
-                    <i className="las la-phone-volume"></i>
-                    <span>
-                      <Link to="/">+1234 5678 9123</Link>
-                      <br />
-                      <Link to="/">+1234 5678 9123</Link>
-                    </span>
+                  <li className="flex items-center text-lg hover:text-2xl transition-all duration-300">
+                    <FaPhone className="mr-2" />
+                    +57 312558468
                   </li>
-                  <li>
-                    <i className="lar la-envelope"></i>
-                    <span>
-                      <Link to="/">Student@uol.com</Link>
-                      <br />
-                      <Link to="/">info@buyit.com</Link>
-                    </span>
+                  <li className="flex items-center text-lg hover:text-2xl transition-all duration-300">
+                    <FaMailBulk className="mr-2" />
+                    fincalalolita@gmail.com
                   </li>
-                  <li>
-                    <i className="las la-map-marker"></i>
-                    <span>
-                      Gulburg <br />
-                      Islamabad{" "}
-                    </span>
+                  <li className="flex items-center text-lg hover:text-2xl transition-all duration-300">
+                    <FaLocationArrow className="mr-2" />
+                    Colombia - La Union, Valle
                   </li>
                 </ul>
               </div>
             </div>
             <div className="mb-8 text-center md:text-left">
               <div className="footer-logo">
-                <Link to="/">
-                  <img src="" alt="" />
-                </Link>
+                <a href="/">
+                  <img src="images/logo.png" alt="logo" className="w-80 hover:w-96 transition-all duration-300"/>
+                </a>
               </div>
               <div className="form-design form-design-1"></div>
-              <div className="footer-social pt-4 md:pt-0">
-                <ul className="flex justify-center md:justify-start space-x-4">
-                  <li>
-                    <Link to="/">
-                      <i className="fab fa-facebook-f"></i>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/">
-                      <i className="fab fa-instagram"></i>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/">
-                      <i className="fab fa-linkedin-in"></i>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/">
-                      <i className="fab fa-pinterest-p"></i>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/">
-                      <i className="fab fa-twitter"></i>
-                    </Link>
-                  </li>
-                </ul>
-              </div>
             </div>
             <div className="mb-8">
               <div className="footer-title">
-                <h3 className="text-2xl font-bold">Company</h3>
+                <h3 className="text-2xl font-bold hover:text-3xl transition-all duration-300">Redes Sociales</h3>
               </div>
               <div className="footer-link mt-4">
                 <ul>
-                  <li>
-                    <Link to="/">Privacy Policy</Link>
+                  <li className="flex items-center text-xl hover:text-2xl transition-all duration-300">
+                    <FaFacebook className="mr-2" />
+                    Facebook
                   </li>
-                  <li>
-                    <Link to="/">Returns</Link>
+                  <li className="flex items-center text-xl hover:text-2xl transition-all duration-300">
+                    <FaInstagram className="mr-2" /> Instagram
                   </li>
-                  <li>
-                    <Link to="/">Terms & Conditions</Link>
+                  <li className="flex items-center text-xl hover:text-2xl transition-all duration-300">
+                    <FaTwitter className="mr-2" /> X
                   </li>
-                  <li>
-                    <Link to="/">Our Support</Link>
+                  <li className="flex items-center text-xl hover:text-2xl transition-all duration-300">
+                    <FaYoutube className="mr-2" />
+                    Youtube
                   </li>
-                  <li>
-                    <Link to="/">Terms & Service</Link>
-                  </li>
-                  <li>
-                    <Link to="/">Checkout</Link>
-                  </li>
-                  <li>
-                    <Link to="/">Other Issues</Link>
-                  </li>
+                  <li className="flex items-center text-xl hover:text-2xl transition-all duration-300"></li>
                 </ul>
               </div>
             </div>
@@ -116,9 +77,9 @@ const Footer = () => {
           <div className="flex justify-between items-center mt-8">
             <div className="text-center md:text-left">
               <div className="copy-right-area">
-                <p className="copy-text">
-                  Copyright 2022 Buy it | Design By{" "}
-                  <Link to="/">UOl Students</Link>
+                <p className="copy-text hover:text-lg transition-all duration-300">
+                  Copyright © {new Date().getFullYear()} Finca La Lolita.
+                  <a href="/">Todos los derechos reservados</a>
                 </p>
               </div>
             </div>

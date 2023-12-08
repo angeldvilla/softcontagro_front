@@ -10,8 +10,8 @@ const CategorySection = () => {
         <div className="row">
           <div className="col-lg-12">
             <div className="section-head-style-one">
-              <h2>What do you looking for ?</h2>
-              <p>We have variety of catagories available</p>
+              <h2>LOS PRODUCTOS QUE BUSCAS</h2>
+              <p>Tenemos variedad de categorías disponibles.</p>
             </div>
           </div>
         </div>

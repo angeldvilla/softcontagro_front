@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { path } from "../../constants/path";
+import { Input, Button } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
 
 const Search = () => {
@@ -9,7 +11,7 @@ const Search = () => {
     e.preventDefault();
 
     if (keyword.trim()) {
-      navigate(`/search/${keyword}`);
+      navigate(`${path}/search/${keyword}`);
     } else {
       navigate("/");
     }
@@ -20,21 +22,25 @@ const Search = () => {
       method="post"
       id="search_form-one"
       onSubmit={searchHandler}
-      className="hero-search-form search-form-style-one"
+      className="flex items-center gap-2"
     >
-      <input
+      <Input
         type="text"
-        placeholder="Search Your Products..."
-        className="search-field bg-white border border-gray-300 px-4 py-2 rounded-l-md focus:outline-none focus:ring focus:border-blue-300"
+        placeholder="Buscar productos..."
+        value={keyword}
         onChange={(e) => setKeyword(e.target.value)}
+        outline="true"
+        size="lg"
+        className="gap-2 text-white focus:border-white rounded-full text-center"
       />
-      <button
-        type="submit"
-        className="search-submit bg-blue-500 text-white px-4 py-2 rounded-r-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
+      <Button
+        type="filled"
+        size="lg"
         onClick={searchHandler}
+        className="bg-blue-gray-600 hover:bg-blue-gray-400 transition-colors duration-300 p-4 rounded-full"
       >
-        SEARCH
-      </button>
+        buscar
+      </Button>
     </form>
   );
 };
