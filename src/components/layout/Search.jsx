@@ -1,25 +1,33 @@
 import React, { useState } from "react";
 import { Input, Button } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { toast } from "sonner";
+import { path } from "../../constants/path";
 
 const Search = () => {
   const [keyword, setKeyword] = useState("");
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const searchHandler = (e) => {
     e.preventDefault();
 
-    if (keyword.trim()) {
-      navigate(`/search/${keyword}`);
+    if (e.target.value === "") {
+      return toast.error("Por favor, ingrese su búsqueda");
+    }
+
+    if (keyword) {
+      dispatch(`${path}/api/v1/search/${keyword}`);
     } else {
       navigate("/");
-    }
+    } 
   };
 
   return (
     <form
-      method="post"
       id="search_form-one"
+      /* encType="multipart/form-data" */
       onSubmit={searchHandler}
       className="flex items-center gap-2"
     >

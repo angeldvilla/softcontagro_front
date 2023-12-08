@@ -10,8 +10,6 @@ import Footer from "./layout/Footer";
 import { getProducts } from "../actions/productActions";
 import { toast, Toaster } from "sonner";
 import { useLocation, useParams } from "react-router-dom";
-import { Link, useNavigate } from "react-router-dom";
-import { scrollSpy, scroller } from "react-scroll";
 import { Carousel } from "react-responsive-carousel";
 
 const Home = ({ match }) => {
@@ -40,14 +38,6 @@ const Home = ({ match }) => {
       return toast.error("error");
     }
     dispatch(getProducts(keyword, currentPage, price, catagory, rating));
-    
-    // Configura la escucha para el cambio de sección
-    scrollSpy.update();
-
-    // Limpia la escucha cuando el componente se desmonta
-    return () => {
-      scrollSpy.unmount();
-    };
   }, [dispatch, error, keyword, currentPage, price, catagory, rating]);
 
   function setCurrentPageNo(pageNumber) {
@@ -72,7 +62,6 @@ const Home = ({ match }) => {
           <Header />
           {isHome && (
             <Banner
-              id="inicio"
               src="https://res.cloudinary.com/dxe4igvmq/image/upload/v1702013780/SoftContAgro/wb8utjwtm4mzxlsfif7e.jpg"
               /*  src="https://res.cloudinary.com/hba-solver/image/upload/v1657880938/banner/bg1_jszeky.png" */
               search="true"
@@ -80,7 +69,7 @@ const Home = ({ match }) => {
               text1="Los mejores productos campesinos y la mejor calidad los encuentras en FINCA LA LOLITA"
             />
           )}
-          {isHome && <CategorySection id="productos" />}
+          {isHome && <CategorySection />}
           {isHome ? (
             <div className="col-lg-12 mt-5">
               <div className="section-head-style-one">
