@@ -34,10 +34,14 @@ const Login = ({ history }) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    if(!email || !password) {
+    if (!email || !password) {
       return toast.error("Por favor, rellene todos los campos");
     }
-    dispatch(login(email, password));
+    const userData = {
+      email,
+      password,
+    };
+    dispatch(login(userData));
   };
 
   return (
@@ -49,7 +53,6 @@ const Login = ({ history }) => {
           <Header isLogin={true} />
           <form
             className="max-w-md mx-auto p-20 rounded-lg shadow-lg mt-12"
-            encType="multipart/form-data"
             onSubmit={submitHandler}
           >
             <div className="mb-4">
@@ -109,7 +112,7 @@ const Login = ({ history }) => {
             <div className="mt-6">
               <button
                 className="primary--btn login-btn w-full"
-                onClick={submitHandler}
+                type="submit"
                 style={{ border: "none", background: "none" }}
               >
                 <span className="primary--btn login-btn rounded-full w-full font-sans text-sm">

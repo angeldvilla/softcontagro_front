@@ -24,7 +24,7 @@ const RelatedProducts = ({ category }) => {
                     if (product.id === i) {
                       return (
                         <>
-                          <Product key={product.id} product={product} col={3} />
+                          <Product key={product._id} product={product} col={3} />
                         </>
                       );
                     }

@@ -81,7 +81,7 @@ const RegisterForm = ({ history }) => {
         <Header />
         <form
           className="max-w-md mx-auto p-8 rounded-lg shadow-lg mt-12"
-          encType="multipart/form-data"
+          /* encType="multipart/form-data" */
           onSubmit={submitHandler}
         >
           <h1 className="text-center text-3xl font-bold mt-10 mb-5 font-sans">

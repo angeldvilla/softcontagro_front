@@ -48,7 +48,7 @@ const ListOrders = () => {
         Header: "Actions",
         accessor: "actions",
         Cell: ({ row }) => (
-          <Link to={`/order/${row.original.id}`} className="btn btn-primary">
+          <Link to={`/order/${row.original._id}`} className="btn btn-primary">
             <i className="fa fa-eye"></i>
           </Link>
         ),

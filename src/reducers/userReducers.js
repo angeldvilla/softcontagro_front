@@ -41,7 +41,7 @@ import {
   CLEAR_ERRORS,
 } from "../constants/userConstants";
 
-export const authReducer = (state = { user: {} }, action) => {
+export const authReducer = (state = { user: {}, isAuthenticated: false, loading: true }, action) => {
   switch (action.type) {
     case LOGIN_REQUEST:
     case REGISTER_USER_REQUEST:
@@ -103,7 +103,7 @@ export const authReducer = (state = { user: {} }, action) => {
   }
 };
 
-export const userReducer = (state = {}, action) => {
+export const userReducer = (state = { loading: false, isUpdated: false, isDeleted: false }, action) => {
   switch (action.type) {
     case UPDATE_PROFILE_REQUEST:
     case UPDATE_PASSWORD_REQUEST:
@@ -165,7 +165,7 @@ export const userReducer = (state = {}, action) => {
   }
 };
 
-export const forgotPasswordReducer = (state = {}, action) => {
+export const forgotPasswordReducer = (state = { loading: false, message: null, error: null }, action) => {
   switch (action.type) {
     case FORGOT_PASSWORD_REQUEST:
     case NEW_PASSWORD_REQUEST:
@@ -207,7 +207,7 @@ export const forgotPasswordReducer = (state = {}, action) => {
   }
 };
 
-export const allUsersReducer = (state = { users: [] }, action) => {
+export const allUsersReducer = (state = { users: [], loading: false, error: null }, action) => {
   switch (action.type) {
     case ALL_USERS_REQUEST:
       return {
@@ -240,7 +240,7 @@ export const allUsersReducer = (state = { users: [] }, action) => {
   }
 };
 
-export const userDetailsReducer = (state = { user: {} }, action) => {
+export const userDetailsReducer = (state = { user: {}, loading: false, error: null }, action) => {
   switch (action.type) {
     case USER_DETAILS_REQUEST:
       return {

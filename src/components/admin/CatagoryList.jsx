@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useTable } from "react-table";
 import Loader from "../layout/Loader";
 import Sidebar from "./Sidebar";
@@ -57,14 +57,14 @@ const CategorysList = ({ history }) => {
         Header: "Actions",
         accessor: "actions",
         Cell: ({ row }) => (
-          <Fragment>
+          <div>
             <button
               className="btn btn-danger py-1 px-2 ml-2"
               onClick={() => deleteCategoryHandler(row.original.id)}
             >
               <i className="fa fa-trash"></i>
             </button>
-          </Fragment>
+          </div>
         ),
       },
     ],
@@ -77,16 +77,15 @@ const CategorysList = ({ history }) => {
     useTable({ columns, data });
 
   return (
-    <Fragment>
-      <h1>All Categories</h1>
+    <div>
       <div className="row mt-5">
         <div className="col-12 col-md-2 mt-4">
           <Sidebar />
         </div>
 
         <div className="col-12 col-md-10 mt-5">
-          <Fragment>
-            <h1 className="my-5">All Categories</h1>
+          <div>
+            <h1 className="my-5">Todas las categorias</h1>
 
             {loading ? (
               <Loader />
@@ -119,11 +118,11 @@ const CategorysList = ({ history }) => {
                 </tbody>
               </table>
             )}
-          </Fragment>
+          </div>
         </div>
       </div>
-      <Toaster position="top-center" richColors />
-    </Fragment>
+      <Toaster position="top-right" richColors />
+    </div>
   );
 };
 

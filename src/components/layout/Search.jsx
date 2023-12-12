@@ -1,13 +1,10 @@
 import React, { useState } from "react";
 import { Input, Button } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import { toast } from "sonner";
-import { path } from "../../constants/path";
 
 const Search = () => {
   const [keyword, setKeyword] = useState("");
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const searchHandler = (e) => {
@@ -18,10 +15,10 @@ const Search = () => {
     }
 
     if (keyword) {
-      dispatch(`${path}/api/v1/search/${keyword}`);
+      navigate(`/search/${keyword}`);
     } else {
       navigate("/");
-    } 
+    }
   };
 
   return (
