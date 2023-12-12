@@ -13,7 +13,7 @@ const NewPassword = ({ history, match }) => {
 
   useEffect(() => {
     if (error) {
-      toast.error("error");
+      toast.error("Contraseña invalida");
       dispatch(clearErrors());
     }
 

@@ -18,7 +18,7 @@ const ForgotPassword = () => {
 
   useEffect(() => {
     if (error) {
-      toast.error("error");
+      toast.error("Error al enviar correo");
       dispatch(clearErrors());
     }
 

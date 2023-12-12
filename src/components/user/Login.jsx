@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Loader from "../layout/Loader";
 import Header from "../layout/Header";
 import Footer from "../layout/Footer";
@@ -19,29 +19,36 @@ const Login = ({ history }) => {
     (state) => state.auth
   );
   const location = useLocation();
+  const navigate = useNavigate();
   const redirect = location.search ? location.search.split("=")[1] : "/";
 
   useEffect(() => {
     if (isAuthenticated) {
-      history.push(redirect);
+      navigate(redirect);
     }
 
     if (error) {
-      toast.error("error");
+      toast.error("Correo o contraseña incorrectos");
       dispatch(clearErrors());
     }
-  }, [dispatch, isAuthenticated, error, history, redirect]);
+  }, [dispatch, isAuthenticated, error, history, redirect, navigate]);
 
   const submitHandler = (e) => {
-    e.preventDefault();
-    if (!email || !password) {
-      return toast.error("Por favor, rellene todos los campos");
+    try {
+      e.preventDefault();
+      if (!email || !password) {
+        return toast.error("Por favor, rellene todos los campos");
+      }
+      const userData = {
+        email,
+        password,
+      };
+      dispatch(login(userData));
+      toast.success("Inicio de sesión exitoso");
+    } catch (error) {
+      toast.error("Error al registrar el usuario");
+      console.error("Error en el registro:", error);
     }
-    const userData = {
-      email,
-      password,
-    };
-    dispatch(login(userData));
   };
 
   return (

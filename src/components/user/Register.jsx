@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { toast, Toaster } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
 import { register, clearErrors } from "../../actions/userActions";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Header from "../layout/Header";
 import Footer from "../layout/Footer";
 import {
@@ -23,39 +23,48 @@ const RegisterForm = ({ history }) => {
 
   const { name, email, password } = user;
 
-  const [avatar, setAvatar] = useState("");
+  const [avatar, setAvatar] = useState(
+    "https://res.cloudinary.com/dxe4igvmq/image/upload/v1701735128/avatars/vq3vfsnac9izn50yvgpw.png"
+  );
   const [avatarPreview, setAvatarPreview] = useState(
     "https://res.cloudinary.com/dxe4igvmq/image/upload/v1701735128/avatars/vq3vfsnac9izn50yvgpw.png"
   );
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { isAuthenticated, error } = useSelector((state) => state.auth);
 
   useEffect(() => {
     if (isAuthenticated) {
-      history.push("/");
+      navigate("/");
     }
 
     if (error) {
-      toast.error("error");
+      toast.error("Correo o contraseña incorrectos");
       dispatch(clearErrors());
     }
-  }, [dispatch, isAuthenticated, error, history]);
+  }, [dispatch, isAuthenticated, error, navigate]);
 
   const submitHandler = (e) => {
-    e.preventDefault();
-    if (!name || !email || !password) {
-      return toast.error("Por favor, rellene todos los campos");
+    try {
+      e.preventDefault();
+      if (!name || !email || !password) {
+        return toast.error("Por favor, rellene todos los campos");
+      }
+
+      const formData = new FormData();
+      formData.set("name", name);
+      formData.set("email", email);
+      formData.set("password", password);
+      formData.set("avatar", avatar);
+
+      dispatch(register(formData));
+      toast.success("Registro exitoso!");
+    } catch (error) {
+      toast.error("Error al registrar el usuario");
+      console.error("Error en el registro:", error);
     }
-
-    const formData = new FormData();
-    formData.set("name", name);
-    formData.set("email", email);
-    formData.set("password", password);
-    formData.set("avatar", avatar);
-
-    dispatch(register(formData));
   };
 
   const onchange = (e) => {

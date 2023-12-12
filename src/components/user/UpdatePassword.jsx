@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { toast, Toaster } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
 import { updatePassword, clearErrors } from "../../actions/userActions";
@@ -14,7 +14,7 @@ const UpdatePassword = ({ history }) => {
 
   useEffect(() => {
     if (error) {
-      toast.error("error");
+      toast.error("Error al actualizar contraseña");
       dispatch(clearErrors());
     }
 
@@ -40,9 +40,7 @@ const UpdatePassword = ({ history }) => {
   };
 
   return (
-    <Fragment>
-      <h1>Change Password</h1>
-
+    <div>
       <div className="row wrapper">
         <div className="col-10 col-lg-5">
           <form className="shadow-lg" onSubmit={submitHandler}>
@@ -80,7 +78,7 @@ const UpdatePassword = ({ history }) => {
         </div>
       </div>
       <Toaster position="top-center" richColors />
-    </Fragment>
+    </div>
   );
 };
 

@@ -5,7 +5,7 @@ import { toast } from "sonner";
 import { logout } from "../../actions/userActions";
 import { getCategory } from "../../actions/categoryActions";
 import { FaUser, FaShoppingCart, FaBars, FaTimes } from "react-icons/fa";
-import { Button } from "@material-tailwind/react";
+import { Button, Avatar } from "@material-tailwind/react";
 import "../../App.css";
 
 const Header = () => {
@@ -103,46 +103,56 @@ const Header = () => {
             {isMobileMenuOpen && (
               <div className="lg:hidden mobile-menu absolute top-16 right-0 bg-white w-48 mt-2 rounded-md shadow-md">
                 <ul className="space-y-2 p-4">
-                  <p>
-                    <Link
-                      to="/"
-                      onClick={() => toggleMobileMenu()}
-                      className="text-md text-black hover:text-gray-700"
-                    >
-                      INICIO
-                    </Link>
-                  </p>
-                  <p>
-                    <Link
-                      to="/contact"
-                      onClick={() => toggleMobileMenu()}
-                      className="text-md text-black hover:text-gray-700"
-                    >
-                      CONTACTO
-                    </Link>
-                  </p>
-                  <Button
-                    color="gray"
-                    size="sm"
-                    onClick={() => navigate("/login")}
-                    className="flex items-center hover:bg-blue-gray-400 transition-colors duration-300"
-                  >
-                    <FaUser className="mr-1 hover:text-2xl transition-all duration-300" />
-                    INICIAR SESIÓN
-                  </Button>
-                  <Button
-                    color="gray"
-                    size="sm"
-                    onClick={() => navigate("/cart")}
-                    className="flex items-center mobile-menu-button"
-                  >
-                    <FaShoppingCart className="mr-1 hover:text-2xl transition-all duration-300" />
-                    CARRITO ({cartItems.length})
-                  </Button>
+                  {!isAuthenticated && (
+                    <>
+                      <p>
+                        <Link
+                          to="/"
+                          onClick={() => toggleMobileMenu()}
+                          className="text-md text-black hover:text-gray-700"
+                        >
+                          INICIO
+                        </Link>
+                      </p>
+                      <p>
+                        <Link
+                          to="/contact"
+                          onClick={() => toggleMobileMenu()}
+                          className="text-md text-black hover:text-gray-700"
+                        >
+                          CONTACTO
+                        </Link>
+                      </p>
+                      <Button
+                        color="gray"
+                        size="sm"
+                        onClick={() => navigate("/login")}
+                        className="flex items-center hover:bg-blue-gray-400 transition-colors duration-300"
+                      >
+                        <FaUser className="mr-1" />
+                        INICIAR SESIÓN
+                      </Button>
+                      <Button
+                        color="gray"
+                        size="sm"
+                        onClick={() => navigate("/cart")}
+                        className="flex items-center mobile-menu-button"
+                      >
+                        <FaShoppingCart className="mr-1 hover:text-2xl transition-all duration-300" />
+                        CARRITO ({cartItems.length})
+                      </Button>
+                    </>
+                  )}
 
                   {isAuthenticated && (
                     <>
-                      <p>
+                      <p className="flex items-center text-sm hover:text-gray-600">
+                        {user?.user?.name.toUpperCase()}
+                      </p>
+                      {/* <FaUser className="mr-2" />
+                        {user?.user?.name} */}
+                      <hr />
+                      <p className="flex items-center text-sm hover:text-gray-600">
                         <Link
                           to="/orders/me"
                           onClick={() => toggleMobileMenu()}
@@ -151,16 +161,18 @@ const Header = () => {
                           PEDIDOS
                         </Link>
                       </p>
-                      <p>
-                        <Link
-                          to="/dashboard"
-                          onClick={() => toggleMobileMenu()}
-                          className="text-md text-black hover:text-gray-700"
-                        >
-                          DASHBOARD
-                        </Link>
-                      </p>
-                      <p>
+                      {user && user.role === "admin" && (
+                        <p className="flex items-center text-sm hover:text-gray-600">
+                          <Link
+                            to="/dashboard"
+                            onClick={() => toggleMobileMenu()}
+                            className="text-md text-black hover:text-gray-700"
+                          >
+                            DASHBOARD
+                          </Link>
+                        </p>
+                      )}
+                      <p className="flex items-center text-sm hover:text-gray-600">
                         <Link
                           to="/me"
                           onClick={() => toggleMobileMenu()}
@@ -169,7 +181,8 @@ const Header = () => {
                           PERFIL
                         </Link>
                       </p>
-                      <p>
+                      <hr />
+                      <p className="flex items-center text-sm hover:text-gray-600">
                         <a
                           href="/"
                           onClick={() => {
@@ -190,13 +203,23 @@ const Header = () => {
             <div className="hidden lg:flex items-center space-x-4">
               {isAuthenticated ? (
                 <div className="relative group">
-                  <Button color="gray" size="sm">
-                    <FaUser className="mr-2" />
-                    {user.name}
-                  </Button>
+                  <Avatar
+                    color="gray"
+                    size="sm"
+                    src={user?.user?.avatar?.url}
+                    className="flex items-center"
+                  />
+                  {/*  <FaUser className="mr-1" /> */}
+                  {/* {user?.user?.name} */}
                   <ul className="hidden group-hover:block absolute top-full left-0 bg-white p-4 space-y-2">
                     {user && user.role !== "admin" && (
-                      <p>
+                      <p className="flex items-center text-sm hover:text-gray-600">
+                        {user?.user?.name.toUpperCase()}
+                      </p>
+                    )}
+                    <hr />
+                    {user && user.role !== "admin" && (
+                      <p className="flex items-center text-sm hover:text-gray-600">
                         <Link
                           to="/orders/me"
                           className="text-gray-700 hover:text-gray-900"
@@ -206,7 +229,7 @@ const Header = () => {
                       </p>
                     )}
                     {user && user.role === "admin" && (
-                      <p>
+                      <p className="flex items-center text-sm hover:text-gray-600">
                         <Link
                           to="/dashboard"
                           className="text-gray-700 hover:text-gray-900"
@@ -215,7 +238,7 @@ const Header = () => {
                         </Link>
                       </p>
                     )}
-                    <p>
+                    <p className="flex items-center text-sm hover:text-gray-600">
                       <Link
                         to="/me"
                         className="text-gray-700 hover:text-gray-900"
@@ -223,11 +246,12 @@ const Header = () => {
                         PERFIL
                       </Link>
                     </p>
-                    <p>
+                    <hr />
+                    <p className="flex items-center text-sm hover:text-gray-600">
                       <a
                         href="/"
                         onClick={logoutHandler}
-                        className="text-red-500"
+                        className="text-red-700 hover:text-red-900"
                       >
                         CERRAR SESIÓN
                       </a>
@@ -241,7 +265,7 @@ const Header = () => {
                   onClick={() => navigate("/login")}
                   className="flex items-center hover:bg-blue-gray-400 transition-colors duration-300"
                 >
-                  <FaUser className="mr-1 hover:text-2xl transition-all duration-300" />
+                  <FaUser className="mr-1" />
                   INICIAR SESIÓN
                 </Button>
               )}

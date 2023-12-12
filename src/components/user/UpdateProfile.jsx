@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { toast, Toaster } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -7,6 +7,7 @@ import {
   clearErrors,
 } from "../../actions/userActions";
 import { UPDATE_PROFILE_RESET } from "../../constants/userConstants";
+import { useNavigate } from "react-router-dom";
 
 const UpdateProfile = ({ history }) => {
   const [name, setName] = useState("");
@@ -17,19 +18,20 @@ const UpdateProfile = ({ history }) => {
   );
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { user } = useSelector((state) => state.auth);
   const { error, isUpdated, loading } = useSelector((state) => state.user);
 
   useEffect(() => {
     if (user) {
-      setName(user.name);
-      setEmail(user.email);
-      setAvatarPreview(user.avatar.url);
+      setName(user?.user?.name);
+      setEmail(user?.user?.email);
+      setAvatarPreview(user?.user?.avatar?.url);
     }
 
     if (error) {
-      toast.error("error");
+      toast.error("Error para actualizar datos del perfil");
       dispatch(clearErrors());
     }
 
@@ -37,23 +39,29 @@ const UpdateProfile = ({ history }) => {
       toast.success("User updated successfully");
       dispatch(loadUser());
 
-      history.push("/me");
+      navigate("/me");
 
       dispatch({
         type: UPDATE_PROFILE_RESET,
       });
     }
-  }, [dispatch, error, history, isUpdated, user]);
+  }, [dispatch, error, navigate, isUpdated, user]);
 
   const submitHandler = (e) => {
-    e.preventDefault();
+    try {
+      e.preventDefault();
 
-    const formData = new FormData();
-    formData.set("name", name);
-    formData.set("email", email);
-    formData.set("avatar", avatar);
+      const formData = new FormData();
+      formData.set("name", name);
+      formData.set("email", email);
+      formData.set("avatar", avatar);
 
-    dispatch(updateProfile(formData));
+      dispatch(updateProfile(formData));
+      toast.success("Perfil actualizada con exito");
+    } catch (error) {
+      console.log(error);
+      toast.error("Error al actualizar perfil");
+    }
   };
 
   const onChange = (e) => {
@@ -69,16 +77,10 @@ const UpdateProfile = ({ history }) => {
     reader.readAsDataURL(e.target.files[0]);
   };
   return (
-    <Fragment>
-      <h1>Update Profile</h1>
-
+    <div>
       <div className="row wrapper">
         <div className="col-10 col-lg-5">
-          <form
-            className="shadow-lg"
-            onSubmit={submitHandler}
-            encType="multipart/form-data"
-          >
+          <form className="shadow-lg" onSubmit={submitHandler}>
             <h1 className="mt-2 mb-5">Update Profile</h1>
 
             <div className="form-group">
@@ -144,7 +146,7 @@ const UpdateProfile = ({ history }) => {
         </div>
       </div>
       <Toaster position="top-center" richColors />
-    </Fragment>
+    </div>
   );
 };
 

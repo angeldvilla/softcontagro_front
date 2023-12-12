@@ -48,8 +48,6 @@ export const login = (userData) => {
 
             const { data } = await axios.post(`${path}/api/v1/login`, userData);
 
-            console.log(data);
-
             dispatch({
                 type: LOGIN_SUCCESS,
                 payload: data
