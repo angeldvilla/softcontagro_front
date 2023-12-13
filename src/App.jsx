@@ -47,7 +47,7 @@ import axios from "axios";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { path } from "./constants/path";
-import About from "./components/layout/About/About";
+import About from "./components/layout/About";
 
 function App() {
   const [stripeApiKey, setStripeApiKey] = useState("");

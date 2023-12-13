@@ -59,32 +59,32 @@ const Header = () => {
     <>
       <header className="bg-gray-100 shadow-lg fixed top-0 w-full py-4 z-50">
         <div className="container mx-auto flex justify-between items-center">
-          <a href="/" className="text-2xl font-bold text-gray-800">
+          <Link to="/" className="text-2xl font-bold text-gray-800">
             <img
               src="https://res.cloudinary.com/dxe4igvmq/image/upload/v1702051130/SoftContAgro/eb2emrt90t6vpse9dapa.png"
               className="w-20"
               alt="logo-finca-la-lolita"
             />
-          </a>
+          </Link>
 
           <div className="flex items-center space-x-4">
             <nav className="hidden lg:block">
               <ul className="flex items-center space-x-4">
                 <p>
-                  <a
-                    href="/"
+                  <Link
+                    to="/"
                     className="text-md text-black hover:text-gray-700"
                   >
                     INICIO
-                  </a>
+                  </Link>
                 </p>
                 <p>
-                  <a
-                    href="/about-us"
+                  <Link
+                    to="/about-us"
                     className="text-md text-black hover:text-gray-700"
                   >
                     SOBRE NOSOTROS
-                  </a>
+                  </Link>
                 </p>
                 <p>
                   <Link

@@ -6,6 +6,7 @@ import { toast, Toaster } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
 import { myOrders, clearErrors } from "../../actions/orderActions";
 import Header from "../layout/Header";
+import { FaEye } from "react-icons/fa";
 
 const ListOrders = () => {
   const dispatch = useDispatch();
@@ -36,7 +37,7 @@ const ListOrders = () => {
       renderCell: (params) => (
         <p
           style={{
-            color: params.value.includes("Delivered") ? "green" : "red",
+            color: params.value.includes("Entregado") ? "green" : "red",
           }}
         >
           {params.value}
@@ -49,7 +50,7 @@ const ListOrders = () => {
       width: 150,
       renderCell: (params) => (
         <Link to={`/order/${params.row._id}`} className="btn btn-primary">
-          <i className="fa fa-eye"></i>
+          <FaEye />
         </Link>
       ),
     },
