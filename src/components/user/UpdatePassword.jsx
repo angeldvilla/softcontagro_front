@@ -5,10 +5,13 @@ import { updatePassword, clearErrors } from "../../actions/userActions";
 import { UPDATE_PASSWORD_RESET } from "../../constants/userConstants";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@material-tailwind/react";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const UpdatePassword = ({ history }) => {
   const [oldPassword, setOldPassword] = useState("");
   const [password, setPassword] = useState("");
+  const [showOldPassword, setShowOldPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -50,30 +53,55 @@ const UpdatePassword = ({ history }) => {
             <h1 className="mt-2 mb-5 text-2xl font-sans">
               Actualizar contraseña
             </h1>
-            <div className="form-group">
+
+            <div className="mb-4 relative">
               <label for="old_password_field" className="text-lg font-sans">
                 Contraseña actual
               </label>
-              <input
-                type="password"
-                id="old_password_field"
-                className="form-control text-lg"
-                value={oldPassword}
-                onChange={(e) => setOldPassword(e.target.value)}
-              />
+              <div className="flex items-center border-gray-300">
+                <input
+                  type={showOldPassword ? "text" : "password"}
+                  id="old_password_field"
+                  className="w-full py-2 focus:outline-none mb-2 pr-10 font-sans font-light"
+                  value={oldPassword}
+                  onChange={(e) => setOldPassword(e.target.value)}
+                />
+                <div
+                  className="cursor-pointer absolute right-2 top-1/5 transform -translate-y-1/2"
+                  onClick={() => setShowOldPassword(!showOldPassword)}
+                >
+                  {showOldPassword ? (
+                    <FaEyeSlash className="text-gray-500" />
+                  ) : (
+                    <FaEye className="text-gray-500" />
+                  )}
+                </div>
+              </div>
             </div>
 
-            <div className="form-group">
+            <div className="mb-4 relative">
               <label for="new_password_field" className="text-lg font-sans">
                 Nueva contraseña
               </label>
-              <input
-                type="password"
-                id="new_password_field"
-                className="form-control"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
+              <div className="flex items-center border-gray-300">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  id="new_password_field"
+                  className="w-full py-2 focus:outline-none mb-2 pr-10 font-sans font-light"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <div
+                  className="cursor-pointer absolute right-2 top-1/5 transform -translate-y-1/2"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? (
+                    <FaEyeSlash className="text-gray-500" />
+                  ) : (
+                    <FaEye className="text-gray-500" />
+                  )}
+                </div>
+              </div>
             </div>
 
             <Button

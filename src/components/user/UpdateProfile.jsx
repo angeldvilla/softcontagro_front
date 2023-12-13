@@ -84,31 +84,30 @@ const UpdateProfile = ({ history }) => {
           <form className="shadow-lg" onSubmit={submitHandler}>
             <p className="mt-2 mb-5 text-2xl">Actualiza tu perfil</p>
 
-            <div className="form-group">
+            <div className="form-group mb-4">
               <label htmlFor="email_field" className="text-lg">Nombre Completo</label>
               <input
                 type="name"
                 id="name_field"
-                className="form-control font-sans"
+                className="form-control font-sans font-light"
                 name="name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
             </div>
 
-            <div className="form-group">
+            <div className="form-group mb-4">
               <label htmlFor="email_field" className="text-lg">Correo Electronico</label>
               <input
                 type="email"
                 id="email_field"
-                className="form-control font-sans"
+                className="form-control font-sans font-light"
                 name="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
-            <br/> <hr />
-            <div className="form-group">
+            <div className="form-group mt-6">
               <label htmlFor="avatar_upload" className="text-lg">Foto</label>
               <div className="d-flex align-items-center">
                 <div>
@@ -120,14 +119,14 @@ const UpdateProfile = ({ history }) => {
                     />
                   </figure>
                 </div>
-                <div className="custom-file">
+                <div className="custom-file mt-4">
                   <label className="custom-file-label text-lg" htmlFor="customFile" >
                     Elegir Foto
                   </label>
                   <input
                     type="file"
                     name="avatar"
-                    className="custom-file-input font-sans"
+                    className="custom-file-input font-sans font-light"
                     id="customFile"
                     accept="image/*"
                     onChange={onChange}
