@@ -178,7 +178,7 @@ const Header = () => {
                           PEDIDOS
                         </Link>
                       </p>
-                      {user && user.role === "admin" && (
+                      {user && user?.user?.role === "admin" && (
                         <p className="flex items-center text-sm hover:text-gray-600">
                           <Link
                             to="/dashboard"
@@ -229,23 +229,21 @@ const Header = () => {
                   {/*  <FaUser className="mr-1" /> */}
                   {/* {user?.user?.name} */}
                   <ul className="hidden group-hover:block absolute top-full left-0 bg-white p-4 space-y-2">
-                    {user && user.role !== "admin" && (
+                    {user && user?.user?.role !== "admin" && (
                       <p className="flex items-center text-sm hover:text-gray-600">
                         {user?.user?.name.toUpperCase()}
                       </p>
                     )}
                     <hr />
-                    {user && user.role !== "admin" && (
-                      <p className="flex items-center text-sm hover:text-gray-600">
-                        <Link
-                          to="/orders/me"
-                          className="text-gray-700 hover:text-gray-900"
-                        >
-                          PEDIDOS
-                        </Link>
-                      </p>
-                    )}
-                    {user && user.role === "admin" && (
+                    <p className="flex items-center text-sm hover:text-gray-600">
+                      <Link
+                        to="/orders/me"
+                        className="text-gray-700 hover:text-gray-900"
+                      >
+                        PEDIDOS
+                      </Link>
+                    </p>
+                    {user && user?.user?.role === "admin" && (
                       <p className="flex items-center text-sm hover:text-gray-600">
                         <Link
                           to="/dashboard"

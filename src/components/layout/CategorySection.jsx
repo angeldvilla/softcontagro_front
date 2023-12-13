@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import "../../App1.css";
 const CategorySection = () => {
-  const { category } = useSelector((state) => state.category);
+  const { category } = useSelector((state) => state?.category);
   return (
     <div className="category-area-start category-style-one mt-100 position-relative">
       <div style={{ width: "80%", marginLeft: "auto", marginRight: "auto" }}>
@@ -16,20 +16,26 @@ const CategorySection = () => {
           </div>
         </div>
         <div className="row">
-          {category.map((category, idx) => {
+          {category?.map((category, idx) => {
             return (
               <div
-                className="col-lg-2 col-md-3 col-sm-6 category-box-alpha shadow-sm"
+                className="col-lg-2 col-md-3 col-sm-6 category-box-alpha shadow-sm hover:scale-105 duration-150 hover:text-white"
                 style={{ borderRadius: "20px" }}
               >
-                <div className="category-icon">
-                  <Link to={`/search/${category.name}`}>
-                    <img src={category.images[0].url} alt="imagenes-categorias"/>
+                <div className=" flex flex-col items-center justify-center">
+                  <p className="text-xl">
+                    <Link to={`/search/${category?.name}`}>
+                      {category?.name}
+                    </Link>
+                  </p>
+                  <Link to={`/search/${category?.name}`}>
+                    <img
+                      src={category?.images[0]?.url}
+                      alt="imagenes-categorias"
+                      className="w-96 rounded-md"
+                    />
                   </Link>
                 </div>
-                <h5 className="category-title">
-                  <Link to={`/search/${category.name}`}>{category.name}</Link>
-                </h5>
               </div>
             );
           })}

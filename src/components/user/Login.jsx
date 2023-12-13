@@ -31,7 +31,7 @@ const Login = ({ history }) => {
       toast.error("Correo o contraseña incorrectos");
       dispatch(clearErrors());
     }
-  }, [dispatch, isAuthenticated, error, history, redirect, navigate]);
+  }, [dispatch, isAuthenticated, error, redirect, navigate]);
 
   const submitHandler = (e) => {
     try {

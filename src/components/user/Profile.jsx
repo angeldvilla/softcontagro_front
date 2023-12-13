@@ -27,7 +27,7 @@ const Profile = () => {
                 />
 
                 <Link to="/me/update">
-                  <button className="text-white bg-orange-500 hover:bg-orange-700 border-0 py-2 px-4 focus:outline-none rounded-full text-md mt-5 md:mt-8 md:ml-8">
+                  <button className="text-white bg-orange-500 hover:bg-orange-700 border-0 py-2 px-4 focus:outline-none rounded-full text-md mt-5 md:mt-8 md:ml-6">
                     <p>Editar perfil</p>
                   </button>
                 </Link>

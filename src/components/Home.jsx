@@ -20,7 +20,7 @@ const Home = ({ match }) => {
   const location = useLocation();
   const { keyword } = useParams();
 
-  const { category } = useSelector((state) => state.category);
+  const { category } = useSelector((state) => state?.category);
 
   const dispatch = useDispatch();
 
@@ -71,8 +71,8 @@ const Home = ({ match }) => {
           )}
           {isHome && <CategorySection />}
           {isHome ? (
-            <div className="col-lg-12 mt-5">
-              <div className="section-head-style-one">
+            <div className="col-lg-12">
+              <div className="section-head-style-one mt-20">
                 <h2>LOS MEJORES PRODUCTOS AGRICOLAS</h2>
                 <p>
                   Debido a que los productos campesinos no tienen que ser
@@ -91,12 +91,12 @@ const Home = ({ match }) => {
             <>
               {
                 <Banner
-                  src="https://res.cloudinary.com/hba-solver/image/upload/v1657882267/banner/bg2_a9w4ja.png"
+                  src="https://res.cloudinary.com/dxe4igvmq/image/upload/v1702490860/SoftContAgro/xqpiazpgjfpcm7gaw19u.jpg"
                   search="false"
-                  text="Search Items"
+                  text="Productos encontrados"
                 />
               }
-              <div className="col-lg-12 mt-5">
+              <div className="col-lg-12 mt-20">
                 <div className="section-head-style-one">
                   <h2>LISTA DE PRODUCTOS</h2>
                 </div>
