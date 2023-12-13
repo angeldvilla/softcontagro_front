@@ -79,6 +79,14 @@ const Header = () => {
                   </a>
                 </p>
                 <p>
+                  <a
+                    href="/about-us"
+                    className="text-md text-black hover:text-gray-700"
+                  >
+                    SOBRE NOSOTROS
+                  </a>
+                </p>
+                <p>
                   <Link
                     to="/contact"
                     className="text-md text-black hover:text-gray-700"
@@ -112,6 +120,15 @@ const Header = () => {
                           className="text-md text-black hover:text-gray-700"
                         >
                           INICIO
+                        </Link>
+                      </p>
+                      <p>
+                        <Link
+                          to="/about-us"
+                          onClick={() => toggleMobileMenu()}
+                          className="text-md text-black hover:text-gray-700"
+                        >
+                          SOBRE NOSOTROS
                         </Link>
                       </p>
                       <p>

@@ -47,6 +47,7 @@ import axios from "axios";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { path } from "./constants/path";
+import About from "./components/layout/About/About";
 
 function App() {
   const [stripeApiKey, setStripeApiKey] = useState("");
@@ -67,6 +68,7 @@ function App() {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/contact" element={<Contact />} />
+      <Route path="/about-us" element={<About />} />
       <Route path="/search/:keyword" element={<Home />} />
       <Route path="/product/:id" element={<ProductDetails />} />
 

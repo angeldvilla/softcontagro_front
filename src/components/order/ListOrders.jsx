@@ -1,18 +1,18 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useTable } from "react-table";
+import { DataGrid } from "@mui/x-data-grid";
 import Loader from "../layout/Loader";
 import { toast, Toaster } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
 import { myOrders, clearErrors } from "../../actions/orderActions";
+import Header from "../layout/Header";
 
 const ListOrders = () => {
   const dispatch = useDispatch();
-
   const { loading, error, orders } = useSelector((state) => state.myOrders);
 
   useEffect(() => {
-    dispatch(myOrders()); 
+    dispatch(myOrders());
 
     if (error) {
       toast.error("Error al cargar los pedidos");
@@ -20,51 +20,54 @@ const ListOrders = () => {
     }
   }, [dispatch, error]);
 
-  const columns = React.useMemo(
-    () => [
-      {
-        Header: "Order ID",
-        accessor: "id",
-      },
-      {
-        Header: "Num of Items",
-        accessor: "orderItems",
-        Cell: ({ value }) => (value ? value.length : 0),
-      },
-      {
-        Header: "Amount",
-        accessor: "totalPrice",
-        Cell: ({ value }) => `$${value}`,
-      },
-      {
-        Header: "Status",
-        accessor: "orderStatus",
-        Cell: ({ value }) => (
-          <p style={{ color: value.includes("Delivered") ? "green" : "red" }}>
-            {value}
-          </p>
-        ),
-      },
-      {
-        Header: "Actions",
-        accessor: "actions",
-        Cell: ({ row }) => (
-          <Link to={`/order/${row.original._id}`} className="btn btn-primary">
-            <i className="fa fa-eye"></i>
-          </Link>
-        ),
-      },
-    ],
-    []
-  );
+  const columns = [
+    { field: "id", headerName: "Order ID", width: 150 },
+    {
+      field: "orderItems",
+      headerName: "Num of Items",
+      width: 150,
+      valueGetter: (params) => (params.value ? params.value.length : 0),
+    },
+    { field: "totalPrice", headerName: "Amount", width: 150 },
+    {
+      field: "orderStatus",
+      headerName: "Status",
+      width: 150,
+      renderCell: (params) => (
+        <p
+          style={{
+            color: params.value.includes("Delivered") ? "green" : "red",
+          }}
+        >
+          {params.value}
+        </p>
+      ),
+    },
+    {
+      field: "actions",
+      headerName: "Actions",
+      width: 150,
+      renderCell: (params) => (
+        <Link to={`/order/${params.row._id}`} className="btn btn-primary">
+          <i className="fa fa-eye"></i>
+        </Link>
+      ),
+    },
+  ];
 
-  const data = React.useMemo(() => orders, [orders]);
-
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable({ columns, data });
+  const rows =
+    orders?.map((order) => ({
+      id: order.id,
+      orderItems: order.orderItems,
+      totalPrice: `$${order.totalPrice}`,
+      orderStatus: order.orderStatus,
+      actions: order,
+      _id: order._id,
+    })) ?? [];
 
   return (
     <div className="container">
+      <Header />
       <h1 className="my-5 text-center">
         <b>Mis ordenes</b>
       </h1>
@@ -72,31 +75,15 @@ const ListOrders = () => {
       {loading ? (
         <Loader />
       ) : (
-        <table {...getTableProps()} className="table">
-          <thead>
-            {headerGroups.map((headerGroup) => (
-              <tr {...headerGroup.getHeaderGroupProps()}>
-                {headerGroup.headers.map((column) => (
-                  <th {...column.getHeaderProps()}>
-                    {column.render("Header")}
-                  </th>
-                ))}
-              </tr>
-            ))}
-          </thead>
-          <tbody {...getTableBodyProps()}>
-            {rows.map((row) => {
-              prepareRow(row);
-              return (
-                <tr {...row.getRowProps()}>
-                  {row.cells.map((cell) => (
-                    <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
-                  ))}
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+        <div style={{ height: 400, width: "100%" }}>
+          <DataGrid
+            columns={columns}
+            rows={rows}
+            pageSize={5}
+            rowsPerPageOptions={[5, 10, 20]}
+            pagination
+          />
+        </div>
       )}
       <Toaster position="top-right" richColors />
     </div>
