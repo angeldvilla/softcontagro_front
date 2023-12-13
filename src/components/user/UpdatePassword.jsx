@@ -3,12 +3,15 @@ import { toast, Toaster } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
 import { updatePassword, clearErrors } from "../../actions/userActions";
 import { UPDATE_PASSWORD_RESET } from "../../constants/userConstants";
+import { useNavigate } from "react-router-dom";
+import { Button } from "@material-tailwind/react";
 
 const UpdatePassword = ({ history }) => {
   const [oldPassword, setOldPassword] = useState("");
   const [password, setPassword] = useState("");
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { error, isUpdated, loading } = useSelector((state) => state.user);
 
@@ -19,15 +22,15 @@ const UpdatePassword = ({ history }) => {
     }
 
     if (isUpdated) {
-      toast.success("Password updated successfully");
+      toast.success("Contraseña actualizada con exito");
 
-      history.push("/me");
+      navigate("/me");
 
       dispatch({
         type: UPDATE_PASSWORD_RESET,
       });
     }
-  }, [dispatch, error, history, isUpdated]);
+  }, [dispatch, error, navigate, isUpdated]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -44,20 +47,26 @@ const UpdatePassword = ({ history }) => {
       <div className="row wrapper">
         <div className="col-10 col-lg-5">
           <form className="shadow-lg" onSubmit={submitHandler}>
-            <h1 className="mt-2 mb-5">Update Password</h1>
+            <h1 className="mt-2 mb-5 text-2xl font-sans">
+              Actualizar contraseña
+            </h1>
             <div className="form-group">
-              <label for="old_password_field">Old Password</label>
+              <label for="old_password_field" className="text-lg font-sans">
+                Contraseña actual
+              </label>
               <input
                 type="password"
                 id="old_password_field"
-                className="form-control"
+                className="form-control text-lg"
                 value={oldPassword}
                 onChange={(e) => setOldPassword(e.target.value)}
               />
             </div>
 
             <div className="form-group">
-              <label for="new_password_field">New Password</label>
+              <label for="new_password_field" className="text-lg font-sans">
+                Nueva contraseña
+              </label>
               <input
                 type="password"
                 id="new_password_field"
@@ -67,13 +76,13 @@ const UpdatePassword = ({ history }) => {
               />
             </div>
 
-            <button
+            <Button
               type="submit"
-              className="btn update-btn btn-block mt-4 mb-3"
+              className="text-white bg-orange-500 hover:bg-orange-700 border-0 py-2 px-4 focus:outline-none rounded-full text-md mt-5 md:mt-8"
               disabled={loading ? true : false}
             >
-              Update Password
-            </button>
+              Actualizar contraseña
+            </Button>
           </form>
         </div>
       </div>

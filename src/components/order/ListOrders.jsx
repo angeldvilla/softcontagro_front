@@ -12,10 +12,10 @@ const ListOrders = () => {
   const { loading, error, orders } = useSelector((state) => state.myOrders);
 
   useEffect(() => {
-    dispatch(myOrders());
+    dispatch(myOrders()); 
 
     if (error) {
-      toast.error("error");
+      toast.error("Error al cargar los pedidos");
       dispatch(clearErrors());
     }
   }, [dispatch, error]);
@@ -28,7 +28,8 @@ const ListOrders = () => {
       },
       {
         Header: "Num of Items",
-        accessor: "orderItems.length",
+        accessor: "orderItems",
+        Cell: ({ value }) => (value ? value.length : 0),
       },
       {
         Header: "Amount",

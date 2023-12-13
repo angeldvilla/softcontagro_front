@@ -8,13 +8,14 @@ import {
 } from "../../actions/userActions";
 import { UPDATE_PROFILE_RESET } from "../../constants/userConstants";
 import { useNavigate } from "react-router-dom";
+import { Button } from "@material-tailwind/react";
 
 const UpdateProfile = ({ history }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [avatar, setAvatar] = useState("");
   const [avatarPreview, setAvatarPreview] = useState(
-    "/images/default_avatar.jpg"
+    "https://res.cloudinary.com/dxe4igvmq/image/upload/v1701735128/avatars/vq3vfsnac9izn50yvgpw.png"
   );
 
   const dispatch = useDispatch();
@@ -36,7 +37,7 @@ const UpdateProfile = ({ history }) => {
     }
 
     if (isUpdated) {
-      toast.success("User updated successfully");
+      toast.success("Perfil actualizada con exito");
       dispatch(loadUser());
 
       navigate("/me");
@@ -81,14 +82,14 @@ const UpdateProfile = ({ history }) => {
       <div className="row wrapper">
         <div className="col-10 col-lg-5">
           <form className="shadow-lg" onSubmit={submitHandler}>
-            <h1 className="mt-2 mb-5">Update Profile</h1>
+            <p className="mt-2 mb-5 text-2xl">Actualiza tu perfil</p>
 
             <div className="form-group">
-              <label htmlFor="email_field">Name</label>
+              <label htmlFor="email_field" className="text-lg">Nombre Completo</label>
               <input
                 type="name"
                 id="name_field"
-                className="form-control"
+                className="form-control font-sans"
                 name="name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
@@ -96,19 +97,19 @@ const UpdateProfile = ({ history }) => {
             </div>
 
             <div className="form-group">
-              <label htmlFor="email_field">Email</label>
+              <label htmlFor="email_field" className="text-lg">Correo Electronico</label>
               <input
                 type="email"
                 id="email_field"
-                className="form-control"
+                className="form-control font-sans"
                 name="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
-
+            <br/> <hr />
             <div className="form-group">
-              <label htmlFor="avatar_upload">Avatar</label>
+              <label htmlFor="avatar_upload" className="text-lg">Foto</label>
               <div className="d-flex align-items-center">
                 <div>
                   <figure className="avatar mr-3 item-rtl">
@@ -120,28 +121,28 @@ const UpdateProfile = ({ history }) => {
                   </figure>
                 </div>
                 <div className="custom-file">
+                  <label className="custom-file-label text-lg" htmlFor="customFile" >
+                    Elegir Foto
+                  </label>
                   <input
                     type="file"
                     name="avatar"
-                    className="custom-file-input"
+                    className="custom-file-input font-sans"
                     id="customFile"
                     accept="image/*"
                     onChange={onChange}
                   />
-                  <label className="custom-file-label" htmlFor="customFile">
-                    Choose Avatar
-                  </label>
                 </div>
               </div>
             </div>
 
-            <button
+            <Button
               type="submit"
-              className="btn update-btn btn-block mt-4 mb-3"
+              className="text-white bg-orange-500 hover:bg-orange-700 border-0 py-2 px-4 focus:outline-none rounded-full text-md mt-5 md:mt-8"
               disabled={loading ? true : false}
             >
-              Update
-            </button>
+              Actualizar
+            </Button>
           </form>
         </div>
       </div>

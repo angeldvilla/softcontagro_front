@@ -1,13 +1,15 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { toast, Toaster } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
 import { resetPassword, clearErrors } from "../../actions/userActions";
+import { useNavigate } from "react-router-dom";
 
 const NewPassword = ({ history, match }) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { error, success } = useSelector((state) => state.forgotPassword);
 
@@ -18,10 +20,10 @@ const NewPassword = ({ history, match }) => {
     }
 
     if (success) {
-      toast.success("Password updated successfully");
-      history.push("/login");
+      toast.success("Contraseña actualizada");
+      navigate("/login");
     }
-  }, [dispatch, error, success, history]);
+  }, [dispatch, error, success, navigate]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -34,16 +36,14 @@ const NewPassword = ({ history, match }) => {
   };
 
   return (
-    <Fragment>
-      <h1>New Password Reset</h1>
-
+    <div>
       <div className="row wrapper">
         <div className="col-10 col-lg-5">
           <form className="shadow-lg" onSubmit={submitHandler}>
-            <h1 className="mb-3">New Password</h1>
+            <h1 className="mb-3">Nueva Contraseña</h1>
 
             <div className="form-group">
-              <label htmlFor="password_field">Password</label>
+              <label htmlFor="password_field">Contraseña</label>
               <input
                 type="password"
                 id="password_field"
@@ -54,7 +54,9 @@ const NewPassword = ({ history, match }) => {
             </div>
 
             <div className="form-group">
-              <label htmlFor="confirm_password_field">Confirm Password</label>
+              <label htmlFor="confirm_password_field">
+                Confirmar contraseña
+              </label>
               <input
                 type="password"
                 id="confirm_password_field"
@@ -74,8 +76,8 @@ const NewPassword = ({ history, match }) => {
           </form>
         </div>
       </div>
-      <Toaster position="top-center" richColors />
-    </Fragment>
+      <Toaster position="top-right" richColors />
+    </div>
   );
 };
 
