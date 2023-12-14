@@ -33,7 +33,7 @@ const About = () => {
 
           <div className="mt-8 lg:mt-0">
             <Typography className="text-2xl font-sans -mt-8">
-              Nuestras Marcas
+              Nuestros Productos
             </Typography>
             <div className="flex flex-col mt-2">
               <Card>

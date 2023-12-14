@@ -191,6 +191,15 @@ const Header = () => {
                       )}
                       <p className="flex items-center text-sm hover:text-gray-600">
                         <Link
+                          to="/me/favorites"
+                          onClick={() => toggleMobileMenu()}
+                          className="text-md text-black hover:text-gray-700"
+                        >
+                          FAVORITOS
+                        </Link>
+                      </p>
+                      <p className="flex items-center text-sm hover:text-gray-600">
+                        <Link
                           to="/me"
                           onClick={() => toggleMobileMenu()}
                           className="text-md text-black hover:text-gray-700"

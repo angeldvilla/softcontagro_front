@@ -23,7 +23,7 @@ const CategorySection = () => {
                 style={{ borderRadius: "20px" }}
               >
                 <div className=" flex flex-col items-center justify-center">
-                  <p className="text-xl">
+                  <p className="text-xl mb-4">
                     <Link to={`/search/${category?.name}`}>
                       {category?.name}
                     </Link>
