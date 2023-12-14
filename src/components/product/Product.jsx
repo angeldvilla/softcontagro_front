@@ -1,7 +1,6 @@
 import React from "react";
-import { FaStar, FaArrowAltCircleRight, FaBoxOpen } from "react-icons/fa";
+import { FaStar, FaArrowAltCircleRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import "../../App1.css";
 
 const Product = ({ product, col, className }) => {
   const calculateRating = () => {
@@ -13,49 +12,37 @@ const Product = ({ product, col, className }) => {
 
   return (
     <div className={`col-sm-12 col-md-6 col-lg-${col} my-3`}>
-      <div
-        className={`eg-product-carde-alpha shadow-lg bg-gray-200 p-8 ${className}`}
-        style={{ borderRadius: "20px" }}
-      >
-        <div className="eg-porduct-thumb">
+      <div className={`bg-gray-200 p-8 shadow-lg rounded-lg ${className}`}>
+        <div className="mb-4">
           <Link to={`/product/${product?._id}`}>
             <img
-              className="w-full h-48 object-cover rounded-md mb-4"
+              className="w-full h-48 object-cover rounded-md"
               src={product?.images[0]?.url}
               alt="Product Img"
             />
           </Link>
         </div>
-        <div className="eg-porduct-body -mt-1">
-          <div className="eg-product-title">
+        <div className="mt-1">
+          <div className="text-3xl overflow-hidden h-16">
             <ins>
-              <Link to={`/product/${product?._id}`}>
-                <span className="text-3xl overflow-hidden h-16 inline-block">{product?.name}</span>
+              <Link to={`/product/${product?._id}`} className="hover:text-blue-500">
+                {product?.name}
               </Link>
             </ins>
           </div>
-          <div className="eg-product-card-price mt-6">
-            <ins>
-              <span className="price-amount">
-                <span className="text-2xl">${product?.price}</span>
-              </span>
-            </ins>
+          <div className="mt-6">
+            <ins className="text-2xl">${product?.price}</ins>
           </div>
-          <div className="eg-product-card-price mt-6">
-            <ins>
-              <span className="text-lg">Stock: {product?.stock}</span>
-            </ins>
-          </div>
-
-          <div className="product-card-bottom mt-16">
-            <div className="product-rating">
+          <div className="mt-2 text-lg">Stock: {product?.stock}</div>
+          <div className="mt-6 flex items-center justify-between">
+            <div className="flex items-center">
               <div className="ratings">{calculateRating()}</div>
-              <span id="no_of_reviews">({product?.numOfReviews} Reseñas)</span>
+              <span className="ml-2">({product?.numOfReviews} Reseñas)</span>
             </div>
             <div className="product-add-btn">
               <Link
                 to={`/product/${product?._id}`}
-                className="flex items-center justify-center hover:bg-blue-gray-900"
+                className="flex items-center justify-center bg-blue-gray-900 text-white px-4 py-2 rounded-full hover:bg-blue-gray-800 hover:text-white hover:scale-105 duration-150"
               >
                 Ver Detalles <FaArrowAltCircleRight className="ml-2" />
               </Link>
