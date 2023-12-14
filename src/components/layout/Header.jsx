@@ -88,6 +88,15 @@ const Header = () => {
                 </p>
                 <p>
                   <Link
+                    to="/products"
+                    onClick={() => toggleMobileMenu()}
+                    className="text-md text-black hover:text-gray-700"
+                  >
+                    PRODUCTOS
+                  </Link>
+                </p>
+                <p>
+                  <Link
                     to="/contact"
                     className="text-md text-black hover:text-gray-700"
                   >
@@ -133,6 +142,15 @@ const Header = () => {
                       </p>
                       <p>
                         <Link
+                          to="/products"
+                          onClick={() => toggleMobileMenu()}
+                          className="text-md text-black hover:text-gray-700"
+                        >
+                          PRODUCTOS
+                        </Link>
+                      </p>
+                      <p>
+                        <Link
                           to="/contact"
                           onClick={() => toggleMobileMenu()}
                           className="text-md text-black hover:text-gray-700"
@@ -140,6 +158,7 @@ const Header = () => {
                           CONTACTO
                         </Link>
                       </p>
+                      <hr />
                       <Button
                         color="gray"
                         size="sm"
@@ -163,11 +182,47 @@ const Header = () => {
 
                   {isAuthenticated && (
                     <>
+                      <p>
+                        <Link
+                          to="/"
+                          onClick={() => toggleMobileMenu()}
+                          className="text-md text-black text-sm hover:text-gray-700"
+                        >
+                          INICIO
+                        </Link>
+                      </p>
+                      <p>
+                        <Link
+                          to="/about-us"
+                          onClick={() => toggleMobileMenu()}
+                          className="text-md text-black text-sm hover:text-gray-700"
+                        >
+                          SOBRE NOSOTROS
+                        </Link>
+                      </p>
+                      <p>
+                        <Link
+                          to="/products"
+                          onClick={() => toggleMobileMenu()}
+                          className="text-md text-black text-sm hover:text-gray-700"
+                        >
+                          PRODUCTOS
+                        </Link>
+                      </p>
+                      <p>
+                        <Link
+                          to="/contact"
+                          onClick={() => toggleMobileMenu()}
+                          className="text-md text-black text-sm hover:text-gray-700"
+                        >
+                          CONTACTO
+                        </Link>
+                      </p>
+                      <hr />
+
                       <p className="flex items-center text-sm hover:text-gray-600">
                         {user?.user?.name.toUpperCase()}
                       </p>
-                      {/* <FaUser className="mr-2" />
-                        {user?.user?.name} */}
                       <hr />
                       <p className="flex items-center text-sm hover:text-gray-600">
                         <Link
@@ -207,6 +262,15 @@ const Header = () => {
                           PERFIL
                         </Link>
                       </p>
+                      <Button
+                        color="gray"
+                        size="sm"
+                        onClick={() => navigate("/cart")}
+                        className="flex items-center mobile-menu-button"
+                      >
+                        <FaShoppingCart className="mr-1 hover:text-2xl transition-all duration-300" />
+                        CARRITO ({cartItems.length})
+                      </Button>
                       <hr />
                       <p className="flex items-center text-sm hover:text-gray-600">
                         <a

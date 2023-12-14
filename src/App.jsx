@@ -6,6 +6,8 @@ import ProductDetails from "./components/product/ProductDetails";
 import Login from "./components/user/Login";
 import RegisterForm from "./components/user/Register";
 import Contact from "./components/Contact";
+import About from "./components/layout/About";
+import ListProducts from "./components/product/ListProducts";
 
 // Componentes de carrito
 import Cart from "./components/cart/Cart";
@@ -47,7 +49,6 @@ import axios from "axios";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { path } from "./constants/path";
-import About from "./components/layout/About";
 
 function App() {
   const [stripeApiKey, setStripeApiKey] = useState("");
@@ -69,6 +70,7 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/contact" element={<Contact />} />
       <Route path="/about-us" element={<About />} />
+      <Route path="/products" element={<ListProducts />} />
       <Route path="/search/:keyword" element={<Home />} />
       <Route path="/product/:id" element={<ProductDetails />} />
 
