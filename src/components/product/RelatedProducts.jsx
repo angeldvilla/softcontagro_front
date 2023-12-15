@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import Product from "./Product";
 
 const RelatedProducts = ({ category }) => {
-  const { products } = useSelector((state) => state.products);
+  const { products } = useSelector((state) => state?.products);
   const i = 0;
   return (
     <>
@@ -21,10 +21,10 @@ const RelatedProducts = ({ category }) => {
               <div className="row">
                 {products &&
                   products.map(function (product) {
-                    if (product.id === i) {
+                    if (product?.id === i) {
                       return (
                         <>
-                          <Product key={product._id} product={product} col={3} />
+                          <Product key={product?._id} product={product} col={3} />
                         </>
                       );
                     }

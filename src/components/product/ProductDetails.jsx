@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Loader from "../layout/Loader";
-import ListReviews from "../review/ListReviews";
+/* import ListReviews from "../review/ListReviews"; */
+/* import RelatedProducts from "./RelatedProducts"; */
 import Header from "../layout/Header";
+import Footer from "../layout/Footer";
 import { toast, Toaster } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -12,7 +14,6 @@ import {
 } from "../../actions/productActions";
 import { addItemToCart } from "../../actions/cartActions";
 import { NEW_REVIEW_RESET } from "../../constants/productConstants";
-import RelatedProducts from "./RelatedProducts";
 import { Link, useParams } from "react-router-dom";
 import {
   FaArrowCircleDown,
@@ -64,9 +65,9 @@ const ProductDetails = () => {
     toast.success("Agregado al carrito");
   };
 
-  const nameCat = category.find(
+  const categoryName = category.find(
     (cat) => cat._id === product?.product?.category
-  );
+  )?.name;
 
   const increaseQty = () => {
     const count = document.querySelector(".count");
@@ -148,9 +149,9 @@ const ProductDetails = () => {
       ) : (
         <div>
           <Header />
-          <section className="flex items-center mt-16 justify-center h-screen">
+          <section className="flex items-center mt-14 justify-center h-screen">
             <div className="container mt-48">
-            {/*   <h1 className="text-3xl font-bold mt-32 mb-8 font-sans flex items-center">
+              {/*   <h1 className="text-3xl font-bold mt-32 mb-8 font-sans flex items-center">
                 {product?.product?.name}
               </h1> */}
               <div className="flex flex-wrap">
@@ -171,7 +172,6 @@ const ProductDetails = () => {
                                     <img
                                       key={index}
                                       className="w-full h-auto rounded-lg"
-                                      style={{ objectFit: "contain" }}
                                       src={image?.url}
                                       alt={product?.product?.name}
                                     />
@@ -221,7 +221,7 @@ const ProductDetails = () => {
                       </div>
                       <button
                         onClick={addToCart}
-                        disabled={product.product?.stock || quantity === 0}
+                        disabled={product.product?.stock === 0}
                         className="flex items-center justify-center bg-blue-gray-900 text-white px-4 py-2 rounded-full hover:bg-blue-gray-800 hover:text-white hover:scale-105 duration-150 ml-8"
                       >
                         <Link to="/cart">
@@ -232,7 +232,7 @@ const ProductDetails = () => {
                     </div>
                     <ul className="prod-info">
                       <li>
-                        <span>Cantidad:</span>
+                        <span>Stock:</span>
                         <b
                           className={
                             product?.product?.stock
@@ -247,23 +247,23 @@ const ProductDetails = () => {
                       </li>
                       <li>
                         <span>Categoria:</span>
-                        {product?.product?.category}
+                        {categoryName}
                       </li>
                       <li>
                         {user ? (
                           <button
                             id="review_btn"
                             type="button"
-                            className="btn btn-primary mt-4"
+                            className="btn btn-primary mt-4 mb-6"
                             data-toggle="modal"
                             data-target="#ratingModal"
                             onClick={setUserRatings}
                           >
-                            Envíe su opinión
+                            Envíe su calificación
                           </button>
                         ) : (
                           <div className="alert alert-danger mt-5 mb-2">
-                            <p>Inicie sesión para publicar su reseña.</p>
+                            <p>Inicie sesión para publicar su calificación.</p>
                           </div>
                         )}
                       </li>
@@ -278,7 +278,7 @@ const ProductDetails = () => {
                         aria-labelledby="ratingModalLabel"
                         aria-hidden="true"
                       >
-                        <div className="modal-dialog" role="document">
+                        <div className="modal-dialog mb-8" role="document">
                           <div className="modal-content">
                             <div className="modal-body mt-2 mb-2">
                               <div className="ratings">{calculateRating()}</div>
@@ -291,7 +291,7 @@ const ProductDetails = () => {
                                 Deje una breve opinión sobre este producto
                               </p>
                             </div>
-                            <div className="col-span-2 mb-8">
+                            <div className="col-span-2">
                               <Textarea
                                 name="opinion"
                                 placeholder="Su Opinión"
@@ -326,11 +326,12 @@ const ProductDetails = () => {
             </div>
           </section>
 
-          <RelatedProducts category={product.category} />
+          {/*  <RelatedProducts category={product?.product?.category} />
 
-          {product.reviews && product.reviews.length > 0 && (
-            <ListReviews reviews={product.reviews} />
-          )}
+          {product?.product?.reviews && product?.product?.reviews.length > 0 && (
+            <ListReviews reviews={product?.product?.reviews} />
+          )} */}
+          <Footer />
         </div>
       )}
       <Toaster position="top-center" richColors />
