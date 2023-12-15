@@ -13,7 +13,7 @@ const Product = ({ product, col, className }) => {
   return (
     <div className={`col-sm-12 col-md-6 col-lg-${col} my-3`}>
       <div className={`bg-gray-200 p-8 shadow-lg rounded-lg ${className}`}>
-        <div className="mb-4">
+        <div className="mb-4 h-48 overflow-hidden">
           <Link to={`/product/${product?._id}`}>
             <img
               className="w-full h-48 object-cover rounded-md"
@@ -23,15 +23,18 @@ const Product = ({ product, col, className }) => {
           </Link>
         </div>
         <div className="mt-1">
-          <div className="text-3xl overflow-hidden h-16">
+          <div className="text-3xl h-16 overflow-hidden">
             <ins>
-              <Link to={`/product/${product?._id}`} className="hover:text-blue-500">
+              <Link
+                to={`/product/${product?._id}`}
+                className="hover:text-blue-500"
+              >
                 {product?.name}
               </Link>
             </ins>
           </div>
           <div className="mt-6">
-            <ins className="text-2xl">${product?.price}</ins>
+            <ins className="text-2xl">${product?.price} COP</ins>
           </div>
           <div className="mt-2 text-lg">Stock: {product?.stock}</div>
           <div className="mt-6 flex items-center justify-between">
@@ -39,7 +42,7 @@ const Product = ({ product, col, className }) => {
               <div className="ratings">{calculateRating()}</div>
               <span className="ml-2">({product?.numOfReviews} Reseñas)</span>
             </div>
-            <div className="product-add-btn">
+            <div className="product-add-btn ml-16">
               <Link
                 to={`/product/${product?._id}`}
                 className="flex items-center justify-center bg-blue-gray-900 text-white px-4 py-2 rounded-full hover:bg-blue-gray-800 hover:text-white hover:scale-105 duration-150"

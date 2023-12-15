@@ -77,7 +77,7 @@ export const productsReducer = (state = { products: [] }, action) => {
     }
 }
 
-export const newProductReducer = (state = { product: {} }, action) => {
+export const newProductReducer = (state = { product: {}, error: null }, action) => {
     switch (action.type) {
 
         case NEW_PRODUCT_REQUEST:
@@ -116,7 +116,7 @@ export const newProductReducer = (state = { product: {} }, action) => {
     }
 }
 
-export const productReducer = (state = {}, action) => {
+export const productReducer = (state = { error: null }, action) => {
     switch (action.type) {
 
         case DELETE_PRODUCT_REQUEST:
@@ -171,7 +171,7 @@ export const productReducer = (state = {}, action) => {
     }
 }
 
-export const productDetailsReducer = (state = { product: {} }, action) => {
+export const productDetailsReducer = (state = { product: {}, error: null }, action) => {
     switch (action.type) {
 
         case PRODUCT_DETAILS_REQUEST:
@@ -203,7 +203,7 @@ export const productDetailsReducer = (state = { product: {} }, action) => {
     }
 }
 
-export const newReviewReducer = (state = {}, action) => {
+export const newReviewReducer = (state = { error: null }, action) => {
     switch (action.type) {
 
         case NEW_REVIEW_REQUEST:
@@ -241,7 +241,7 @@ export const newReviewReducer = (state = {}, action) => {
     }
 }
 
-export const productReviewsReducer = (state = { review: [] }, action) => {
+export const productReviewsReducer = (state = { review: [], error: null }, action) => {
     switch (action.type) {
 
         case GET_REVIEWS_REQUEST:
@@ -273,7 +273,7 @@ export const productReviewsReducer = (state = { review: [] }, action) => {
     }
 }
 
-export const reviewReducer = (state = {}, action) => {
+export const reviewReducer = (state = { error: null }, action) => {
     switch (action.type) {
 
         case DELETE_REVIEW_REQUEST:

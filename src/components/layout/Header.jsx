@@ -299,14 +299,10 @@ const Header = () => {
                     src={user?.user?.avatar?.url}
                     className="flex items-center"
                   />
-                  {/*  <FaUser className="mr-1" /> */}
-                  {/* {user?.user?.name} */}
                   <ul className="hidden group-hover:block absolute top-full left-0 bg-white p-4 space-y-2">
-                    {user && user?.user?.role !== "admin" && (
-                      <p className="flex items-center text-sm hover:text-gray-600">
-                        {user?.user?.name.toUpperCase()}
-                      </p>
-                    )}
+                    <p className="flex items-center text-sm hover:text-gray-600">
+                      {user?.user?.name.toUpperCase()}
+                    </p>
                     <hr />
                     <p className="flex items-center text-sm hover:text-gray-600">
                       <Link
@@ -362,7 +358,7 @@ const Header = () => {
                 <div className="relative group">
                   <FaShoppingCart className="text-2xl hover:text-3xl transition-all duration-300" />
                   {cartItems.length > 0 && (
-                    <div className="cart-items-count absolute top-0 right-0 bg-red-700 text-white rounded-full px-2 py-1">
+                    <div className="cart-items-count absolute -top-5 -right-2 bg-red-700 text-white rounded-full px-2">
                       {cartItems.length}
                     </div>
                   )}
