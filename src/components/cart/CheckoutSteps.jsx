@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Header from "../layout/Header";
 
 const CheckoutSteps = ({ shipping, confirmOrder, payment }) => {
   return (
@@ -7,8 +8,9 @@ const CheckoutSteps = ({ shipping, confirmOrder, payment }) => {
       className="checkout-progress d-flex justify-content-center "
       style={{ marginTop: "120px" }}
     >
+      <Header />
       {shipping ? (
-        <Link to="/shippping">
+        <Link to="/shipping">
           <div className="triangle2-active"></div>
           <div className="step active-step">Envío</div>
           <div className="triangle-active"></div>
@@ -22,7 +24,7 @@ const CheckoutSteps = ({ shipping, confirmOrder, payment }) => {
       )}
 
       {confirmOrder ? (
-        <Link to="/order/confirm">
+        <Link to="/confirm">
           <div className="triangle2-active"></div>
           <div className="step active-step">Confirmar pedido</div>
           <div className="triangle-active"></div>

@@ -1,20 +1,21 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import CheckoutSteps from "./CheckoutSteps";
 import { useSelector } from "react-redux";
-import "../../App1.css"
+import "../../App1.css";
 
-const ConfirmOrder = ({ history }) => {
+const ConfirmOrder = () => {
+  const navigate = useNavigate();
   const { cartItems, shippingInfo } = useSelector((state) => state.cart);
   const { user } = useSelector((state) => state.auth);
 
-  // Calculate Order Prices
+  // Calcular precios de pedidos
   const itemsPrice = cartItems.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0
   );
   const shippingPrice = itemsPrice > 200 ? 0 : 25;
-  const taxPrice = Number((0.05 * itemsPrice).toFixed(2));
+  const taxPrice = Number((0.19 * itemsPrice).toFixed(2));
   const totalPrice = (itemsPrice + shippingPrice + taxPrice).toFixed(2);
 
   const processToPayment = () => {
@@ -26,7 +27,7 @@ const ConfirmOrder = ({ history }) => {
     };
 
     sessionStorage.setItem("orderInfo", JSON.stringify(data));
-    history.push("/payment");
+    navigate("/payment");
   };
 
   return (
@@ -42,21 +43,33 @@ const ConfirmOrder = ({ history }) => {
           <p>
             <b>Telefono:</b> {shippingInfo.phoneNo}
           </p>
+          <p>
+            <b>Dirección:</b> {shippingInfo.address}
+          </p>
+          <p>
+            <b>Ciudad:</b> {shippingInfo.city}
+          </p>
+          <p>
+            <b>Codigo Postal:</b> {shippingInfo.postalCode}
+          </p>
           <p className="mb-4">
-            <b>Dirección:</b>{" "}
-            {`${shippingInfo.address}, ${shippingInfo.city}, ${shippingInfo.postalCode}, ${shippingInfo.country}`}
+            <b>País:</b> {shippingInfo.country}
           </p>
 
           <hr />
           <h4 className="mt-4">Productos de su carrito:</h4>
 
-          {cartItems.map((item) => (
+          {cartItems.map((item, index) => (
             <div>
-              <hr />
-              <div className="cart-item my-1" key={item.product}>
+              <div className="cart-item my-1" key={index}>
                 <div className="row">
                   <div className="col-4 col-lg-2">
-                    <img src={item.image} alt="Laptop" height="45" width="65" />
+                    <img
+                      src={item.image}
+                      alt="Laptop"
+                      height="45"
+                      width="100"
+                    />
                   </div>
 
                   <div className="col-5 col-lg-6">
@@ -96,7 +109,10 @@ const ConfirmOrder = ({ history }) => {
             <hr />
 
             <p>
-              Total: <span className="order-summary-values text-green-500">${totalPrice} COP</span>
+              Total:{" "}
+              <span className="order-summary-values text-green-500">
+                ${totalPrice} COP
+              </span>
             </p>
 
             <hr />

@@ -112,7 +112,7 @@ const Shipping = () => {
 
   return (
     <div>
-      <CheckoutSteps shipping="true" />
+      <CheckoutSteps shipping />
 
       <Header />
       <div className="row wrapper">
@@ -204,7 +204,7 @@ const Shipping = () => {
           </form>
         </div>
       </div>
-      <Toaster position="top-right" richColors />
+      <Toaster position="top-right" richColors closeButton />
     </div>
   );
 };

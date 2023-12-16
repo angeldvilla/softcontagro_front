@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { login, clearErrors } from "../../actions/userActions";
 import { FaEnvelope, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 
-const Login = ({ history }) => {
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -34,20 +34,16 @@ const Login = ({ history }) => {
   }, [dispatch, isAuthenticated, error, redirect, navigate]);
 
   const submitHandler = (e) => {
-    try {
-      e.preventDefault();
-      if (!email || !password) {
-        return toast.error("Por favor, rellene todos los campos");
-      }
+    e.preventDefault();
+    if (!email || !password) {
+      return toast.error("Por favor, rellene todos los campos");
+    } else {
       const userData = {
         email,
         password,
       };
       dispatch(login(userData));
       toast.success("Inicio de sesión exitoso");
-    } catch (error) {
-      toast.error("Error al registrar el usuario");
-      console.error("Error en el registro:", error);
     }
   };
 
@@ -140,7 +136,7 @@ const Login = ({ history }) => {
         </div>
       )}
       <Footer />
-      <Toaster position="top-right" richColors />
+      <Toaster position="top-right" richColors closeButton />
     </div>
   );
 };

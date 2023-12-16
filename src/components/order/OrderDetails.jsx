@@ -53,9 +53,9 @@ const OrderDetails = ({ match }) => {
             <div className="col-12 col-lg-8 mt-5 order-details">
               <h1 className="my-5">Pedido # {order._id}</h1>
 
-              <h4 className="mb-4">Shipping Info</h4>
+              <h4 className="mb-4">Datos de envío</h4>
               <p>
-                <b>Nombre Completo:</b> {user && user.name}
+                <b>Nombre Completo:</b> {user && user?.user?.name}
               </p>
               <p>
                 <b>Telefono:</b> {shippingInfo && shippingInfo.phoneNo}
@@ -122,7 +122,7 @@ const OrderDetails = ({ match }) => {
           </div>
         </div>
       )}
-      <Toaster position="top-right" richColors />
+      <Toaster position="top-right" richColors closeButton />
       <Footer />
     </div>
   );

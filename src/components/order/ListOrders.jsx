@@ -86,7 +86,7 @@ const ListOrders = () => {
           />
         </div>
       )}
-      <Toaster position="top-right" richColors />
+      <Toaster position="top-right" richColors closeButton />
     </div>
   );
 };

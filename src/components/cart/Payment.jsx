@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import CheckoutSteps from "./CheckoutSteps";
 import { toast, Toaster } from "sonner";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { createOrder, clearErrors } from "../../actions/orderActions";
 
@@ -25,10 +26,11 @@ const options = {
   },
 };
 
-const Payment = ({ history }) => {
+const Payment = () => {
   const stripe = useStripe();
   const elements = useElements();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { user } = useSelector((state) => state.auth);
   const { cartItems, shippingInfo } = useSelector((state) => state.cart);
@@ -93,8 +95,8 @@ const Payment = ({ history }) => {
         toast.error(result.error.message);
         document.querySelector("#pay_btn").disabled = false;
       } else {
-        // The payment is processed or not
-        if (result.paymentIntent.status === "succeeded") {
+        // El pago se procesa o no
+        if (result.paymentIntent.status === "Completado") {
           order.paymentInfo = {
             id: result.paymentIntent.id,
             status: result.paymentIntent.status,
@@ -102,9 +104,12 @@ const Payment = ({ history }) => {
 
           dispatch(createOrder(order));
 
-          history.push("/success");
+          // Limpiar la sesión después de completar el pedido
+          sessionStorage.removeItem("orderInfo");
+
+          navigate("/success");
         } else {
-          toast.error("There is some issue while payment processing");
+          toast.error("Hay algún problema durante el procesamiento del pago.");
         }
       }
     } catch (error) {
@@ -156,7 +161,7 @@ const Payment = ({ history }) => {
           </form>
         </div>
       </div>
-      <Toaster position="top-right" richColors />
+      <Toaster position="top-right" richColors closeButton />
     </div>
   );
 };
