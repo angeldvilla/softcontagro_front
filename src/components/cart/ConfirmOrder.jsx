@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import CheckoutSteps from "./CheckoutSteps";
 import { useSelector } from "react-redux";
+import "../../App1.css"
 
 const ConfirmOrder = ({ history }) => {
   const { cartItems, shippingInfo } = useSelector((state) => state.cart);
@@ -34,9 +35,9 @@ const ConfirmOrder = ({ history }) => {
 
       <div className="row d-flex justify-content-between">
         <div className="col-12 col-lg-8 mt-5 order-confirm">
-          <h4 className="mb-3">Shipping Info</h4>
+          <h4 className="mb-3">Datos de envío</h4>
           <p>
-            <b>Nombre:</b> {user && user.name}
+            <b>Nombre:</b> {user && user?.user?.name}
           </p>
           <p>
             <b>Telefono:</b> {shippingInfo.phoneNo}
@@ -81,21 +82,21 @@ const ConfirmOrder = ({ history }) => {
             <hr />
             <p>
               Subtotal:{" "}
-              <span className="order-summary-values">${itemsPrice}</span>
+              <span className="order-summary-values">${itemsPrice} COP</span>
             </p>
             <p>
               Envío:{" "}
-              <span className="order-summary-values">${shippingPrice}</span>
+              <span className="order-summary-values">${shippingPrice} COP</span>
             </p>
             <p>
               Impuesto:{" "}
-              <span className="order-summary-values">${taxPrice}</span>
+              <span className="order-summary-values">${taxPrice} COP</span>
             </p>
 
             <hr />
 
             <p>
-              Total: <span className="order-summary-values">${totalPrice}</span>
+              Total: <span className="order-summary-values text-green-500">${totalPrice} COP</span>
             </p>
 
             <hr />
