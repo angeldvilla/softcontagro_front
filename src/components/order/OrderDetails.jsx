@@ -7,7 +7,7 @@ import { getOrderDetails, clearErrors } from "../../actions/orderActions";
 import Header from "../layout/Header";
 import Footer from "../layout/Footer";
 
-const OrderDetails = ({ match }) => {
+const OrderDetails = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
 

@@ -8,6 +8,8 @@ import {
   LOAD_USER_REQUEST,
   LOAD_USER_SUCCESS,
   LOAD_USER_FAIL,
+  LOAD_STRIPE_API_KEY,
+  LOAD_STRIPE_API_KEY_SUCCESS,
   UPDATE_PASSWORD_REQUEST,
   UPDATE_PASSWORD_SUCCESS,
   UPDATE_PASSWORD_RESET,
@@ -46,6 +48,7 @@ export const authReducer = (state = { user: {} }, action) => {
     case LOGIN_REQUEST:
     case REGISTER_USER_REQUEST:
     case LOAD_USER_REQUEST:
+    case LOAD_STRIPE_API_KEY:
       return {
         loading: false,
         isAuthenticated: false,
@@ -59,6 +62,14 @@ export const authReducer = (state = { user: {} }, action) => {
         loading: false,
         isAuthenticated: true,
         user: action.payload,
+      };
+
+    case LOAD_STRIPE_API_KEY_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isAuthenticated: true,
+        stripeKey: action.payload
       };
 
     case LOGOUT_SUCCESS:

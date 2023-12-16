@@ -47,7 +47,7 @@ export const createOrder = (order) => async (dispatch, getState) => {
   }
 };
 
-// Get curretly logged in user orders
+// Obtener pedidos de usuarios actualmente registrados
 export const myOrders = () => async (dispatch) => {
   try {
     dispatch({ type: MY_ORDERS_REQUEST });
@@ -66,7 +66,7 @@ export const myOrders = () => async (dispatch) => {
   }
 };
 
-// Get order details
+// Obtener detalles del pedido
 export const getOrderDetails = (id) => async (dispatch) => {
   try {
     dispatch({ type: ORDER_DETAILS_REQUEST });
@@ -85,7 +85,7 @@ export const getOrderDetails = (id) => async (dispatch) => {
   }
 };
 
-// Get all orders - ADMIN
+// Obtener todos los pedidos - ADMIN
 export const allOrders = () => async (dispatch) => {
   try {
     dispatch({ type: ALL_ORDERS_REQUEST });
@@ -104,7 +104,7 @@ export const allOrders = () => async (dispatch) => {
   }
 };
 
-// update order
+// actualizar pedido
 export const updateOrder = (id, orderData) => async (dispatch) => {
   try {
     dispatch({ type: UPDATE_ORDER_REQUEST });
@@ -133,7 +133,7 @@ export const updateOrder = (id, orderData) => async (dispatch) => {
   }
 };
 
-// Delete order
+// eliminar pedido
 export const deleteOrder = (id) => async (dispatch) => {
   try {
     dispatch({ type: DELETE_ORDER_REQUEST });
@@ -152,7 +152,7 @@ export const deleteOrder = (id) => async (dispatch) => {
   }
 };
 
-// Clear Errors
+// Limpiar errores
 export const clearErrors = () => async (dispatch) => {
   dispatch({
     type: CLEAR_ERRORS,

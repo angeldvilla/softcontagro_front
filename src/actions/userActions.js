@@ -35,11 +35,13 @@ import {
     DELETE_USER_FAIL,
     LOGOUT_SUCCESS,
     LOGOUT_FAIL,
-    CLEAR_ERRORS
+    CLEAR_ERRORS,
+    LOAD_STRIPE_API_KEY,
+    LOAD_STRIPE_API_KEY_SUCCESS
 } from '../constants/userConstants'
 import { path } from "../constants/path";
 
-// Login
+// Inicio de sesion
 export const login = (userData) => {
     return async (dispatch) => {
         try {
@@ -63,7 +65,7 @@ export const login = (userData) => {
 }
 
 
-// Register user
+// Registrar usuario
 export const register = (userData) => async (dispatch) => {
     try {
 
@@ -90,13 +92,14 @@ export const register = (userData) => async (dispatch) => {
     }
 }
 
-// Load user
+// Cargar usuario
 export const loadUser = () => async (dispatch) => {
     try {
 
         dispatch({ type: LOAD_USER_REQUEST })
 
-        const { data } = await axios.get(`${path}/api/v1/me`)
+        const { data } = await axios.get(`${path}/api/v1/me`);
+        console.log(data);
 
         dispatch({
             type: LOAD_USER_SUCCESS,
@@ -111,7 +114,7 @@ export const loadUser = () => async (dispatch) => {
     }
 }
 
-// Update profile
+// Actualizar perfil
 export const updateProfile = (userData) => async (dispatch) => {
     try {
 
@@ -138,7 +141,7 @@ export const updateProfile = (userData) => async (dispatch) => {
     }
 }
 
-// Update password
+// Actualizar contraseña
 export const updatePassword = (passwords) => async (dispatch) => {
     try {
 
@@ -165,7 +168,7 @@ export const updatePassword = (passwords) => async (dispatch) => {
     }
 }
 
-// Forgot password
+// Recuperar contraseña
 export const forgotPassword = (email) => async (dispatch) => {
     try {
 
@@ -192,7 +195,7 @@ export const forgotPassword = (email) => async (dispatch) => {
     }
 }
 
-// Reset password
+// Restablecer contraseña
 export const resetPassword = (token, passwords) => async (dispatch) => {
     try {
 
@@ -219,7 +222,7 @@ export const resetPassword = (token, passwords) => async (dispatch) => {
     }
 }
 
-// Logout user
+// Cerrar sesión
 export const logout = () => async (dispatch) => {
     try {
 
@@ -237,7 +240,7 @@ export const logout = () => async (dispatch) => {
     }
 }
 
-// Get all users
+// Obtener todos los usuarios
 export const allUsers = () => async (dispatch) => {
     try {
 
@@ -258,7 +261,7 @@ export const allUsers = () => async (dispatch) => {
     }
 }
 
-// Update user - ADMIN
+// Actualizar usuario - ADMIN
 export const updateUser = (id, userData) => async (dispatch) => {
     try {
 
@@ -285,7 +288,7 @@ export const updateUser = (id, userData) => async (dispatch) => {
     }
 }
 
-// Get user details - ADMIN
+// Obtener detalles de un usuario - ADMIN
 export const getUserDetails = (id) => async (dispatch) => {
     try {
 
@@ -307,7 +310,7 @@ export const getUserDetails = (id) => async (dispatch) => {
     }
 }
 
-// Delete user - ADMIN
+// Eliminar usuario - ADMIN
 export const deleteUser = (id) => async (dispatch) => {
     try {
 
@@ -329,7 +332,24 @@ export const deleteUser = (id) => async (dispatch) => {
 }
 
 
-// Clear Errors
+export const loadStripeApiKey = () => async (dispatch) => {
+    try {
+        dispatch({ type: LOAD_STRIPE_API_KEY })
+        
+        const { data } = await axios.get(`${path}/api/v1/stripeapi`);
+        console.log(data);
+        
+        dispatch({
+            type: LOAD_STRIPE_API_KEY_SUCCESS,
+            payload: data.stripeApiKey,
+        });
+    } catch (error) {
+        console.error("Error al obtener la clave de la API de Stripe:", error);
+    }
+};
+
+
+// Limpiar errores
 export const clearErrors = () => async (dispatch) => {
     dispatch({
         type: CLEAR_ERRORS

@@ -59,7 +59,7 @@ export const getCategory = () => async (dispatch) => {
   }
 };
 
-// Delete CATEGORY (Admin)
+// Eliminar categoria (Admin)
 export const dltCategory = (id) => async (dispatch) => {
   try {
     dispatch({ type: DELETE_CATEGORY_REQUEST });
@@ -78,7 +78,7 @@ export const dltCategory = (id) => async (dispatch) => {
   }
 };
 
-// Clear Errors
+// Limpiar errores
 export const clearErrors = () => async (dispatch) => {
   dispatch({
     type: CLEAR_ERRORS,

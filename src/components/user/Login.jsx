@@ -35,15 +35,21 @@ const Login = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    if (!email || !password) {
-      return toast.error("Por favor, rellene todos los campos");
-    } else {
+    if (!email && !password) {
+      toast.error("Por favor, rellene todos los campos");
+    } else if (!email) {
+      toast.error("Ingrese el correo electronico");
+    } else if (!password) {
+      toast.error("Ingrese la contraseña");
+    } else if (email && password) {
       const userData = {
         email,
         password,
       };
       dispatch(login(userData));
-      toast.success("Inicio de sesión exitoso");
+      if (!error) {
+        toast.success("Inicio de sesión exitoso");
+      }
     }
   };
 

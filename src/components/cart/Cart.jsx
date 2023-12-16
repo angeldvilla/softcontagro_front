@@ -143,7 +143,7 @@ const Cart = () => {
                       <p className="text-green-600">Gratuito</p>
                     </div>
                     <div className="flex justify-between mt-2">
-                      <AiFillDollarCircle className="mr-8 text-xl" />
+                      <AiFillDollarCircle className="mr-2 text-xl" />
                       <p className="-ml-60">Total:</p>
                       <p>
                         $
@@ -152,7 +152,7 @@ const Cart = () => {
                             (acc, item) => acc + item.quantity * item.price,
                             0
                           )
-                          .toFixed(2)}
+                          .toFixed(0)}
                         <span className="ml-1">COP</span>
                       </p>
                     </div>

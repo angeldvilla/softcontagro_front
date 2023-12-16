@@ -12,7 +12,7 @@ import {
   CardExpiryElement,
   CardCvcElement,
 } from "@stripe/react-stripe-js";
-
+import { path } from "../../constants/path";
 import axios from "axios";
 
 const options = {
@@ -48,7 +48,7 @@ const Payment = () => {
     shippingInfo,
   };
 
-  const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));
+  const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo")) || {};
   if (orderInfo) {
     order.itemsPrice = orderInfo.itemsPrice;
     order.shippingPrice = orderInfo.shippingPrice;
@@ -73,7 +73,7 @@ const Payment = () => {
         },
       };
 
-      res = await axios.post("/api/v1/payment/process", paymentData, config);
+      res = await axios.post(`${path}/api/v1/payment/process`, paymentData, config);
 
       const clientSecret = res.data.client_secret;
 
@@ -85,8 +85,8 @@ const Payment = () => {
         payment_method: {
           card: elements.getElement(CardNumberElement),
           billing_details: {
-            name: user.name,
-            email: user.email,
+            name: user?.user?.name,
+            email: user?.user?.email,
           },
         },
       });

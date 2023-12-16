@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 
 import Home from "./components/Home";
@@ -41,29 +41,20 @@ import NewCategory from "./components/admin/NewCategory";
 import CategorysList from "./components/admin/CatagoryList";
 
 import ProtectedRoute from "./components/route/ProtectedRoute";
-import { loadUser } from "./actions/userActions";
-/* import store from "./store"; */
-import { useDispatch } from "react-redux";
-import axios from "axios";
+import { loadStripeApiKey, loadUser } from "./actions/userActions";
+import { useDispatch, useSelector } from "react-redux";
 
 // Pagos
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import { path } from "./constants/path";
 
 function App() {
   const dispatch = useDispatch();
-  const [stripeApiKey, setStripeApiKey] = useState("");
+  const stripeApiKey = useSelector((state) => state.auth.stripeKey);
 
   useEffect(() => {
-    async function getStripApiKey() {
-      const { data } = await axios.get(`${path}/api/v1/stripeapi`);
-
-      setStripeApiKey(data.stripeApiKey);
-    }
-
-    getStripApiKey();
     dispatch(loadUser());
+    dispatch(loadStripeApiKey());
   }, [dispatch]);
 
   return (
@@ -102,16 +93,16 @@ function App() {
         }
       />
       {stripeApiKey && (
-        <Elements stripe={loadStripe(stripeApiKey)}>
-          <Route
-            path="/payment"
-            element={
+        <Route
+          path="/payment"
+          element={
+            <Elements stripe={stripeApiKey && loadStripe(stripeApiKey)}>
               <ProtectedRoute>
                 <Payment />
               </ProtectedRoute>
-            }
-          />
-        </Elements>
+            </Elements>
+          }
+        />
       )}
 
       {/* Rutas de usuario */}

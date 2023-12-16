@@ -88,7 +88,7 @@ export const newProduct = (productData) => async (dispatch) => {
 	}
 };
 
-// Delete product (Admin)
+// Eliminar producto (Admin)
 export const deleteProduct = (id) => async (dispatch) => {
 	try {
 		dispatch({ type: DELETE_PRODUCT_REQUEST });
@@ -107,7 +107,7 @@ export const deleteProduct = (id) => async (dispatch) => {
 	}
 };
 
-// Update Product (ADMIN)
+// Actualizar Producto (ADMIN)
 export const updateProduct = (id, productData) => async (dispatch) => {
 	try {
 		dispatch({ type: UPDATE_PRODUCT_REQUEST });
@@ -214,7 +214,7 @@ export const getProductReviews = (id) => async (dispatch) => {
 	}
 };
 
-// Delete product review
+// Eliminar reseña de producto
 export const deleteReview = (id, productId) => async (dispatch) => {
 	try {
 		dispatch({ type: DELETE_REVIEW_REQUEST });
@@ -237,7 +237,7 @@ export const deleteReview = (id, productId) => async (dispatch) => {
 	}
 };
 
-// Clear Errors
+// Limpiar errores
 export const clearErrors = () => async (dispatch) => {
 	dispatch({
 		type: CLEAR_ERRORS,
