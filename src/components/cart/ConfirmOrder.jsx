@@ -2,7 +2,19 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import CheckoutSteps from "./CheckoutSteps";
 import { useSelector } from "react-redux";
-import "../../App1.css";
+import {
+  FaTruckFast,
+  FaCashRegister,
+  FaClipboardList,
+  FaMoneyBill,
+  FaAddressCard,
+  FaHouse,
+  FaLocationDot,
+  FaPhone,
+  FaCity, 
+  FaMapPin  
+} from "react-icons/fa6";
+import { AiFillDollarCircle } from "react-icons/ai";
 
 const ConfirmOrder = () => {
   const navigate = useNavigate();
@@ -16,7 +28,7 @@ const ConfirmOrder = () => {
   );
   const shippingPrice = itemsPrice > 200 ? 0 : 25;
   const taxPrice = Number((0.19 * itemsPrice).toFixed(2));
-  const totalPrice = (itemsPrice + shippingPrice + taxPrice).toFixed(2);
+  const totalPrice = (itemsPrice + shippingPrice + taxPrice).toFixed(0);
 
   const processToPayment = () => {
     const data = {
@@ -34,95 +46,125 @@ const ConfirmOrder = () => {
     <div>
       <CheckoutSteps shipping confirmOrder />
 
-      <div className="row d-flex justify-content-between">
-        <div className="col-12 col-lg-8 mt-5 order-confirm">
-          <h4 className="mb-3">Datos de envío</h4>
-          <p>
-            <b>Nombre:</b> {user && user?.user?.name}
-          </p>
-          <p>
-            <b>Telefono:</b> {shippingInfo.phoneNo}
-          </p>
-          <p>
-            <b>Dirección:</b> {shippingInfo.address}
-          </p>
-          <p>
-            <b>Ciudad:</b> {shippingInfo.city}
-          </p>
-          <p>
-            <b>Codigo Postal:</b> {shippingInfo.postalCode}
-          </p>
-          <p className="mb-4">
-            <b>País:</b> {shippingInfo.country}
-          </p>
+      <div className="container mx-auto my-8 p-8 bg-white shadow-md">
+        <div className="flex flex-col md:flex-row justify-between">
+          <div className="md:w-2/3 mb-8 md:mb-0">
+            <div className="flex items-center">
+              <FaClipboardList className="flex items-center -mt-4 mr-2 text-2xl" />
+              <p className="text-3xl font-semibold mb-4">Datos de envío</p>
+            </div>
+            <hr className="mb-5"/>
+            <div className="flex items-center mb-2">
+              <FaAddressCard className="-mt-2 mr-2 text-lg" />
+              <p className="mb-2">
+                <b>Nombre Completo:</b> {user && user?.user?.name}
+              </p>
+            </div>
+            <div className="flex items-center mb-2">
+              <FaPhone  className="-mt-2 mr-2 text-lg" />
+              <p className="mb-2">
+                <b>Telefono:</b> {shippingInfo.phoneNo}
+              </p>
+            </div>
+            <div className="flex items-center mb-2">
+              <FaHouse className="-mt-2 mr-2 text-lg" />
+              <p className="mb-2">
+                <b>Dirección:</b> {shippingInfo.address}
+              </p>
+            </div>
+            <div className="flex items-center mb-2">
+              <FaCity  className="-mt-2 mr-2 text-lg" />
+              <p className="mb-2">
+                <b>Ciudad:</b> {shippingInfo.city}
+              </p>
+            </div>
+            <div className="flex items-center mb-2">
+              <FaMapPin  className="-mt-2 mr-2 text-lg" />
+              <p className="mb-2">
+                <b>Codigo Postal:</b> {shippingInfo.postalCode}
+              </p>
+            </div>
+            <div className="flex items-center mb-2">
+              <FaLocationDot  className="-mt-4 mr-2 text-lg" />
+              <p className="mb-4">
+                <b>País:</b> {shippingInfo.country}
+              </p>
+            </div>
 
-          <hr />
-          <h4 className="mt-4">Productos de su carrito:</h4>
+            <hr className="my-4" />
 
-          {cartItems.map((item, index) => (
-            <div>
-              <div className="cart-item my-1" key={index}>
-                <div className="row">
-                  <div className="col-4 col-lg-2">
+            <p className="text-xl font-semibold mt-4">
+              Productos de su carrito:
+            </p>
+
+            {cartItems.map((item, index) => (
+              <div key={index} className="mb-4">
+                <div className="flex items-center">
+                  <div className="w-20">
                     <img
                       src={item.image}
-                      alt="Laptop"
-                      height="45"
-                      width="100"
+                      alt={item.name}
+                      className="w-full h-auto"
                     />
                   </div>
-
-                  <div className="col-5 col-lg-6">
-                    <Link to={`/product/${item.product}`}>{item.name}</Link>
-                  </div>
-
-                  <div className="col-4 col-lg-4 mt-4 mt-lg-0">
+                  <div className="ml-4 flex-1">
+                    <Link
+                      to={`/product/${item.product}`}
+                      className="text-blue-500 hover:underline"
+                    >
+                      <p>{item.name}</p>
+                    </Link>
                     <p>
                       {item.quantity} x ${item.price} ={" "}
-                      <b>${(item.quantity * item.price).toFixed(2)}</b>
+                      <span className="font-semibold">
+                        ${item.quantity * item.price.toFixed(2)}
+                      </span>
                     </p>
                   </div>
                 </div>
+                <hr className="my-2" />
               </div>
-              <hr />
+            ))}
+          </div>
+
+          <div className="md:w-1/3 ml-5">
+            <div className="bg-gray-100 p-4 rounded-md">
+              <h4 className="text-2xl font-semibold mb-4 font-sans">
+                Resumen del pedido
+              </h4>
+              <div className="flex mb-2">
+                <FaMoneyBill className="mr-1 text-lg" />
+                <p>Subtotal: ${itemsPrice.toFixed(2)} COP</p>
+              </div>
+              <div className="flex mt-2 mb-2">
+                <FaTruckFast className="mr-1 text-xl" />
+                <p>Envío: ${shippingPrice.toFixed(2)} COP</p>
+              </div>
+              <div className="flex">
+                <FaCashRegister className="mr-1 text-md" />
+                <p>Impuesto: ${taxPrice.toFixed(0)} COP</p>
+              </div>
+
+              <hr className="my-4" />
+
+              <p className="text-xl flex items-center">
+                <AiFillDollarCircle className="mr-1" />
+                Total:
+                <span className="text-green-500 ml-2 font-semibold">
+                  ${totalPrice} COP
+                </span>
+              </p>
+
+              <hr className="my-4" />
+
+              <button
+                id="checkout_btn"
+                className="bg-orange-800 hover:bg-orange-700 text-white px-4 py-2 rounded-md transition-transform transform hover:scale-105 duration-150"
+                onClick={processToPayment}
+              >
+                <p>Proceder al pago</p>
+              </button>
             </div>
-          ))}
-        </div>
-
-        <div className="col-12 col-lg-3 my-4">
-          <div id="order_summary">
-            <h4>Resumen del pedido</h4>
-            <hr />
-            <p>
-              Subtotal:{" "}
-              <span className="order-summary-values">${itemsPrice} COP</span>
-            </p>
-            <p>
-              Envío:{" "}
-              <span className="order-summary-values">${shippingPrice} COP</span>
-            </p>
-            <p>
-              Impuesto:{" "}
-              <span className="order-summary-values">${taxPrice} COP</span>
-            </p>
-
-            <hr />
-
-            <p>
-              Total:{" "}
-              <span className="order-summary-values text-green-500">
-                ${totalPrice} COP
-              </span>
-            </p>
-
-            <hr />
-            <button
-              id="checkout_btn"
-              className="btn btn-primary btn-block"
-              onClick={processToPayment}
-            >
-              Proceder al pago
-            </button>
           </div>
         </div>
       </div>

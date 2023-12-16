@@ -11,7 +11,6 @@ import {
   FaTruckFast,
 } from "react-icons/fa6";
 import { AiFillDollarCircle } from "react-icons/ai";
-
 import { BsClipboard2Fill } from "react-icons/bs";
 
 const Cart = () => {
@@ -77,9 +76,9 @@ const Cart = () => {
                         />
                         <Link
                           to={`/product/${item.product}`}
-                          className="text-blue-500 hover:underline"
+                          className="text-blue-500 hover:underline-none focus:outline-none hover:scale-105 duration-150"
                         >
-                          {item.name}
+                          <p>{item.name}</p>
                         </Link>
                       </div>
 
@@ -139,14 +138,12 @@ const Cart = () => {
                       </p>
                     </div>
                     <div className="flex justify-between mt-2">
-                      <FaTruckFast className="mr-8 text-xl"/>
+                      <FaTruckFast className="mr-8 text-xl" />
                       <p className="-ml-72">Envío:</p>
-                      <p className="text-green-600">
-                       Gratuito
-                      </p>
+                      <p className="text-green-600">Gratuito</p>
                     </div>
                     <div className="flex justify-between mt-2">
-                      <AiFillDollarCircle className="mr-8 text-xl"/>
+                      <AiFillDollarCircle className="mr-8 text-xl" />
                       <p className="-ml-60">Total:</p>
                       <p>
                         $

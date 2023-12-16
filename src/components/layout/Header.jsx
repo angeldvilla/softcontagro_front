@@ -244,7 +244,7 @@ const Header = () => {
                           </Link>
                         </p>
                       )}
-                      <p className="flex items-center text-sm hover:text-gray-600">
+                     {/*  <p className="flex items-center text-sm hover:text-gray-600">
                         <Link
                           to="/me/favorites"
                           onClick={() => toggleMobileMenu()}
@@ -252,7 +252,7 @@ const Header = () => {
                         >
                           FAVORITOS
                         </Link>
-                      </p>
+                      </p> */}
                       <p className="flex items-center text-sm hover:text-gray-600">
                         <Link
                           to="/me"
@@ -322,7 +322,7 @@ const Header = () => {
                         </Link>
                       </p>
                     )}
-                    <p className="flex items-center text-sm hover:text-gray-600">
+                   {/*  <p className="flex items-center text-sm hover:text-gray-600">
                       <Link
                         to="/me/favorites"
                         onClick={() => toggleMobileMenu()}
@@ -330,7 +330,7 @@ const Header = () => {
                       >
                         FAVORITOS
                       </Link>
-                    </p>
+                    </p> */}
                     <p className="flex items-center text-sm hover:text-gray-600">
                       <Link
                         to="/me"

@@ -18,6 +18,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { FaStar, FaCartPlus } from "react-icons/fa";
 import { AiOutlinePlusCircle, AiOutlineMinusCircle } from "react-icons/ai";
 import { Textarea } from "@material-tailwind/react";
+import { Rating } from "@material-tailwind/react";
 
 const ProductDetails = () => {
   const [quantity, setQuantity] = useState(0);
@@ -95,7 +96,7 @@ const ProductDetails = () => {
     setQuantity(qty);
   };
 
-  function setUserRatings() {
+  /*  function setUserRatings() {
     const stars = document.querySelectorAll(".star");
 
     stars.forEach((star, index) => {
@@ -131,7 +132,11 @@ const ProductDetails = () => {
         }
       });
     }
-  }
+  } */
+
+  const setUserRatings = (value) => {
+    setRating(value === rating ? 0 : value);
+  };
 
   const reviewHandler = () => {
     const formData = new FormData();
@@ -144,7 +149,7 @@ const ProductDetails = () => {
   };
 
   const calculateRating = () => {
-    const rating = Math.round(product?.ratings / 5);
+    const rating = Math.round(product?.product?.ratings / 5);
     return Array.from({ length: rating }, (_, index) => (
       <FaStar key={index} className="text-yellow-500" />
     ));
@@ -203,7 +208,9 @@ const ProductDetails = () => {
                         ${product?.product?.price} COP
                       </span>
                     </p>
-                    <p className="mb-4">{product?.description}</p>
+                    <p className="mb-8 -mt-4">
+                      {product?.product?.description}
+                    </p>
                     <div className="prod-quantity flex items-center mb-10">
                       <div className="quantity flex items-center">
                         <input
@@ -256,16 +263,26 @@ const ProductDetails = () => {
                       </li>
                       <li>
                         {user ? (
-                          <button
-                            id="review_btn"
-                            type="button"
-                            className="btn btn-primary mt-4 mb-6"
-                            data-toggle="modal"
-                            data-target="#ratingModal"
-                            onClick={setUserRatings}
-                          >
-                            Envíe su calificación
-                          </button>
+                          <>
+                            <div className="flex items-center mt-2 mb-4">
+                              <div className="mr-2">Calificación:</div>
+                              <Rating
+                                value={rating}
+                                precision={0}
+                                onChange={(value) => setUserRatings(value)}
+                              />
+                            </div>
+                            <button
+                              id="review_btn"
+                              onClick={reviewHandler}
+                              disabled={rating === 0}
+                              className="btn btn-primary mt-4 mb-6 text-white hover:scale-105 duration-150 disabled:text-gray-400"
+                              data-toggle="modal"
+                              data-target="#ratingModal"
+                            >
+                              Envíe su calificación
+                            </button>
+                          </>
                         ) : (
                           <div className="alert alert-danger mt-5 mb-2">
                             <p>Inicie sesión para publicar su calificación.</p>
@@ -285,7 +302,7 @@ const ProductDetails = () => {
                       >
                         <div className="modal-dialog mb-8" role="document">
                           <div className="modal-content">
-                            <div className="modal-body mt-2 mb-2">
+                            <div className="modal-body -mt-20 mb-2">
                               <div className="ratings">{calculateRating()}</div>
                               <p className="ml-2">
                                 ({product?.product?.numOfReviews} Reseñas)
@@ -313,7 +330,7 @@ const ProductDetails = () => {
                                 }}
                               />
                               <button
-                                className="flex items-center justify-center bg-orange-700 text-white px-4 py-2 rounded-full hover:bg-orange-500 hover:text-white hover:scale-105 duration-150 font-sans text-md"
+                                className="btn btn-primary  hover:scale-105 duration-150 bg-orange-700 text-white px-4 py-2 rounded-full hover:bg-orange-500 font-sans"
                                 onClick={reviewHandler}
                                 data-dismiss="modal"
                                 aria-label="Close"
@@ -337,7 +354,7 @@ const ProductDetails = () => {
             <ListReviews reviews={product?.product?.reviews} />
           )} */}
           <Footer />
-          <Toaster position="top-right" richColors />
+          <Toaster position="top-right" richColors closeButton />
         </div>
       )}
     </div>

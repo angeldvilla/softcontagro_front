@@ -42,7 +42,8 @@ import CategorysList from "./components/admin/CatagoryList";
 
 import ProtectedRoute from "./components/route/ProtectedRoute";
 import { loadUser } from "./actions/userActions";
-import store from "./store";
+/* import store from "./store"; */
+import { useDispatch } from "react-redux";
 import axios from "axios";
 
 // Pagos
@@ -51,11 +52,10 @@ import { loadStripe } from "@stripe/stripe-js";
 import { path } from "./constants/path";
 
 function App() {
+  const dispatch = useDispatch();
   const [stripeApiKey, setStripeApiKey] = useState("");
 
   useEffect(() => {
-    store.dispatch(loadUser());
-
     async function getStripApiKey() {
       const { data } = await axios.get(`${path}/api/v1/stripeapi`);
 
@@ -63,7 +63,8 @@ function App() {
     }
 
     getStripApiKey();
-  }, []);
+    dispatch(loadUser());
+  }, [dispatch]);
 
   return (
     <Routes>
