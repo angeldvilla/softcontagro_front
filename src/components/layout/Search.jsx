@@ -24,7 +24,6 @@ const Search = () => {
   return (
     <form
       id="search_form-one"
-      /* encType="multipart/form-data" */
       onSubmit={searchHandler}
       className="flex items-center gap-2"
     >

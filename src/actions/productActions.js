@@ -33,7 +33,7 @@ import {
 import { path } from "../constants/path";
 
 export const getProducts =
-	(keyword = "", currentPage = 1, price, category, rating = 0) =>
+	(keyword="", currentPage = 1, price, category="", rating = 0) =>
 		async (dispatch) => {
 			try {
 				dispatch({ type: ALL_PRODUCTS_REQUEST });
@@ -97,7 +97,7 @@ export const deleteProduct = (id) => async (dispatch) => {
 
 		dispatch({
 			type: DELETE_PRODUCT_SUCCESS,
-			payload: data.success,
+			payload: data,
 		});
 	} catch (error) {
 		dispatch({
@@ -126,7 +126,7 @@ export const updateProduct = (id, productData) => async (dispatch) => {
 
 		dispatch({
 			type: UPDATE_PRODUCT_SUCCESS,
-			payload: data.success,
+			payload: data,
 		});
 	} catch (error) {
 		dispatch({
@@ -167,7 +167,7 @@ export const newReview = (reviewData) => async (dispatch) => {
 
 		dispatch({
 			type: NEW_REVIEW_SUCCESS,
-			payload: data.success,
+			payload: data,
 		});
 	} catch (error) {
 		dispatch({
@@ -185,7 +185,7 @@ export const getAdminProducts = () => async (dispatch) => {
 
 		dispatch({
 			type: ADMIN_PRODUCTS_SUCCESS,
-			payload: data.products,
+			payload: data,
 		});
 	} catch (error) {
 		dispatch({
@@ -204,7 +204,7 @@ export const getProductReviews = (id) => async (dispatch) => {
 
 		dispatch({
 			type: GET_REVIEWS_SUCCESS,
-			payload: data.reviews,
+			payload: data,
 		});
 	} catch (error) {
 		dispatch({
@@ -225,7 +225,7 @@ export const deleteReview = (id, productId) => async (dispatch) => {
 
 		dispatch({
 			type: DELETE_REVIEW_SUCCESS,
-			payload: data.success,
+			payload: data,
 		});
 	} catch (error) {
 		console.log(error.response);

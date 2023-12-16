@@ -1,11 +1,14 @@
 import React, { useState } from "react";
-import CountryList from "react-select-country-list";
-import CheckoutSteps from "./CheckoutSteps";
+import Select from "react-select";
+import { StepperWithIcon } from "./StepperShipping";
 
 import { useDispatch, useSelector } from "react-redux";
 import { saveShippingInfo } from "../../actions/cartActions";
+import { useNavigate } from "react-router-dom";
 
-const Shipping = ({ history }) => {
+import { toast, Toaster } from "sonner";
+
+const Shipping = () => {
   const { shippingInfo } = useSelector((state) => state.cart);
 
   const [address, setAddress] = useState(shippingInfo.address);
@@ -15,21 +18,48 @@ const Shipping = ({ history }) => {
   const [country, setCountry] = useState(shippingInfo.country);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const submitHandler = (e) => {
-    e.preventDefault();
+    try {
+      if (!address || !city || !postalCode || !phoneNo || !country) {
+        toast.error("Por favor, rellene todos los campos");
+      } else if (phoneNo.length < 10 || phoneNo.length > 10) {
+        toast.error("El número de contacto debe tener 10 digitos");
+      } else if (phoneNo.match(/^[0-9]+$/)) {
+        toast.error("El número de contacto debe ser numerico");
+      } else if (postalCode.match(/^[0-9]+$/)) {
+        toast.error("El código postal debe ser numerico");
+      } else if (postalCode.length < 5 || postalCode.length > 5) {
+        toast.error("El Código Postal debe tener 5 digitos");
+      } else if (city.match(/^[a-zA-Z]+$/)) {
+        toast.error("La ciudad solo debe contener letras");
+      } else {
+        e.preventDefault();
 
-    dispatch(saveShippingInfo({ address, city, phoneNo, postalCode, country }));
-    history.push("/confirm");
+        dispatch(
+          saveShippingInfo({ address, city, phoneNo, postalCode, country })
+        );
+        navigate("/confirm");
+      }
+    } catch (error) {
+      return toast.error(error.response.data.message);
+    }
   };
 
   const handleChange = (e) => {
     setCountry(e);
   };
 
+  const options = [
+    { value: "Colombia", label: "Colombia", disabled: true },
+    { value: "Argentina", label: "Argentina" },
+    { value: "México", label: "México" },
+  ];
+
   return (
     <div>
-      <CheckoutSteps shipping />
+      <StepperWithIcon />
 
       <div className="row wrapper">
         <div className="col-10 col-lg-5">
@@ -62,7 +92,7 @@ const Shipping = ({ history }) => {
             <div className="form-group">
               <label htmlFor="phone_field">Telefono</label>
               <input
-                type="phone"
+                type="text"
                 id="phone_field"
                 className="form-control"
                 value={phoneNo}
@@ -74,7 +104,7 @@ const Shipping = ({ history }) => {
             <div className="form-group">
               <label htmlFor="postal_code_field">Codigo Postal</label>
               <input
-                type="number"
+                type="text"
                 id="postal_code_field"
                 className="form-control"
                 value={postalCode}
@@ -83,7 +113,7 @@ const Shipping = ({ history }) => {
               />
             </div>
 
-            <div className="form-group">
+            {/*  <div className="form-group">
               <label htmlFor="country_field">País</label>
               <CountryList
                 name="country"
@@ -91,11 +121,21 @@ const Shipping = ({ history }) => {
                 value={country}
                 onChange={(e) => handleChange(e)}
               />
+            </div> */}
+            <div className="form-group">
+              <label htmlFor="country_field">País</label>
+              <Select
+                name="country"
+                classes="form-control"
+                value={country}
+                onChange={(e) => handleChange(e)}
+                options={options}
+              />
             </div>
 
             <button
               id="shipping_btn"
-              type="submit"
+              onClick={submitHandler}
               className="btn btn-block py-3"
             >
               CONTINUAR
@@ -103,6 +143,7 @@ const Shipping = ({ history }) => {
           </form>
         </div>
       </div>
+      <Toaster position="top-right" richColors />
     </div>
   );
 };

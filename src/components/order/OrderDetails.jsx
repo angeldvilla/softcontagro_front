@@ -1,12 +1,15 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Loader from "../layout/Loader";
 import { toast, Toaster } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
 import { getOrderDetails, clearErrors } from "../../actions/orderActions";
+import Header from "../layout/Header";
+import Footer from "../layout/Footer";
 
 const OrderDetails = ({ match }) => {
   const dispatch = useDispatch();
+  const { id } = useParams();
 
   const {
     loading,
@@ -23,29 +26,29 @@ const OrderDetails = ({ match }) => {
   } = order;
 
   useEffect(() => {
-    dispatch(getOrderDetails(match.params.id));
+    dispatch(getOrderDetails(id));
 
     if (error) {
       toast.error("error");
       dispatch(clearErrors());
     }
-  }, [dispatch, error, match.params.id]);
+  }, [dispatch, error, id]);
 
   const shippingDetails =
     shippingInfo &&
     `${shippingInfo.address}, ${shippingInfo.city}, ${shippingInfo.postalCode}, ${shippingInfo.country}`;
 
   const isPaid =
-    paymentInfo && paymentInfo.status === "succeeded" ? true : false;
+    paymentInfo && paymentInfo.status === "Completado" ? true : false;
 
   return (
     <div>
-      <h1>Detalles del pedido</h1>
-
       {loading ? (
         <Loader />
       ) : (
         <div>
+          <Header />
+          <h1>Detalles del pedido</h1>
           <div className="row d-flex justify-content-between">
             <div className="col-12 col-lg-8 mt-5 order-details">
               <h1 className="my-5">Pedido # {order._id}</h1>
@@ -62,23 +65,23 @@ const OrderDetails = ({ match }) => {
                 {shippingDetails}
               </p>
               <p>
-                <b>Cantidad:</b> ${totalPrice}
+                <b>Precio:</b> ${totalPrice}
               </p>
 
               <hr />
 
               <h4 className="my-4">Pago</h4>
-              <p className={isPaid ? "greenColor" : "redColor"}>
-                <b>{isPaid ? "PAID" : "NOT PAID"}</b>
+              <p className={isPaid ? "text-green-500" : "text-red-500"}>
+                <b>{isPaid ? "Pagado" : "No pagado"}</b>
               </p>
 
               <h4 className="my-4">Estado del pedido:</h4>
               <p
                 className={
                   order.orderStatus &&
-                  String(order.orderStatus).includes("Delivered")
-                    ? "greenColor"
-                    : "redColor"
+                  String(order.orderStatus).includes("Entregado")
+                    ? "text-green-500"
+                    : "text-red-500"
                 }
               >
                 <b>{orderStatus}</b>
@@ -96,22 +99,20 @@ const OrderDetails = ({ match }) => {
                           src={item.image}
                           alt={item.name}
                           height="45"
-                          width="65"
+                          width="85"
                         />
                       </div>
 
                       <div className="col-5 col-lg-5">
-                        <Link to={`/products/${item.product}`}>
-                          {item.name}
-                        </Link>
+                        <Link to={`/product/${item.product}`}>{item.name}</Link>
                       </div>
 
                       <div className="col-4 col-lg-2 mt-4 mt-lg-0">
-                        <p>${item.price}</p>
+                        <p>${item.price} COP</p>
                       </div>
 
                       <div className="col-4 col-lg-3 mt-4 mt-lg-0">
-                        <p>{item.quantity} kg(s)</p>
+                        <p>Stock: {item.quantity} kg(s)</p>
                       </div>
                     </div>
                   ))}
@@ -122,6 +123,7 @@ const OrderDetails = ({ match }) => {
         </div>
       )}
       <Toaster position="top-right" richColors />
+      <Footer />
     </div>
   );
 };

@@ -27,7 +27,7 @@ const Product = ({ product, col, className }) => {
             <ins>
               <Link
                 to={`/product/${product?._id}`}
-                className="hover:text-blue-500"
+                className="hover:text-blue-gray-600"
               >
                 {product?.name}
               </Link>

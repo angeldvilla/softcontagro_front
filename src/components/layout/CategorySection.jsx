@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+/* import { Link } from "react-router-dom"; */
 import "../../App1.css";
 const CategorySection = () => {
   const { category } = useSelector((state) => state?.category);
@@ -11,7 +11,7 @@ const CategorySection = () => {
           <div className="col-lg-12">
             <div className="section-head-style-one">
               <h2>CATEGORÍAS</h2>
-              <p>Tenemos variedad de categorías disponibles.</p>
+              <p>Tenemos variedad de categorías disponibles de los productos que estás buscando.</p>
             </div>
           </div>
         </div>
@@ -25,17 +25,17 @@ const CategorySection = () => {
               >
                 <div className=" flex flex-col items-center justify-center">
                   <p className="text-xl mb-4">
-                    <Link to={`/search/${category?.name}`}>
+                    {/* <Link to={`/search/${category?.name}`}> */}
                       {category?.name}
-                    </Link>
+                    {/* </Link> */}
                   </p>
-                  <Link to={`/search/${category?.name}`}>
+                  {/* <Link to={`/search/${category?.name}`}> */}
                     <img
                       src={category?.images[0]?.url}
                       alt="imagenes-categorias"
                       className="w-96 rounded-md"
                     />
-                  </Link>
+                  {/* </Link> */}
                 </div>
               </div>
             );

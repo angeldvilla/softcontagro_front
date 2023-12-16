@@ -14,13 +14,9 @@ import {
 } from "../../actions/productActions";
 import { addItemToCart } from "../../actions/cartActions";
 import { NEW_REVIEW_RESET } from "../../constants/productConstants";
-import { Link, useParams } from "react-router-dom";
-import {
-  FaArrowCircleDown,
-  FaArrowCircleUp,
-  FaStar,
-  FaCartPlus,
-} from "react-icons/fa";
+import { useNavigate, useParams } from "react-router-dom";
+import { FaStar, FaCartPlus } from "react-icons/fa";
+import { AiOutlinePlusCircle, AiOutlineMinusCircle } from "react-icons/ai";
 import { Textarea } from "@material-tailwind/react";
 
 const ProductDetails = () => {
@@ -29,6 +25,7 @@ const ProductDetails = () => {
   const [comment, setComment] = useState("");
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { id } = useParams();
 
   const { loading, error, product } = useSelector(
@@ -61,8 +58,19 @@ const ProductDetails = () => {
   }, [dispatch, error, reviewError, success, id]);
 
   const addToCart = () => {
-    dispatch(addItemToCart(id, quantity));
-    toast.success("Agregado al carrito");
+    try {
+      if (product?.product?.stock === 0) {
+        toast.error("No hay stock disponible");
+      } else if (quantity === 0) {
+        toast.error("Por favor, ingrese una cantidad");
+      } else {
+        dispatch(addItemToCart(id, quantity));
+        toast.success("Agregado al carrito");
+        navigate("/cart");
+      }
+    } catch (error) {
+      toast.error("Error al agregar al carrito");
+    }
   };
 
   const categoryName = category.find(
@@ -209,25 +217,22 @@ const ProductDetails = () => {
                             onClick={increaseQty}
                             className="text-2xl text-gray-700 focus:outline-none"
                           >
-                            <FaArrowCircleUp />
+                            <AiOutlinePlusCircle />
                           </button>
                           <button
                             onClick={decreaseQty}
                             className="text-2xl text-gray-700 focus:outline-none"
                           >
-                            <FaArrowCircleDown className="mt-3" />
+                            <AiOutlineMinusCircle className="mt-3" />
                           </button>
                         </div>
                       </div>
                       <button
                         onClick={addToCart}
-                        disabled={product.product?.stock === 0}
-                        className="flex items-center justify-center bg-blue-gray-900 text-white px-4 py-2 rounded-full hover:bg-blue-gray-800 hover:text-white hover:scale-105 duration-150 ml-8"
+                        className="flex items-center justify-center bg-blue-gray-900 text-white px-4 py-2 rounded-full hover:bg-blue-gray-800 hover:text-white hover:scale-105 duration-150 ml-8 font-sans"
                       >
-                        <Link to="/cart">
-                          Añadir al carrito
-                          <FaCartPlus className="ml-2" />
-                        </Link>
+                        Añadir al carrito
+                        <FaCartPlus className="ml-3" />
                       </button>
                     </div>
                     <ul className="prod-info">
@@ -332,9 +337,9 @@ const ProductDetails = () => {
             <ListReviews reviews={product?.product?.reviews} />
           )} */}
           <Footer />
+          <Toaster position="top-right" richColors />
         </div>
       )}
-      <Toaster position="top-center" richColors />
     </div>
   );
 };

@@ -5,9 +5,9 @@ import {
   FaTwitter,
   FaYoutube,
   FaPhone,
-  FaLocationArrow,
   FaEnvelope,
 } from "react-icons/fa";
+import { FaLocationDot } from "react-icons/fa6";
 
 const Footer = () => {
   return (
@@ -37,7 +37,7 @@ const Footer = () => {
                     fincalalolita@gmail.com
                   </p>
                   <p className="flex items-center text-lg hover:text-2xl transition-all duration-300">
-                    <FaLocationArrow className="mr-2" />
+                    <FaLocationDot className="mr-2" />
                     Colombia - La Union, Valle
                   </p>
                 </ul>
