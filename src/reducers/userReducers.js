@@ -62,6 +62,7 @@ export const authReducer = (state = { user: {} }, action) => {
         loading: false,
         isAuthenticated: true,
         user: action.payload,
+        error: null,
       };
 
     case LOAD_STRIPE_API_KEY_SUCCESS:
