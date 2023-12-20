@@ -1,25 +1,36 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Header from "../layout/Header";
 
 const OrderSuccess = () => {
   return (
     <div>
-      <div
-        className="row justify-content-center"
-        style={{ marginTop: "200px" }}
-      >
-        <div className="col-6 mt-5 text-center">
+      <Header />
+      <div className="container mx-auto my-16 text-center mt-32">
+        <div className="max-w-md mx-auto bg-white rounded p-8 shadow-lg">
           <img
-            className="my-5 img-fluid d-block mx-auto"
+            className="mx-auto mb-8"
             src="/images/order_success.png"
             alt="Order Success"
-            width="200"
-            height="200"
+            width="120"
+            height="120"
           />
 
-          <h2>Su pedido se ha realizado con éxito.</h2>
+          <p className="text-2xl font-semibold mb-4">
+            ¡Su pedido se ha realizado con éxito!
+          </p>
 
-          <Link to="/orders/me">Ir a pedidos</Link>
+          <p className="text-gray-700 mb-8">
+            Gracias por elegirnos. Su pedido está en proceso y le mantendremos
+            informado sobre su estado.
+          </p>
+
+          <Link
+            to="/orders/me"
+            className="bg-orange-500 hover:bg-orange-700 text-white px-4 py-2 rounded-md hover:scale-105 duration-150 hover:text-white "
+          >
+            Ir a mis pedidos
+          </Link>
         </div>
       </div>
     </div>

@@ -28,6 +28,7 @@
     "react-select-country-list": "^2.2.3",
     "react-table": "^7.8.0",
     "redux": "^4.0.5",
+    "redux-persist": "^6.0.0",
     "redux-thunk": "^2.4.2",
     "sonner": "^0.6.2",
     "toastify-js": "^1.12.0",

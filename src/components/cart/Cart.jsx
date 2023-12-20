@@ -128,13 +128,13 @@ const Cart = () => {
                       Resumen del pedido
                     </h4>
                     <div className="flex justify-between">
-                      <BsClipboard2Fill className="mr-4 text-xl" />
-                      <p className="-ml-80">Stock:</p>
+                      <BsClipboard2Fill className="mr-2 text-xl" />
+                      <p className="-ml-60">Stock:</p>
                       <p>
                         {cartItems.reduce(
                           (acc, item) => acc + item.quantity,
                           0
-                        )}{" "}
+                        )} Unidades
                       </p>
                     </div>
                     <div className="flex justify-between mt-2">

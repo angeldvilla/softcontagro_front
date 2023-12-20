@@ -1,4 +1,4 @@
-import React/* , { useEffect }  */from "react";
+import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 
 import Home from "./components/Home";
@@ -41,21 +41,24 @@ import NewCategory from "./components/admin/NewCategory";
 import CategorysList from "./components/admin/CatagoryList";
 
 import ProtectedRoute from "./components/route/ProtectedRoute";
-/* import { loadStripeApiKey, loadUser } from "./actions/userActions"; */
-import { /* useDispatch, */ useSelector } from "react-redux";
+import { loadStripeApiKey, /* loadUser */ } from "./actions/userActions";
+import { useDispatch, useSelector } from "react-redux";
 
 // Pagos
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 
 function App() {
-  /* const dispatch = useDispatch(); */
+  const dispatch = useDispatch();
   const stripeApiKey = useSelector((state) => state.auth.stripeKey);
+  const { user } = useSelector((state) => state.auth);
 
-/*   useEffect(() => {
-    dispatch(loadUser());
-    dispatch(loadStripeApiKey());
-  }, [dispatch]); */
+  useEffect(() => {
+    if (user) {
+      /* dispatch(loadUser()); */
+      dispatch(loadStripeApiKey());
+    }
+  }, [dispatch, user]);
 
   return (
     <Routes>

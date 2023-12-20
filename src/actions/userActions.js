@@ -6,7 +6,7 @@ import {
     REGISTER_USER_REQUEST,
     REGISTER_USER_SUCCESS,
     REGISTER_USER_FAIL,
-    LOAD_USER_REQUEST,
+    /* LOAD_USER_REQUEST, */
     LOAD_USER_SUCCESS,
     LOAD_USER_FAIL,
     UPDATE_PROFILE_REQUEST,
@@ -36,7 +36,7 @@ import {
     LOGOUT_SUCCESS,
     LOGOUT_FAIL,
     CLEAR_ERRORS,
-    LOAD_STRIPE_API_KEY,
+    /* LOAD_STRIPE_API_KEY, */
     LOAD_STRIPE_API_KEY_SUCCESS
 } from '../constants/userConstants'
 import { path } from "../constants/path";
@@ -96,7 +96,7 @@ export const register = (userData) => async (dispatch) => {
 export const loadUser = () => async (dispatch) => {
     try {
 
-        dispatch({ type: LOAD_USER_REQUEST })
+        /* dispatch({ type: LOAD_USER_REQUEST }) */
 
         const { data } = await axios.get(`${path}/api/v1/me`);
         console.log(data);
@@ -334,11 +334,10 @@ export const deleteUser = (id) => async (dispatch) => {
 
 export const loadStripeApiKey = () => async (dispatch) => {
     try {
-        dispatch({ type: LOAD_STRIPE_API_KEY })
-        
+        /* dispatch({ type: LOAD_STRIPE_API_KEY }) */
+
         const { data } = await axios.get(`${path}/api/v1/stripeapi`);
-        console.log(data);
-        
+
         dispatch({
             type: LOAD_STRIPE_API_KEY_SUCCESS,
             payload: data.stripeApiKey,

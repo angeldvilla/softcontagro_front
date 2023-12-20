@@ -5,12 +5,7 @@ import Header from "../layout/Header";
 import Footer from "../layout/Footer";
 import { toast, Toaster } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  login,
-  clearErrors,
-  loadUser,
-  loadStripeApiKey,
-} from "../../actions/userActions";
+import { login, clearErrors } from "../../actions/userActions";
 import { FaEnvelope, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Login = () => {
@@ -36,7 +31,7 @@ const Login = () => {
       toast.error("Correo o contraseña incorrectos");
       dispatch(clearErrors());
     }
-  }, [dispatch, isAuthenticated, error, redirect, navigate]);
+  }, [dispatch, isAuthenticated, error, redirect, navigate, user]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -52,20 +47,12 @@ const Login = () => {
         password,
       };
       dispatch(login(userData));
-  
-      console.log("isAuthenticated:", isAuthenticated);
-  
-      if (isAuthenticated) {
-        dispatch(loadUser());
-        dispatch(loadStripeApiKey());
-      }
-  
+
       if (!error) {
         toast.success("Inicio de sesión exitoso");
       }
     }
   };
-  
 
   return (
     <div>
