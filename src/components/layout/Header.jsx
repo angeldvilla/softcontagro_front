@@ -226,7 +226,7 @@ const Header = () => {
                       <hr />
                       <p className="flex items-center text-sm hover:text-gray-600">
                         <Link
-                          to="/orders/me"
+                          to={`/orders/me/${user?.user?._id}`}
                           onClick={() => toggleMobileMenu()}
                           className="text-md text-black hover:text-gray-700"
                         >
@@ -306,7 +306,7 @@ const Header = () => {
                     <hr />
                     <p className="flex items-center text-sm hover:text-gray-600">
                       <Link
-                        to="/orders/me"
+                        to={`/orders/me/${user?.user?._id}`}
                         className="text-gray-700 hover:text-gray-900"
                       >
                         PEDIDOS

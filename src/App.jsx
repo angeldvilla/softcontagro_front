@@ -139,7 +139,7 @@ function App() {
         }
       />
       <Route
-        path="/orders/me"
+        path="/orders/me/:id"
         element={
           <ProtectedRoute>
             <ListOrders />

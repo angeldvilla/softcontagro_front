@@ -48,11 +48,11 @@ export const createOrder = (order) => async (dispatch, getState) => {
 };
 
 // Obtener pedidos de usuarios actualmente registrados
-export const myOrders = () => async (dispatch) => {
+export const myOrders = (userId) => async (dispatch) => {
   try {
     dispatch({ type: MY_ORDERS_REQUEST });
 
-    const { data } = await axios.get(`${path}/api/v1/orders/me`);
+    const { data } = await axios.get(`${path}/api/v1/orders/me/${userId}`);
 
     dispatch({
       type: MY_ORDERS_SUCCESS,

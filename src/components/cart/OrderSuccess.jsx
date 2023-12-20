@@ -1,8 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Header from "../layout/Header";
+import { useSelector } from "react-redux";
 
 const OrderSuccess = () => {
+  const { user } = useSelector((state) => state.auth);
   return (
     <div>
       <Header />
@@ -26,7 +28,7 @@ const OrderSuccess = () => {
           </p>
 
           <Link
-            to="/orders/me"
+            to={`/orders/me/${user?.user?._id}`}
             className="bg-orange-500 hover:bg-orange-700 text-white px-4 py-2 rounded-md hover:scale-105 duration-150 hover:text-white "
           >
             Ir a mis pedidos

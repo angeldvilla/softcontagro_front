@@ -39,7 +39,7 @@ const OrderDetails = () => {
     `${shippingInfo.address}, ${shippingInfo.city}, ${shippingInfo.postalCode}, ${shippingInfo.country}`;
 
   const isPaid =
-    paymentInfo && paymentInfo.status === "Completado" ? true : false;
+    paymentInfo && paymentInfo.status === "succeeded" ? true : false;
 
   return (
     <div>
@@ -79,7 +79,7 @@ const OrderDetails = () => {
               <p
                 className={
                   order.orderStatus &&
-                  String(order.orderStatus).includes("Entregado")
+                  String(order.orderStatus).includes("Enviado")
                     ? "text-green-500"
                     : "text-red-500"
                 }

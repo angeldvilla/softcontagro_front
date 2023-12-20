@@ -50,7 +50,7 @@ const Profile = () => {
                 </div>
 
                 {user.role !== "admin" && (
-                  <Link to="/orders/me">
+                  <Link to={`/orders/me/${user?.user?._id}`}>
                     <button className="text-white bg-green-500 hover:bg-green-700 border-0 py-2 px-4 focus:outline-none rounded-full text-lg mt-5 md:mt-8">
                       <p>Mis pedidos</p>
                     </button>

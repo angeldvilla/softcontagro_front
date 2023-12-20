@@ -122,9 +122,13 @@ const Payment = () => {
 
           // Agregar la información de paidAt y user a la orden antes de enviarla al servidor
           const today = new Date().toISOString().split("T")[0];
+          const userId = user && user.user && user.user._id;
+
+          
           order.paidAt = today;
           order.deliveredAt = today;
-          order.user = user?.user?._id;
+          order.orderStatus =  "Enviado";
+          order.user = userId;
 
           dispatch(createOrder(order));
 
