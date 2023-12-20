@@ -119,7 +119,7 @@ const ListProducts = () => {
             <div className={`${keyword ? "col-6 col-md-9" : "col-12"}`}>
               <div className="grid place-items-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-12 mb-5 mt-2">
                 {keyword
-                  ? products.map((product, index) => (
+                  ? products?.map((product, index) => (
                       <Product
                         key={index}
                         product={product}
@@ -127,7 +127,7 @@ const ListProducts = () => {
                         className="hover:scale-105 duration-150"
                       />
                     ))
-                  : products.map((product, index) => (
+                  : products?.map((product, index) => (
                       <Product
                         key={index}
                         product={product}

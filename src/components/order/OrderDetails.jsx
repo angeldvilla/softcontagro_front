@@ -6,6 +6,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { getOrderDetails, clearErrors } from "../../actions/orderActions";
 import Header from "../layout/Header";
 import Footer from "../layout/Footer";
+import {
+  FaTruckFast,
+  FaCashRegister,
+  FaClipboardList,
+  FaMoneyBill,
+  FaAddressCard,
+  FaHouse,
+  FaPhone,
+} from "react-icons/fa6";
+import { AiFillDollarCircle } from "react-icons/ai";
 
 const OrderDetails = () => {
   const dispatch = useDispatch();
@@ -46,78 +56,108 @@ const OrderDetails = () => {
       {loading ? (
         <Loader />
       ) : (
-        <div>
+        <div className="flex flex-col items-center">
           <Header />
-          <h1>Detalles del pedido</h1>
-          <div className="row d-flex justify-content-between">
-            <div className="col-12 col-lg-8 mt-5 order-details">
-              <h1 className="my-5">Pedido # {order._id}</h1>
+          <h1 className="text-3xl font-bold my-5 mt-32 font-sans">
+            Detalles del pedido
+          </h1>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="order-details">
+              <p className="text-2xl my-5">Pedido #{order._id}</p>
+              <hr className="border border-gray-300 my-4"/>
 
-              <h4 className="mb-4">Datos de envío</h4>
-              <p>
-                <b>Nombre Completo:</b> {user && user?.user?.name}
-              </p>
-              <p>
-                <b>Telefono:</b> {shippingInfo && shippingInfo.phoneNo}
-              </p>
-              <p className="mb-4">
-                <b>Dirección:</b>
-                {shippingDetails}
-              </p>
-              <p>
-                <b>Precio:</b> ${totalPrice}
-              </p>
+              <div className="mb-4">
+                <p className="flex items-center text-2xl font-sans font-bold">
+                  <FaTruckFast className="mr-1 text-xl" />
+                  Datos de envío
+                </p>
 
-              <hr />
-
-              <h4 className="my-4">Pago</h4>
-              <p className={isPaid ? "text-green-500" : "text-red-500"}>
-                <b>{isPaid ? "Pagado" : "No pagado"}</b>
-              </p>
-
-              <h4 className="my-4">Estado del pedido:</h4>
-              <p
-                className={
-                  order.orderStatus &&
-                  String(order.orderStatus).includes("Enviado")
-                    ? "text-green-500"
-                    : "text-red-500"
-                }
-              >
-                <b>{orderStatus}</b>
-              </p>
-
-              <h4 className="my-4">Productos encargados:</h4>
-
-              <hr />
-              <div className="cart-item my-1">
-                {orderItems &&
-                  orderItems.map((item) => (
-                    <div key={item.product} className="row my-5">
-                      <div className="col-4 col-lg-2">
-                        <img
-                          src={item.image}
-                          alt={item.name}
-                          height="45"
-                          width="85"
-                        />
-                      </div>
-
-                      <div className="col-5 col-lg-5">
-                        <Link to={`/product/${item.product}`}>{item.name}</Link>
-                      </div>
-
-                      <div className="col-4 col-lg-2 mt-4 mt-lg-0">
-                        <p>${item.price} COP</p>
-                      </div>
-
-                      <div className="col-4 col-lg-3 mt-4 mt-lg-0">
-                        <p>Stock: {item.quantity} kg(s)</p>
-                      </div>
-                    </div>
-                  ))}
+                <p className="flex items-center font-bold mt-6">
+                  <FaAddressCard className="-mt-1.2 mr-2 text-lg" />
+                  Nombre Completo: <span className="ml-2 font-normal">
+                    {user?.name}
+                    </span>
+                </p>
+                <p className="flex items-center font-bold mt-6">
+                  <FaPhone className="-mt-1.2 mr-2 text-lg" />
+                  Teléfono: <span className="ml-2 font-normal">
+                    {shippingInfo && shippingInfo.phoneNo}
+                    </span>
+                </p>
+                <p className="flex items-center font-bold mt-6">
+                  <FaHouse className="-mt-1.2 mr-2 text-lg" />
+                  Dirección:
+                  <span className="ml-2 font-normal">{shippingDetails}</span>
+                </p>
+                <p className="flex items-center font-bold mt-6">
+                  <AiFillDollarCircle className="mr-1" />
+                  Total:{" "}
+                  <span className="ml-2 font-normal">${totalPrice} COP</span>
+                </p>
               </div>
-              <hr />
+
+              <hr className="border border-gray-300 my-4" />
+
+              <div className="mb-4 flex items-center">
+                <p className="text-lg font-bold my-4 flex items-center">
+                  <FaMoneyBill className="mr-2 text-lg" />
+                  Estado del pago:
+                  <span
+                    className={
+                      isPaid ? "text-green-500 ml-2" : "text-red-500 ml-2"
+                    }
+                  >
+                    {isPaid ? "Pagado" : "No pagado"}
+                  </span>
+                </p>
+              </div>
+
+              <div className="mb-4 flex items-center">
+                <p className="text-lg font-bold my-4 flex items-center">
+                  <FaClipboardList className="mr-1 text-lg" />
+                  Estado del pedido:
+                  <span
+                    className={
+                      order.orderStatus &&
+                      String(order.orderStatus).includes("Enviado")
+                        ? "text-green-500 ml-2"
+                        : "text-red-500 ml-2"
+                    }
+                  >
+                    {orderStatus}
+                  </span>
+                </p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+              <h4 className="text-xl font-bold font-sans flex items-center">
+                <FaCashRegister className="mr-1 text-lg"/>
+                Productos encargados
+                </h4>
+              {orderItems &&
+                orderItems.map((item) => (
+                  <div
+                    key={item.product}
+                    className="bg-white p-4 rounded-lg shadow-md"
+                  >
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      className="h-20 w-full object-cover mb-4"
+                    />
+                    <Link
+                      to={`/product/${item.product}`}
+                      className="text-blue-500 font-semibold block mb-2"
+                    >
+                      {item.name}
+                    </Link>
+                    <p className="text-gray-500">${item.price} COP</p>
+                    <p className="text-gray-500">
+                      Stock: {item.quantity} kg(s)
+                    </p>
+                  </div>
+                ))}
             </div>
           </div>
         </div>

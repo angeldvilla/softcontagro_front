@@ -127,7 +127,6 @@ const Payment = () => {
           
           order.paidAt = today;
           order.deliveredAt = today;
-          order.orderStatus =  "Enviado";
           order.user = userId;
 
           dispatch(createOrder(order));

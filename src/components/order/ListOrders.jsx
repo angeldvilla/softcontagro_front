@@ -17,10 +17,9 @@ const ListOrders = () => {
 
   const userId = user?.user?._id;
 
-
   const handleViewDetail = (id) => {
     navigate(`/order/${id}`);
-  }
+  };
 
   useEffect(() => {
     dispatch(myOrders(userId));
@@ -32,14 +31,16 @@ const ListOrders = () => {
   }, [dispatch, error, userId]);
 
   const columns = [
-    { field: "id", headerName: "# Pedido", width: 150 },
+    { field: "id", headerName: "# Pedido", width: 220 },
     {
       field: "orderItems",
-      headerName: "Unidades",
+      headerName: "Productos",
       width: 150,
       valueGetter: (params) => (params?.value ? params?.value.length : 0),
     },
-    { field: "totalPrice", headerName: "Precio", width: 150 },
+    { field: "itemsPrice", headerName: "SubTotal", width: 150 },
+    { field: "taxPrice", headerName: "Impuesto", width: 150 },
+    { field: "totalPrice", headerName: "Total", width: 150 },
     {
       field: "orderStatus",
       headerName: "Estado",
@@ -57,14 +58,14 @@ const ListOrders = () => {
     {
       field: "paidAt",
       headerName: "Pagado",
-      width: 150,
+      width: 180,
     },
   ];
 
   const actionsColumn = {
     field: "actions",
     headerName: "Acciones",
-    width: 150,
+    width: 95,
     renderCell: (params) => (
       <FaEye className="text-xl" onClick={() => handleViewDetail(params.id)} />
     ),
@@ -74,16 +75,18 @@ const ListOrders = () => {
     orders?.map((order) => ({
       id: order?._id,
       orderItems: order?.orderItems,
+      itemsPrice: `$${order?.itemsPrice}`,
+      taxPrice: `$${order?.taxPrice}`,
       totalPrice: `$${order?.totalPrice}`,
       orderStatus: order?.orderStatus,
       paidAt: order?.paidAt,
     })) ?? [];
 
   return (
-    <div className="container">
+    <div className="mx-w-full">
       <Header />
       <p className="my-5 text-center mt-32 text-2xl">
-        <b>Mis ordenes</b>
+        <b>Mis Pedidos</b>
       </p>
 
       {loading ? (
@@ -91,10 +94,8 @@ const ListOrders = () => {
       ) : (
         <div
           style={{
-            height: 400,
-            width: "100%",
             display: "flex",
-            justifyContent: "center",
+            flexDirection: "column",
             alignItems: "center",
           }}
         >
