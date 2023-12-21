@@ -10,9 +10,11 @@ import {
   clearErrors,
 } from "../../actions/categoryActions";
 import { DELETE_CATEGORY_RESET } from "../../constants/categoryConstants";
+import { useNavigate } from "react-router-dom";
 
-const CategorysList = ({ history }) => {
+const CategorysList = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { loading, error, category } = useSelector((state) => state.category);
   const { error: deleteError, isDeleted } = useSelector(
@@ -23,21 +25,21 @@ const CategorysList = ({ history }) => {
     dispatch(getCategory());
 
     if (error) {
-      toast.error("error");
+      toast.error("Error al cargar las categorias");
       dispatch(clearErrors());
     }
 
     if (deleteError) {
-      toast.error("deleteError");
+      toast.error("Error al eliminar la categoria");
       dispatch(clearErrors());
     }
 
     if (isDeleted) {
-      toast.success("Category deleted successfully");
-      history.push("/admin/Category");
+      toast.success("Categoria eliminada correctamente");
+      navigate("/admin/Category");
       dispatch({ type: DELETE_CATEGORY_RESET });
     }
-  }, [dispatch, error, deleteError, isDeleted, history]);
+  }, [dispatch, error, deleteError, isDeleted, navigate]);
 
   const deleteCategoryHandler = (id) => {
     dispatch(dltCategory(id));

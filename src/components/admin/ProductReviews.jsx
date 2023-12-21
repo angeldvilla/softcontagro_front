@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useTable } from "react-table";
 import Sidebar from "./Sidebar";
 import { toast, Toaster } from "sonner";
@@ -90,7 +90,7 @@ const ProductReviews = () => {
     useTable({ columns, data });
 
   return (
-    <Fragment>
+    <div>
       <h1>Product Reviews</h1>
       <div className="row mt-5">
         <div className="col-12 col-md-2 mt-4">
@@ -98,7 +98,7 @@ const ProductReviews = () => {
         </div>
 
         <div className="col-12 col-md-10 mt-5">
-          <Fragment>
+          <div>
             <div className="row justify-content-center mt-5">
               <div className="col-5">
                 <form onSubmit={submitHandler}>
@@ -155,11 +155,11 @@ const ProductReviews = () => {
             ) : (
               <p className="mt-5 text-center">No Reviews.</p>
             )}
-          </Fragment>
+          </div>
         </div>
       </div>
       <Toaster position="top-center" richColors />
-    </Fragment>
+    </div>
   );
 };
 

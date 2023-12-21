@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Sidebar from "./Sidebar";
 import { toast, Toaster } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
@@ -59,7 +59,7 @@ const UpdateUser = ({ history, match }) => {
   };
 
   return (
-    <Fragment>
+    <div>
       <h1>Update User</h1>
       <div className="row mt-5">
         <div className="col-12 col-md-2 mt-4">
@@ -123,7 +123,7 @@ const UpdateUser = ({ history, match }) => {
         </div>
       </div>
       <Toaster position="top-center" richColors />
-    </Fragment>
+    </div>
   );
 };
 

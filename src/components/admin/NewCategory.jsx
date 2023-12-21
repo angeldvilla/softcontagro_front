@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { toast, Toaster } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
 import { NEW_CATRGORY_RESET } from "../../constants/categoryConstants";
@@ -59,8 +59,8 @@ const NewCategory = ({ history }) => {
   };
 
   return (
-    <Fragment>
-      <h1>New CATRGORY</h1>
+    <div>
+      <h1>Nueva Categoría</h1>
       {loading ? (
         <>
           <Loader />
@@ -73,17 +73,17 @@ const NewCategory = ({ history }) => {
             </div>
 
             <div className="col-12 col-md-10 mt-5">
-              <Fragment>
+              <div>
                 <div className="wrapper my-5">
                   <form
                     className="shadow-lg"
                     onSubmit={submitHandler}
                     encType="multipart/form-data"
                   >
-                    <h1 className="mb-4">New Category</h1>
+                    <h1 className="mb-4">Nueva Categoría</h1>
 
                     <div className="form-group">
-                      <label htmlFor="name_field">Name</label>
+                      <label htmlFor="name_field">Nombre</label>
                       <input
                         type="text"
                         id="name_field"
@@ -108,7 +108,7 @@ const NewCategory = ({ history }) => {
                           className="custom-file-label"
                           htmlFor="customFile"
                         >
-                          Choose Images
+                          Elegir imágenes
                         </label>
                       </div>
 
@@ -130,17 +130,17 @@ const NewCategory = ({ history }) => {
                       className="btn btn-block py-3"
                       disabled={loading ? true : false}
                     >
-                      CREATE
+                      CREAR
                     </button>
                   </form>
                 </div>
-              </Fragment>
+              </div>
             </div>
           </div>
         </>
       )}
       <Toaster position="top-center" richColors />
-    </Fragment>
+    </div>
   );
 };
 

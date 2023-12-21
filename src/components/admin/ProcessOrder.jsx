@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Loader from "../layout/Loader";
 import Sidebar from "./Sidebar";
@@ -57,7 +57,7 @@ const ProcessOrder = ({ match }) => {
     paymentInfo && paymentInfo.status === "succeeded" ? true : false;
 
   return (
-    <Fragment>
+    <div>
       <h1>{`Process Order # ${order && order._id}`}</h1>
       <div className="row mt-5">
         <div className="col-12 col-md-2 mt-4">
@@ -65,7 +65,7 @@ const ProcessOrder = ({ match }) => {
         </div>
 
         <div className="col-12 col-md-10 mt-5">
-          <Fragment>
+          <div>
             {loading ? (
               <Loader />
             ) : (
@@ -172,11 +172,11 @@ const ProcessOrder = ({ match }) => {
                 </div>
               </div>
             )}
-          </Fragment>
+          </div>
         </div>
       </div>
       <Toaster position="top-center" richColors />
-    </Fragment>
+    </div>
   );
 };
 

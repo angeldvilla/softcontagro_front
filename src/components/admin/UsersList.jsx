@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useTable } from "react-table";
 import { FaPencilAlt, FaTrash } from "react-icons/fa";
@@ -59,7 +59,7 @@ const UsersList = ({ history }) => {
       Header: "Actions",
       accessor: "actions",
       Cell: ({ row }) => (
-        <Fragment>
+        <div>
           <Link
             to={`/admin/user/${row.original.id}`}
             className="btn btn-primary py-1 px-2"
@@ -72,7 +72,7 @@ const UsersList = ({ history }) => {
           >
             <FaTrash />
           </button>
-        </Fragment>
+        </div>
       ),
     },
   ];
@@ -89,7 +89,7 @@ const UsersList = ({ history }) => {
   }, [users, columns]);
 
   return (
-    <Fragment>
+    <div>
       <h1>All Users</h1>
       <div className="row mt-5">
         <div className="col-12 col-md-2 mt-4">
@@ -97,15 +97,15 @@ const UsersList = ({ history }) => {
         </div>
 
         <div className="col-12 col-md-10 mt-5">
-          <Fragment>
+          <div>
             <h1 className="my-5">All Users</h1>
 
             {loading ? <Loader /> : <UsersTable data={data} />}
-          </Fragment>
+          </div>
         </div>
       </div>
       <Toaster position="top-center" richColors />
-    </Fragment>
+    </div>
   );
 };
 

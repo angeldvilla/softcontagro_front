@@ -6,10 +6,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAdminProducts } from "../../actions/productActions";
 import { allOrders } from "../../actions/orderActions";
 import { allUsers } from "../../actions/userActions";
+import { FaCircleChevronRight } from "react-icons/fa6";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
 
   const { products } = useSelector((state) => state.products);
   const { users } = useSelector((state) => state.allUsers);
@@ -35,79 +36,96 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="flex ">
+    <div className="flex min-h-screen bg-gray-200">
       <Sidebar sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
 
-      <div className={`flex-1 ml-64 ${sidebarOpen ? 'ml-64' : 'ml-16'}`}>
-        <h1 className="text-3xl font-bold my-4">Admin Dashboard</h1>
+      <div className="flex-1 p-4">
+        <h1 className="text-3xl font-bold my-4 font-sans flex justify-center items-center">
+          Admin Dashboard
+        </h1>
 
         {loading ? (
           <Loader />
         ) : (
-          <div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-              <div className="card bg-primary text-white h-40">
-                <div className="card-body">
-                  <p className="text-center text-xl font-bold">
-                    Total Amount
-                    <br />
-                    <span className="text-2xl">
-                      ${totalAmount && totalAmount.toFixed(2)}
-                    </span>
-                  </p>
-                </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 w-full mt-8">
+            <div className="card bg-blue-500 text-white h-40 flex justify-center items-center hover:scale-105 duration-300 rounded-md">
+              <div>
+                <p className="text-xl font-bold mb-2">Cantidad total</p>
+                <p className="text-2xl">
+                  ${totalAmount && totalAmount.toFixed(2)} COP
+                </p>
               </div>
+            </div>
 
-              <Link to="/admin/products" className="card bg-success text-white h-40">
-                <div className="card-body">
-                  <p className="text-center text-xl font-bold">
-                    Products
-                    <br />
-                    <span className="text-2xl">{products && products.length}</span>
-                  </p>
-                </div>
-                <div className="card-footer text-white flex justify-between">
-                  <span>View Details</span>
-                  <i className="fa fa-angle-right"></i>
-                </div>
-              </Link>
+            <Link
+              to="/admin/products"
+              className="card bg-green-500 text-white h-40 flex flex-col justify-between items-center hover:scale-105 duration-300 rounded-md"
+            >
+              <div className="card-body">
+                <p className="text-xl font-bold mb-2 text-white mt-2">
+                  Productos
+                </p>
+                <p className="text-2xl text-center text-white">
+                  {products?.products ? products?.products?.length : 0}
+                </p>
+              </div>
+              <div className="card-footer text-white">
+                <Link
+                  to="/admin/products"
+                  className="flex items-center justify-center bg-blue-gray-900 text-white px-4 py-2 rounded-full hover:bg-blue-gray-800 hover:text-white hover:scale-105 duration-150 mb-4 mt-2"
+                >
+                  Ver detalles
+                  <FaCircleChevronRight className="ml-2" />
+                </Link>
+              </div>
+            </Link>
 
-              <Link to="/admin/orders" className="card bg-danger text-white h-40">
-                <div className="card-body">
-                  <p className="text-center text-xl font-bold">
-                    Orders
-                    <br />
-                    <span className="text-2xl">{orders && orders.length}</span>
-                  </p>
-                </div>
-                <div className="card-footer text-white flex justify-between">
-                  <span>View Details</span>
-                  <i className="fa fa-angle-right"></i>
-                </div>
-              </Link>
+            <Link
+              to="/admin/orders"
+              className="card bg-yellow-500 text-white h-40 flex flex-col justify-between items-center hover:scale-105 duration-300 rounded-md"
+            >
+              <div className="card-body">
+                <p className="text-xl font-bold mb-2 text-white mt-2">Pedidos</p>
+                <p className="text-2xl text-center text-white">
+                  {orders && orders?.length}
+                </p>
+              </div>
+              <div className="card-footer text-white">
+                <Link
+                  to="/admin/orders"
+                  className="flex items-center justify-center bg-blue-gray-900 text-white px-4 py-2 rounded-full hover:bg-blue-gray-800 hover:text-white hover:scale-105 duration-150 mb-4 mt-2"
+                >
+                  Ver detalles
+                  <FaCircleChevronRight className="ml-2" />
+                </Link>
+              </div>
+            </Link>
 
-              <Link to="/admin/users" className="card bg-info text-white h-40">
-                <div className="card-body">
-                  <p className="text-center text-xl font-bold">
-                    Users
-                    <br />
-                    <span className="text-2xl">{users && users.length}</span>
-                  </p>
-                </div>
-                <div className="card-footer text-white flex justify-between">
-                  <span>View Details</span>
-                  <i className="fa fa-angle-right"></i>
-                </div>
-              </Link>
+            <Link
+              to="/admin/users"
+              className="card bg-red-500 text-white h-40 flex flex-col justify-between items-center hover:scale-105 duration-300 rounded-md"
+            >
+              <div className="card-body">
+                <p className="text-xl font-bold mb-2 text-white mt-2">Usuarios</p>
+                <p className="text-2xl text-center text-white">
+                  {users && users.length}
+                </p>
+              </div>
+              <div className="card-footer text-white">
+                <Link
+                  to="/admin/users"
+                  className="flex items-center justify-center bg-blue-gray-900 text-white px-4 py-2 rounded-full hover:bg-blue-gray-800 hover:text-white hover:scale-105 duration-150 mb-4 mt-2"
+                >
+                  Ver detalles
+                  <FaCircleChevronRight className="ml-2" />
+                </Link>
+              </div>
+            </Link>
 
-              <div className="card bg-warning text-white h-40">
-                <div className="card-body">
-                  <p className="text-center text-xl font-bold">
-                    Out of Stock
-                    <br />
-                    <span className="text-2xl">{outOfStock}</span>
-                  </p>
-                </div>
+            <div className="card bg-orange-500 text-white h-40 flex justify-center items-center hover:scale-105 duration-300 rounded-md">
+              <div>
+                <p className="text-xl font-bold mb-2 mt-2">Agotado</p>
+                <p className="text-2xl text-center mb-4">{outOfStock}</p>
               </div>
             </div>
           </div>

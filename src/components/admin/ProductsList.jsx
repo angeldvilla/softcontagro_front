@@ -1,6 +1,6 @@
-import React, { Fragment, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useTable } from "react-table";
 import { FaPencilAlt, FaTrash } from "react-icons/fa";
 import Loader from "../layout/Loader";
@@ -13,8 +13,9 @@ import {
 import { DELETE_PRODUCT_RESET } from "../../constants/productConstants";
 import { toast, Toaster } from "sonner";
 
-const ProductsList = ({ history }) => {
+const ProductsList = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { loading, error, products } = useSelector((state) => state.products);
   const { error: deleteError, isDeleted } = useSelector(
@@ -36,10 +37,10 @@ const ProductsList = ({ history }) => {
 
     if (isDeleted) {
       toast.success("Product deleted successfully");
-      history.push("/admin/products");
+      navigate("/admin/products");
       dispatch({ type: DELETE_PRODUCT_RESET });
     }
-  }, [dispatch, error, deleteError, isDeleted, history]);
+  }, [dispatch, error, deleteError, isDeleted, navigate]);
 
   const columns = React.useMemo(
     () => [
@@ -67,7 +68,7 @@ const ProductsList = ({ history }) => {
         Header: "Actions",
         accessor: "actions",
         Cell: ({ row }) => (
-          <Fragment>
+          <div>
             <Link
               to={`/admin/product/${row.original._id}`}
               className="btn btn-primary py-1 px-2"
@@ -80,11 +81,11 @@ const ProductsList = ({ history }) => {
             >
               <FaTrash />
             </button>
-          </Fragment>
+          </div>
         ),
       },
     ],
-    []
+    [deleteProductHandler]
   );
 
   const data = React.useMemo(() => products, [products]);
@@ -97,7 +98,7 @@ const ProductsList = ({ history }) => {
   };
 
   return (
-    <Fragment>
+    <div>
       <h1>All Products</h1>
       <div className="row mt-5">
         <div className="col-12 col-md-2 mt-4">
@@ -105,7 +106,7 @@ const ProductsList = ({ history }) => {
         </div>
 
         <div className="col-12 col-md-10 mt-5">
-          <Fragment>
+          <div>
             <h1 className="my-5">All Products</h1>
 
             {loading ? (
@@ -139,11 +140,11 @@ const ProductsList = ({ history }) => {
                 </tbody>
               </table>
             )}
-          </Fragment>
+          </div>
         </div>
       </div>
       <Toaster position="top-center" richColors />
-    </Fragment>
+    </div>
   );
 };
 

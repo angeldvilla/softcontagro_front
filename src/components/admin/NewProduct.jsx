@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast, Toaster } from "sonner";
 import Loader from "../layout/Loader";
@@ -74,7 +74,7 @@ const NewProduct = ({ history }) => {
   };
 
   return (
-    <Fragment>
+    <div>
       <h1>New Product</h1>
       {loading ? (
         <>
@@ -88,7 +88,7 @@ const NewProduct = ({ history }) => {
             </div>
 
             <div className="col-12 col-md-10 mt-5">
-              <Fragment>
+              <div>
                 <div className="wrapper my-5">
                   <form
                     className="shadow-lg"
@@ -208,13 +208,13 @@ const NewProduct = ({ history }) => {
                     </button>
                   </form>
                 </div>
-              </Fragment>
+              </div>
             </div>
           </div>
         </>
       )}
       <Toaster position="top-center" richColors />
-    </Fragment>
+    </div>
   );
 };
 

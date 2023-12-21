@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useTable } from "react-table";
 import Loader from "../layout/Loader";
@@ -65,7 +65,7 @@ const OrdersList = ({ history }) => {
         Header: "Actions",
         accessor: "actions",
         Cell: ({ row }) => (
-          <Fragment>
+          <div>
             <Link
               to={`/admin/order/${row.original.id}`}
               className="btn btn-primary py-1 px-2"
@@ -78,7 +78,7 @@ const OrdersList = ({ history }) => {
             >
               <i className="fa fa-trash"></i>
             </button>
-          </Fragment>
+          </div>
         ),
       },
     ],
@@ -91,7 +91,7 @@ const OrdersList = ({ history }) => {
     useTable({ columns, data });
 
   return (
-    <Fragment>
+    <div>
       <h1>All Orders</h1>
       <div className="row mt-5">
         <div className="col-12 col-md-2 mt-4">
@@ -99,7 +99,7 @@ const OrdersList = ({ history }) => {
         </div>
 
         <div className="col-12 col-md-10 mt-5">
-          <Fragment>
+          <div>
             <h1 className="my-5">All Orders</h1>
 
             {loading ? (
@@ -133,11 +133,11 @@ const OrdersList = ({ history }) => {
                 </tbody>
               </table>
             )}
-          </Fragment>
+          </div>
         </div>
       </div>
       <Toaster position="top-center" richColors />
-    </Fragment>
+    </div>
   );
 };
 
