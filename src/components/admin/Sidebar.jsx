@@ -54,7 +54,7 @@ const Sidebar = ({ sidebarOpen, toggleSidebar }) => {
     >
       <nav
         /*  id="sidebar" */
-        className={`flex flex-col items-center ${
+        className={`fixed flex flex-col items-center ${
           sidebarOpen ? "w-52" : "w-24"
         }`}
       >

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useTable } from "react-table";
 import Loader from "../layout/Loader";
 import Sidebar from "./Sidebar";
@@ -20,6 +20,11 @@ const CategorysList = () => {
   const { error: deleteError, isDeleted } = useSelector(
     (state) => state.dltCategory
   );
+
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
 
   useEffect(() => {
     dispatch(getCategory());
@@ -82,7 +87,7 @@ const CategorysList = () => {
     <div>
       <div className="row mt-5">
         <div className="col-12 col-md-2 mt-4">
-          <Sidebar />
+        <Sidebar sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
         </div>
 
         <div className="col-12 col-md-10 mt-5">
