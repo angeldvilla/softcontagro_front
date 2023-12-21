@@ -64,7 +64,7 @@ const OrderDetails = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="order-details">
               <p className="text-2xl my-5">Pedido #{order._id}</p>
-              <hr className="border border-gray-300 my-4"/>
+              <hr className="border border-gray-300 my-4" />
 
               <div className="mb-4">
                 <p className="flex items-center text-2xl font-sans font-bold">
@@ -76,13 +76,13 @@ const OrderDetails = () => {
                   <FaAddressCard className="-mt-1.2 mr-2 text-lg" />
                   Nombre Completo: <span className="ml-2 font-normal">
                     {user?.name}
-                    </span>
+                  </span>
                 </p>
                 <p className="flex items-center font-bold mt-6">
                   <FaPhone className="-mt-1.2 mr-2 text-lg" />
                   Teléfono: <span className="ml-2 font-normal">
                     {shippingInfo && shippingInfo.phoneNo}
-                    </span>
+                  </span>
                 </p>
                 <p className="flex items-center font-bold mt-6">
                   <FaHouse className="-mt-1.2 mr-2 text-lg" />
@@ -98,7 +98,7 @@ const OrderDetails = () => {
 
               <hr className="border border-gray-300 my-4" />
 
-              <div className="mb-4 flex items-center">
+              <div className="flex items-center">
                 <p className="text-lg font-bold my-4 flex items-center">
                   <FaMoneyBill className="mr-2 text-lg" />
                   Estado del pago:
@@ -112,7 +112,7 @@ const OrderDetails = () => {
                 </p>
               </div>
 
-              <div className="mb-4 flex items-center">
+              <div className="flex items-center">
                 <p className="text-lg font-bold my-4 flex items-center">
                   <FaClipboardList className="mr-1 text-lg" />
                   Estado del pedido:
@@ -130,34 +130,36 @@ const OrderDetails = () => {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-              <h4 className="text-xl font-bold font-sans flex items-center">
+            <div className="mt-8">
+              <h4 className="text-xl font-bold font-sans flex items-center mb-4">
                 <FaCashRegister className="mr-1 text-lg"/>
                 Productos encargados
-                </h4>
-              {orderItems &&
-                orderItems.map((item) => (
-                  <div
-                    key={item.product}
-                    className="bg-white p-4 rounded-lg shadow-md"
-                  >
-                    <img
-                      src={item.image}
-                      alt={item.name}
-                      className="h-20 w-full object-cover mb-4"
-                    />
-                    <Link
-                      to={`/product/${item.product}`}
-                      className="text-blue-500 font-semibold block mb-2"
+              </h4>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                {orderItems &&
+                  orderItems.map((item) => (
+                    <div
+                      key={item.product}
+                      className="bg-white p-4 rounded-lg shadow-md"
                     >
-                      {item.name}
-                    </Link>
-                    <p className="text-gray-500">${item.price} COP</p>
-                    <p className="text-gray-500">
-                      Stock: {item.quantity} kg(s)
-                    </p>
-                  </div>
-                ))}
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="h-32 w-full object-cover mb-4"
+                      />
+                      <Link
+                        to={`/product/${item.product}`}
+                        className="text-blue-500 font-semibold block mb-2"
+                      >
+                        {item.name}
+                      </Link>
+                      <p className="text-gray-500">${item.price} COP</p>
+                      <p className="text-gray-500">
+                        Stock: {item.quantity} kg(s)
+                      </p>
+                    </div>
+                  ))}
+              </div>
             </div>
           </div>
         </div>
