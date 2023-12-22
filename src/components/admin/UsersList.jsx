@@ -89,7 +89,7 @@ const UsersList = () => {
     },
     {
       field: "images",
-      headerName: "Imagenes",
+      headerName: "Avatar",
       minWidth: 100,
       flex: 0.5,
       renderCell: (params) => (
@@ -100,7 +100,7 @@ const UsersList = () => {
                 key={index}
                 src={image}
                 alt={`Imagen ${index + 1}`}
-                className="w-16 h-12 mx-1"
+                className="w-8 h-8 mx-1"
               />
             ))
           ) : (
@@ -119,7 +119,7 @@ const UsersList = () => {
       width: 95,
       renderCell: (params) => (
         <div className="flex items-center gap-2">
-          <Link to={`/admin/product/${params.id}`} className="text-lg">
+          <Link to={`/admin/user/${params.id}`} className="text-lg">
             <FaPencilAlt className="text-blue-600 hover:text-blue-800" />
           </Link>
           <button
@@ -139,7 +139,8 @@ const UsersList = () => {
       name: user?.name,
       email: user?.email,
       role: user?.role,
-      images: user?.avatar?.map((a) => a?.url),
+      images: Array.isArray(user?.avatar) ? user?.avatar.map((item) => item?.url) : [user?.avatar?.url],
+        
     })) ?? [];
 
   return (
@@ -181,7 +182,7 @@ const UsersList = () => {
             />
           </div>
         )}
-        <Toaster position="top-right" richColors closeButton/>
+        <Toaster position="top-right" richColors closeButton />
         <Dialog
           open={openModal}
           animate={{
@@ -189,9 +190,9 @@ const UsersList = () => {
             unmount: { scale: 0.9, y: -100 },
           }}
         >
-          <DialogHeader>Eliminar Producto</DialogHeader>
+          <DialogHeader>Eliminar Usuario</DialogHeader>
           <DialogBody>
-            Estas apunto de eliminar este producto. ¿Estas seguro?
+            Estas apunto de eliminar este usuario. ¿Estas seguro?
           </DialogBody>
           <DialogFooter>
             <Button

@@ -74,13 +74,13 @@ const OrderDetails = () => {
 
                 <p className="flex items-center font-bold mt-6">
                   <FaAddressCard className="-mt-1.2 mr-2 text-lg" />
-                  Nombre Completo: <span className="ml-2 font-normal">
-                    {user?.name}
-                  </span>
+                  Nombre Completo:{" "}
+                  <span className="ml-2 font-normal">{user?.name}</span>
                 </p>
                 <p className="flex items-center font-bold mt-6">
                   <FaPhone className="-mt-1.2 mr-2 text-lg" />
-                  Teléfono: <span className="ml-2 font-normal">
+                  Teléfono:{" "}
+                  <span className="ml-2 font-normal">
                     {shippingInfo && shippingInfo.phoneNo}
                   </span>
                 </p>
@@ -132,32 +132,32 @@ const OrderDetails = () => {
 
             <div className="mt-8">
               <h4 className="text-xl font-bold font-sans flex items-center mb-4">
-                <FaCashRegister className="mr-1 text-lg"/>
+                <FaCashRegister className="mr-1 text-lg" />
                 Productos encargados
               </h4>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                 {orderItems &&
                   orderItems.map((item) => (
-                    <div
-                      key={item.product}
-                      className="bg-white p-4 rounded-lg shadow-md"
+                    <Link
+                      to={`/product/${item.product}`}
+                      className="text-blue-500 font-semibold block mb-2"
                     >
-                      <img
-                        src={item.image}
-                        alt={item.name}
-                        className="h-32 w-full object-cover mb-4"
-                      />
-                      <Link
-                        to={`/product/${item.product}`}
-                        className="text-blue-500 font-semibold block mb-2"
+                      <div
+                        key={item.product}
+                        className="bg-white p-4 rounded-lg shadow-md hover:scale-105 duration-150"
                       >
+                        <img
+                          src={item.image}
+                          alt={item.name}
+                          className="h-32 w-full object-cover mb-4"
+                        />
                         {item.name}
-                      </Link>
-                      <p className="text-gray-500">${item.price} COP</p>
-                      <p className="text-gray-500">
-                        Stock: {item.quantity} kg(s)
-                      </p>
-                    </div>
+                        <p className="text-gray-500">${item.price} COP</p>
+                        <p className="text-gray-500">
+                          Stock: {item.quantity} kg(s)
+                        </p>
+                      </div>
+                    </Link>
                   ))}
               </div>
             </div>

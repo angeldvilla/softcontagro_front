@@ -1,25 +1,33 @@
 import React, { useState, useEffect } from "react";
-import Sidebar from "./Sidebar";
-import { toast, Toaster } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import Sidebar from "./Sidebar";
 import {
   updateUser,
   getUserDetails,
   clearErrors,
 } from "../../actions/userActions";
 import { UPDATE_USER_RESET } from "../../constants/userConstants";
+import { toast, Toaster } from "sonner";
 
-const UpdateUser = ({ history, match }) => {
+const UpdateUser = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [role, setRole] = useState("");
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { id } = useParams();
 
   const { error, isUpdated } = useSelector((state) => state.user);
   const { user } = useSelector((state) => state.userDetails);
 
-  const userId = match.params.id;
+  const userId = id;
+
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
 
   useEffect(() => {
     console.log(user && user._id !== userId);
@@ -32,20 +40,20 @@ const UpdateUser = ({ history, match }) => {
     }
 
     if (error) {
-      toast.error("error");
+      toast.error("Error al actualizar el usuario");
       dispatch(clearErrors());
     }
 
     if (isUpdated) {
-      toast.success("User updated successfully");
+      toast.success("Usuario actualizado correctamente");
 
-      history.push("/admin/users");
+      navigate("/admin/users");
 
       dispatch({
         type: UPDATE_USER_RESET,
       });
     }
-  }, [dispatch, error, history, isUpdated, userId, user]);
+  }, [dispatch, error, navigate, isUpdated, userId, user]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -59,70 +67,65 @@ const UpdateUser = ({ history, match }) => {
   };
 
   return (
-    <div>
-      <h1>Update User</h1>
-      <div className="row mt-5">
-        <div className="col-12 col-md-2 mt-4">
-          <Sidebar />
-        </div>
+    <div className="flex mx-w-full">
+      <Sidebar sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
 
-        <div className="col-12 col-md-10 mt-5">
-          <div className="row wrapper">
-            <div className="col-10 col-lg-5">
-              <form className="shadow-lg" onSubmit={submitHandler}>
-                <h1 className="mt-2 mb-5">Update User</h1>
+      <div className="col-12 col-md-10 mt-5">
+        <div className="row wrapper">
+          <div className="col-10 col-lg-5">
+            <form className="shadow-lg" onSubmit={submitHandler}>
+              <h1 className="mt-2 mb-5 font-sans text-xl">Actualizar Usuario</h1>
 
-                <div className="form-group">
-                  <label htmlFor="name_field">Name</label>
-                  <input
-                    type="name"
-                    id="name_field"
-                    className="form-control"
-                    name="name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                  />
-                </div>
+              <div className="form-group mb-4">
+                <label htmlFor="name_field">Nombre</label>
+                <input
+                  type="name"
+                  id="name_field"
+                  className="form-control font-sans text-sm font-light"
+                  name="name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </div>
 
-                <div className="form-group">
-                  <label htmlFor="email_field">Email</label>
-                  <input
-                    type="email"
-                    id="email_field"
-                    className="form-control"
-                    name="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </div>
+              <div className="form-group mb-4">
+                <label htmlFor="email_field">Correo Electrónico</label>
+                <input
+                  type="email"
+                  id="email_field"
+                  className="form-control font-sans text-sm font-light"
+                  name="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
 
-                <div className="form-group">
-                  <label htmlFor="role_field">Role</label>
+              <div className="form-group mb-4">
+                <label htmlFor="role_field">Rol</label>
 
-                  <select
-                    id="role_field"
-                    className="form-control"
-                    name="role"
-                    value={role}
-                    onChange={(e) => setRole(e.target.value)}
-                  >
-                    <option value="user">user</option>
-                    <option value="admin">admin</option>
-                  </select>
-                </div>
-
-                <button
-                  type="submit"
-                  className="btn update-btn btn-block mt-4 mb-3"
+                <select
+                  id="role_field"
+                  className="form-control font-sans text-sm font-light"
+                  name="role"
+                  value={role}
+                  onChange={(e) => setRole(e.target.value)}
                 >
-                  Update
-                </button>
-              </form>
-            </div>
+                  <option value="usuario">Usuario</option>
+                  <option value="admin">Administrador</option>
+                </select>
+              </div>
+
+              <button
+                onClick={submitHandler}
+                className="px-1 py-2 font-sans text-sm bg-orange-500 hover:bg-orange-700 rounded-md text-white mt-8 hover:scale-105 duration-150 w-full"
+              >
+                Actualizar Usuario
+              </button>
+            </form>
           </div>
         </div>
       </div>
-      <Toaster position="top-center" richColors />
+      <Toaster position="top-right" richColors closeButton />
     </div>
   );
 };

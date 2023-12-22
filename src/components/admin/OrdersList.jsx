@@ -120,7 +120,7 @@ const OrdersList = () => {
     {
       field: "orderStatus",
       headerName: "Estado",
-      minWidth: 150,
+      minWidth: 90,
       flex: 0.5,
       renderCell: (params) => (
         <span
@@ -134,10 +134,11 @@ const OrdersList = () => {
         </span>
       ),
     },
+    { field: "paidAt", headerName: "Pagado", minWidth: 115, flex: 0.5 },
     {
       field: "images",
       headerName: "Imagenes",
-      minWidth: 100,
+      minWidth: 90,
       flex: 0.5,
       renderCell: (params) => (
         <div>
@@ -147,14 +148,14 @@ const OrdersList = () => {
                 key={index}
                 src={image}
                 alt={`Imagen ${index + 1}`}
-                className="w-8 h-8 mx-1"
+                className="w-16 h-12 mx-1"
               />
             ))
           ) : (
             <img
               src="https://res.cloudinary.com/dxe4igvmq/image/upload/v1701550801/SoftContAgro/nge2uvmygtkzovgywh3w.png"
               alt="Imagen por defecto"
-              className="w-8 h-8 mx-1"
+              className="w-16 h-12 mx-1"
             />
           )}
         </div>
@@ -182,7 +183,7 @@ const OrdersList = () => {
 
   const rows =
     orders?.map((order) => ({
-      id: `#${order?._id}`,
+      id: order?._id,
       user: `${users?.map((user) =>
         user?._id === order?.user ? user?.name : "Desconocido"
       )}`,
@@ -196,6 +197,8 @@ const OrdersList = () => {
       orderStatus: order?.orderStatus,
       itemsPrice: `$${order?.itemsPrice}`,
       totalPrice: `$${order?.totalPrice}`,
+      paidAt: order?.paidAt,
+      deliveredAt: order?.deliveredAt,
       images: order?.orderItems?.map((item) => item?.image),
     })) ?? [];
 

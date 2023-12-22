@@ -1,7 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { useTable } from "react-table";
+import {
+  DataGrid,
+  GridToolbarContainer,
+  GridToolbarColumnsButton,
+  GridToolbarFilterButton,
+} from "@mui/x-data-grid";
+import {
+  Button,
+  Dialog,
+  DialogHeader,
+  DialogBody,
+  DialogFooter,
+} from "@material-tailwind/react";
+import { FaTrash } from "react-icons/fa";
 import Sidebar from "./Sidebar";
-import { toast, Toaster } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getProductReviews,
@@ -9,25 +21,38 @@ import {
   clearErrors,
 } from "../../actions/productActions";
 import { DELETE_REVIEW_RESET } from "../../constants/productConstants";
+import { toast, Toaster } from "sonner";
+import { esES } from "@mui/x-data-grid";
 
 const ProductReviews = () => {
   const [productId, setProductId] = useState("");
+  const [deleteId, setDeleteId] = useState(null);
+  const [openModal, setOpenModal] = useState(false);
+
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
+
+  const handleOpen = () => {
+    setOpenModal(!openModal);
+  };
 
   const dispatch = useDispatch();
 
-  const { error, reviews } = useSelector((state) => state.productReviews);
+  const { error, reviews } = useSelector((state) => state?.productReviews);
   const { isDeleted, error: deleteError } = useSelector(
-    (state) => state.review
+    (state) => state?.review
   );
 
   useEffect(() => {
     if (error) {
-      toast.error("error");
+      toast.error("Error al obtener las reseñas");
       dispatch(clearErrors());
     }
 
     if (deleteError) {
-      toast.error("deleteError");
+      toast.error("Error al eliminar la reseña");
       dispatch(clearErrors());
     }
 
@@ -36,13 +61,29 @@ const ProductReviews = () => {
     }
 
     if (isDeleted) {
-      toast.success("Review deleted successfully");
+      toast.success("Reseña eliminada con exito");
       dispatch({ type: DELETE_REVIEW_RESET });
     }
   }, [dispatch, error, productId, isDeleted, deleteError]);
 
-  const deleteReviewHandler = (id) => {
-    dispatch(deleteReview(id, productId));
+  const confirmDeleteReview = (rowId) => {
+    const rowSelect = rows.find((row) => row.id === rowId);
+    console.log(rowSelect);
+
+    if (rowSelect) {
+      setDeleteId(rowSelect.id);
+      handleOpen();
+    }
+  };
+
+  const deleteReviewHandler = async () => {
+    if (!productId) {
+      toast.error("Por favor, seleccione un producto");
+    }
+    if (deleteId !== null) {
+      dispatch(deleteReview(deleteId, productId));
+    }
+    setOpenModal(false);
   };
 
   const submitHandler = (e) => {
@@ -50,115 +91,126 @@ const ProductReviews = () => {
     dispatch(getProductReviews(productId));
   };
 
-  const columns = React.useMemo(
-    () => [
-      {
-        Header: "Review ID",
-        accessor: "id",
-      },
-      {
-        Header: "Rating",
-        accessor: "rating",
-      },
-      {
-        Header: "Comment",
-        accessor: "comment",
-      },
-      {
-        Header: "User",
-        accessor: "name",
-      },
-      {
-        Header: "Actions",
-        accessor: "actions",
-        Cell: ({ row }) => (
+  const columns = [
+    { field: "id", headerName: "ID", minWidth: 220, flex: 0.5 },
+    {
+      field: "actions",
+      headerName: "Acciones",
+      width: 95,
+      renderCell: (params) => (
+        <div className="flex items-center gap-2">
           <button
-            className="btn btn-danger py-1 px-2 ml-2"
-            onClick={() => deleteReviewHandler(row.original.id)}
+            className="text-lg"
+            onClick={() => confirmDeleteReview(params.id)}
           >
-            <i className="fa fa-trash"></i>
+            <FaTrash className="text-red-600 hover:text-red-800" />
           </button>
-        ),
-      },
-    ],
-    [deleteReviewHandler]
-  );
+        </div>
+      ),
+    },
+  ];
 
-  const data = React.useMemo(() => reviews, [reviews]);
-
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable({ columns, data });
+  const rows =
+    reviews?.map((review) => ({
+      id: review?._id,
+    })) ?? [];
 
   return (
-    <div>
-      <h1>Product Reviews</h1>
-      <div className="row mt-5">
-        <div className="col-12 col-md-2 mt-4">
-          <Sidebar />
-        </div>
+    <div className="flex mx-w-full">
+      <Sidebar sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
 
-        <div className="col-12 col-md-10 mt-5">
-          <div>
-            <div className="row justify-content-center mt-5">
-              <div className="col-5">
-                <form onSubmit={submitHandler}>
-                  <div className="form-group">
-                    <label htmlFor="productId_field">Enter Product ID</label>
-                    <input
-                      type="text"
-                      id="productId_field"
-                      className="form-control"
-                      value={productId}
-                      onChange={(e) => setProductId(e.target.value)}
-                    />
-                  </div>
-
-                  <button
-                    id="search_button"
-                    type="submit"
-                    className="btn btn-primary btn-block py-2"
-                  >
-                    SEARCH
-                  </button>
-                </form>
+      <div className="col-12 col-md-10 mt-5">
+        <div className="row wrapper">
+          <div className="col-10 col-lg-5">
+            <form className="shadow-lg" onSubmit={submitHandler}>
+              <div className="form-group">
+                <label htmlFor="productId_field" className="text-lg">
+                  Ingrese el ID del Producto
+                </label>
+                <input
+                  type="text"
+                  id="productId_field"
+                  className="form-control font-sans text-lg"
+                  value={productId}
+                  onChange={(e) => setProductId(e.target.value)}
+                />
               </div>
-            </div>
 
-            {reviews && reviews.length > 0 ? (
-              <table {...getTableProps()} className="table">
-                <thead>
-                  {headerGroups.map((headerGroup) => (
-                    <tr {...headerGroup.getHeaderGroupProps()}>
-                      {headerGroup.headers.map((column) => (
-                        <th {...column.getHeaderProps()}>
-                          {column.render("Header")}
-                        </th>
-                      ))}
-                    </tr>
-                  ))}
-                </thead>
-                <tbody {...getTableBodyProps()}>
-                  {rows.map((row) => {
-                    prepareRow(row);
-                    return (
-                      <tr {...row.getRowProps()}>
-                        {row.cells.map((cell) => (
-                          <td {...cell.getCellProps()}>
-                            {cell.render("Cell")}
-                          </td>
-                        ))}
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            ) : (
-              <p className="mt-5 text-center">No Reviews.</p>
-            )}
+              <button
+                id="search_button"
+                type="submit"
+                className="px-1 py-2 font-sans text-sm bg-gray-800 hover:bg-blue-gray-600 rounded-md text-white mt-8 hover:scale-105 duration-150 w-full focus:outline-none"
+              >
+                BUSCAR
+              </button>
+            </form>
           </div>
         </div>
+
+        {reviews && reviews.length > 0 ? (
+          <div className="w-full max-w-screen-xl flex flex-col items-center">
+            <DataGrid
+              localeText={esES.components.MuiDataGrid.defaultProps.localeText}
+              columns={columns}
+              rows={rows}
+              initialState={{
+                pagination: {
+                  paginationModel: { page: 0, pageSize: 25 },
+                },
+              }}
+              pageSizeOptions={[25, 50, 100]}
+              autoHeight
+              disableRowSelectionOnClick
+              disableColumnSelector
+              loading={rows?.length === 0}
+              components={{
+                Toolbar: GridToolbarContainer,
+              }}
+              componentsProps={{
+                toolbar: {
+                  buttons: [
+                    <GridToolbarColumnsButton key="columns" />,
+                    <GridToolbarFilterButton key="filter" />,
+                  ],
+                },
+              }}
+            />
+          </div>
+        ) : (
+          <p className="mt-5 text-center">No hay reseñas</p>
+        )}
       </div>
-      <Toaster position="top-center" richColors />
+
+      <Toaster position="top-right" richColors closeButton />
+      <Dialog
+        open={openModal}
+        animate={{
+          mount: { scale: 1, y: 0 },
+          unmount: { scale: 0.9, y: -100 },
+        }}
+      >
+        <DialogHeader>Eliminar Reseña</DialogHeader>
+        <DialogBody>
+          Estas apunto de eliminar esta reseña. ¿Estas seguro?
+        </DialogBody>
+        <DialogFooter>
+          <Button
+            variant="text"
+            color="red"
+            onClick={() => setOpenModal(false)}
+            className="mr-1"
+          >
+            <span>Cancelar</span>
+          </Button>
+          <Button
+            variant="gradient"
+            color="green"
+            onClick={deleteReviewHandler}
+          >
+            <span>Confirmar</span>
+          </Button>
+        </DialogFooter>
+      </Dialog>
     </div>
   );
 };

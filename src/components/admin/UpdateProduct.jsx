@@ -161,7 +161,8 @@ const UpdateProduct = () => {
                   <textarea
                     className="form-control font-sans font-light text-sm"
                     id="description_field"
-                    rows="8"
+                    rows="3"
+                    placeholder="Descripción del producto"
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                   ></textarea>
