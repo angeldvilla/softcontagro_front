@@ -119,7 +119,7 @@ const ProductReviews = () => {
     <div className="flex mx-w-full">
       <Sidebar sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
 
-      <div className="col-12 col-md-10 mt-5">
+      <div className="col-12 col-md-10 mt-5 ml-auto mr-auto">
         <div className="row wrapper">
           <div className="col-10 col-lg-5">
             <form className="shadow-lg" onSubmit={submitHandler}>

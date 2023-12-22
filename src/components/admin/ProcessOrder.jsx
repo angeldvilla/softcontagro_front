@@ -80,7 +80,7 @@ const ProcessOrder = () => {
       {loading ? (
         <Loader />
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 ml-auto">
           <div className="order-details">
             <h2 className="text-2xl my-5">Pedido # {order._id}</h2>
 

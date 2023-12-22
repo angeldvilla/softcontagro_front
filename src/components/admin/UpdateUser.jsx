@@ -70,42 +70,42 @@ const UpdateUser = () => {
     <div className="flex mx-w-full">
       <Sidebar sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
 
-      <div className="col-12 col-md-10 mt-5">
+      <div className="col-12 col-md-10 mt-5 ml-auto mr-auto">
         <div className="row wrapper">
           <div className="col-10 col-lg-5">
             <form className="shadow-lg" onSubmit={submitHandler}>
-              <h1 className="mt-2 mb-5 font-sans text-xl">Actualizar Usuario</h1>
+              <h1 className="mt-2 mb-5 font-sans text-2xl">Actualizar Usuario</h1>
 
-              <div className="form-group mb-4">
-                <label htmlFor="name_field">Nombre</label>
+              <div className="form-group mb-8">
+                <label htmlFor="name_field" className="text-xl">Nombre</label>
                 <input
                   type="name"
                   id="name_field"
-                  className="form-control font-sans text-sm font-light"
+                  className="form-control font-sans text-lg font-light"
                   name="name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
               </div>
 
-              <div className="form-group mb-4">
-                <label htmlFor="email_field">Correo Electrónico</label>
+              <div className="form-group mb-8">
+                <label htmlFor="email_field"  className="text-xl">Correo Electrónico</label>
                 <input
                   type="email"
                   id="email_field"
-                  className="form-control font-sans text-sm font-light"
+                  className="form-control font-sans text-lg font-light"
                   name="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
 
-              <div className="form-group mb-4">
-                <label htmlFor="role_field">Rol</label>
+              <div className="form-group mb-8">
+                <label htmlFor="role_field"  className="text-xl">Rol</label>
 
                 <select
                   id="role_field"
-                  className="form-control font-sans text-sm font-light"
+                  className="form-control font-sans text-lg font-light"
                   name="role"
                   value={role}
                   onChange={(e) => setRole(e.target.value)}
