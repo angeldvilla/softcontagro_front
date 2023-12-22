@@ -216,7 +216,6 @@ const Payment = () => {
       <Toaster position="top-right" richColors closeButton />
       <Dialog
         open={openModal}
-        /* handler={() => setOpenModal(false)} */
         animate={{
           mount: { scale: 1, y: 0 },
           unmount: { scale: 0.9, y: -100 },

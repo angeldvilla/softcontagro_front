@@ -1,24 +1,45 @@
 import React, { useState, useEffect } from "react";
-import { useTable } from "react-table";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import {
+  DataGrid,
+  GridToolbarContainer,
+  GridToolbarColumnsButton,
+  GridToolbarFilterButton,
+} from "@mui/x-data-grid";
+import {
+  Button,
+  Dialog,
+  DialogHeader,
+  DialogBody,
+  DialogFooter,
+} from "@material-tailwind/react";
+import { FaTrash } from "react-icons/fa";
 import Loader from "../layout/Loader";
 import Sidebar from "./Sidebar";
-import { toast, Toaster } from "sonner";
-import { useDispatch, useSelector } from "react-redux";
 import {
   getCategory,
   dltCategory,
   clearErrors,
 } from "../../actions/categoryActions";
 import { DELETE_CATEGORY_RESET } from "../../constants/categoryConstants";
-import { useNavigate } from "react-router-dom";
+import { toast, Toaster } from "sonner";
+import { esES } from "@mui/x-data-grid";
 
 const CategorysList = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { loading, error, category } = useSelector((state) => state.category);
+  const [openModal, setOpenModal] = useState(false);
+  const [deleteId, setDeleteId] = useState(null);
+
+  const handleOpen = () => {
+    setOpenModal(!openModal);
+  };
+
+  const { loading, error, category } = useSelector((state) => state?.category);
   const { error: deleteError, isDeleted } = useSelector(
-    (state) => state.dltCategory
+    (state) => state?.dltCategory
   );
 
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -41,94 +62,131 @@ const CategorysList = () => {
 
     if (isDeleted) {
       toast.success("Categoria eliminada correctamente");
-      navigate("/admin/Category");
+      navigate("/admin/category");
       dispatch({ type: DELETE_CATEGORY_RESET });
     }
   }, [dispatch, error, deleteError, isDeleted, navigate]);
 
-  const deleteCategoryHandler = (id) => {
-    dispatch(dltCategory(id));
+  const confirmDeleteCategory = (rowId) => {
+    const rowSelect = rows.find((row) => row.id === rowId);
+    console.log(rowSelect);
+
+    if (rowSelect) {
+      setDeleteId(rowSelect.id);
+      handleOpen();
+    }
   };
 
-  const columns = React.useMemo(
-    () => [
-      {
-        Header: "ID",
-        accessor: "id",
-      },
-      {
-        Header: "Name",
-        accessor: "name",
-      },
-      {
-        Header: "Actions",
-        accessor: "actions",
-        Cell: ({ row }) => (
-          <div>
-            <button
-              className="btn btn-danger py-1 px-2 ml-2"
-              onClick={() => deleteCategoryHandler(row.original.id)}
-            >
-              <i className="fa fa-trash"></i>
-            </button>
-          </div>
-        ),
-      },
-    ],
-    [deleteCategoryHandler]
-  );
+  const deleteCategoryHandler = async () => {
+    if (deleteId === null) {
+      await dispatch(dltCategory(deleteId));
+    }
+    setOpenModal(false);
+  };
 
-  const data = React.useMemo(() => category, [category]);
+  const columns = [
+    { field: "id", headerName: "ID", minWidth: 220, flex: 0.5 },
+    { field: "name", headerName: "Nombre", minWidth: 210, flex: 0.5 },
+    {
+      field: "images",
+      headerName: "Imagenes",
+      minWidth: 250,
+      flex: 0.5,
+    },
+    {
+      field: "actions",
+      headerName: "Actions",
+      width: 95,
+      renderCell: (params) => (
+        <div className="flex items-center gap-2">
+          <button
+            className="text-lg"
+            onClick={() => confirmDeleteCategory(params.id)}
+          >
+            <FaTrash className="text-red-600 hover:text-red-800" />
+          </button>
+        </div>
+      ),
+    },
+  ];
 
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable({ columns, data });
+  const rows =
+    category?.map((categorie) => ({
+      id: categorie?._id,
+      name: categorie?.name,
+      images: categorie?.images?.map((image) => image?.url),
+    })) ?? [];
 
   return (
-    <div>
-      <div className="row mt-5">
-        <div className="col-12 col-md-2 mt-4">
-        <Sidebar sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
-        </div>
-
-        <div className="col-12 col-md-10 mt-5">
-          <div>
-            <h1 className="my-5">Todas las categorias</h1>
-
-            {loading ? (
-              <Loader />
-            ) : (
-              <table {...getTableProps()} className="table">
-                <thead>
-                  {headerGroups.map((headerGroup) => (
-                    <tr {...headerGroup.getHeaderGroupProps()}>
-                      {headerGroup.headers.map((column) => (
-                        <th {...column.getHeaderProps()}>
-                          {column.render("Header")}
-                        </th>
-                      ))}
-                    </tr>
-                  ))}
-                </thead>
-                <tbody {...getTableBodyProps()}>
-                  {rows.map((row) => {
-                    prepareRow(row);
-                    return (
-                      <tr {...row.getRowProps()}>
-                        {row.cells.map((cell) => (
-                          <td {...cell.getCellProps()}>
-                            {cell.render("Cell")}
-                          </td>
-                        ))}
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            )}
+    <div className="flex mx-w-full">
+      <Sidebar sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
+      <div className="flex flex-col items-center w-full p-4">
+        <p className="my-5 text-center mt-16 text-2xl">
+          <b>Todas las categorías</b>
+        </p>
+        {loading ? (
+          <Loader />
+        ) : (
+          <div className="w-full max-w-screen-xl flex flex-col items-center">
+            <DataGrid
+              localeText={esES.components.MuiDataGrid.defaultProps.localeText}
+              columns={columns}
+              rows={rows}
+              initialState={{
+                pagination: {
+                  paginationModel: { page: 0, pageSize: 25 },
+                },
+              }}
+              pageSizeOptions={[25, 50, 100]}
+              autoHeight
+              disableRowSelectionOnClick
+              disableColumnSelector
+              loading={rows?.length === 0}
+              components={{
+                Toolbar: GridToolbarContainer,
+              }}
+              componentsProps={{
+                toolbar: {
+                  buttons: [
+                    <GridToolbarColumnsButton key="columns" />,
+                    <GridToolbarFilterButton key="filter" />,
+                  ],
+                },
+              }}
+            />
           </div>
-        </div>
+        )}
       </div>
-      <Toaster position="top-right" richColors />
+      <Toaster position="top-right" richColors closeButton />
+      <Dialog
+        open={openModal}
+        animate={{
+          mount: { scale: 1, y: 0 },
+          unmount: { scale: 0.9, y: -100 },
+        }}
+      >
+        <DialogHeader>Eliminar Categoría</DialogHeader>
+        <DialogBody>
+          Estas apunto de eliminar esta categoría. ¿Estas seguro?
+        </DialogBody>
+        <DialogFooter>
+          <Button
+            variant="text"
+            color="red"
+            onClick={() => setOpenModal(false)}
+            className="mr-1"
+          >
+            <span>Cancelar</span>
+          </Button>
+          <Button
+            variant="gradient"
+            color="green"
+            onClick={deleteCategoryHandler}
+          >
+            <span>Confirmar</span>
+          </Button>
+        </DialogFooter>
+      </Dialog>
     </div>
   );
 };

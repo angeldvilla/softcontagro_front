@@ -7,6 +7,13 @@ import {
   GridToolbarColumnsButton,
   GridToolbarFilterButton,
 } from "@mui/x-data-grid";
+import {
+  Button,
+  Dialog,
+  DialogHeader,
+  DialogBody,
+  DialogFooter,
+} from "@material-tailwind/react";
 import { FaPencilAlt, FaTrash } from "react-icons/fa";
 import Loader from "../layout/Loader";
 import Sidebar from "./Sidebar";
@@ -23,6 +30,13 @@ const ProductsList = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const [openModal, setOpenModal] = useState(false);
+  const [deleteId, setDeleteId] = useState(null);
+
+  const handleOpen = () => {
+    setOpenModal(!openModal);
+  };
+
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
@@ -37,12 +51,12 @@ const ProductsList = () => {
     dispatch(getAdminProducts());
 
     if (error) {
-      toast.error("error");
+      toast.error("Error al cargar los productos");
       dispatch(clearErrors());
     }
 
     if (deleteError) {
-      toast.error("deleteError");
+      toast.error("Error al eliminar el producto");
       dispatch(clearErrors());
     }
 
@@ -53,8 +67,25 @@ const ProductsList = () => {
     }
   }, [dispatch, error, deleteError, isDeleted, navigate]);
 
+  const confirmeDeleteProduct = (rowId) => {
+    const rowSelect = rows.find((row) => row.id === rowId);
+    console.log(rowSelect);
+
+    if (rowSelect) {
+      setDeleteId(rowSelect.id);
+      handleOpen();
+    }
+  };
+
+  const deleteProductHandler = async () => {
+    if (deleteId === null) {
+      await dispatch(deleteProduct(deleteId));
+    }
+    setOpenModal(false);
+  };
+
   const columns = [
-    { field: "id", headerName: "ID", minWidth: 250, flex: 0.5 },
+    { field: "id", headerName: "ID", minWidth: 220, flex: 0.5 },
     { field: "name", headerName: "Nombre", minWidth: 150, flex: 0.5 },
     {
       field: "description",
@@ -91,22 +122,18 @@ const ProductsList = () => {
       renderCell: (params) => (
         <div className="flex items-center gap-2">
           <Link to={`/admin/product/${params.id}`} className="text-lg">
-            <FaPencilAlt className="text-blue-600 hover:text-blue-800"/>
+            <FaPencilAlt className="text-blue-600 hover:text-blue-800" />
           </Link>
           <button
             className="text-lg"
-            onClick={() => deleteProductHandler(params.id)}
+            onClick={() => confirmeDeleteProduct(params.id)}
           >
-            <FaTrash className="text-red-600 hover:text-red-800"/>
+            <FaTrash className="text-red-600 hover:text-red-800" />
           </button>
         </div>
       ),
     },
   ];
-
-  const deleteProductHandler = (id) => {
-    dispatch(deleteProduct(id));
-  };
 
   const rows =
     products?.products?.map((product) => ({
@@ -142,6 +169,8 @@ const ProductsList = () => {
               }}
               pageSizeOptions={[25, 50, 100]}
               autoHeight
+              disableRowSelectionOnClick
+              disableColumnSelector
               loading={rows?.length === 0}
               components={{
                 Toolbar: GridToolbarContainer,
@@ -158,7 +187,36 @@ const ProductsList = () => {
           </div>
         )}
       </div>
-      <Toaster position="top-center" richColors />
+      <Toaster position="top-right" richColors closeButton/>
+      <Dialog
+        open={openModal}
+        animate={{
+          mount: { scale: 1, y: 0 },
+          unmount: { scale: 0.9, y: -100 },
+        }}
+      >
+        <DialogHeader>Eliminar Producto</DialogHeader>
+        <DialogBody>
+          Estas apunto de eliminar este producto. ¿Estas seguro?
+        </DialogBody>
+        <DialogFooter>
+          <Button
+            variant="text"
+            color="red"
+            onClick={() => setOpenModal(false)}
+            className="mr-1"
+          >
+            <span>Cancelar</span>
+          </Button>
+          <Button
+            variant="gradient"
+            color="green"
+            onClick={deleteProductHandler}
+          >
+            <span>Confirmar</span>
+          </Button>
+        </DialogFooter>
+      </Dialog>
     </div>
   );
 };

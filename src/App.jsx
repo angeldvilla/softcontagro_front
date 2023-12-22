@@ -41,7 +41,7 @@ import NewCategory from "./components/admin/NewCategory";
 import CategorysList from "./components/admin/CatagoryList";
 
 import ProtectedRoute from "./components/route/ProtectedRoute";
-import { loadStripeApiKey, /* loadUser */ } from "./actions/userActions";
+import { loadStripeApiKey /* loadUser */ } from "./actions/userActions";
 import { useDispatch, useSelector } from "react-redux";
 
 // Pagos
@@ -181,6 +181,14 @@ function App() {
         }
       />
       <Route
+        path="/admin/product/:id"
+        element={
+          <ProtectedRoute>
+            <UpdateProduct />
+          </ProtectedRoute>
+        }
+      />
+      <Route
         path="/admin/category"
         element={
           <ProtectedRoute>
@@ -193,14 +201,6 @@ function App() {
         element={
           <ProtectedRoute>
             <NewCategory />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/admin/product/:id"
-        element={
-          <ProtectedRoute>
-            <UpdateProduct />
           </ProtectedRoute>
         }
       />
