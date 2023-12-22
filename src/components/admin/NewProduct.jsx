@@ -22,7 +22,7 @@ const NewProduct = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { loading, error, success } = useSelector((state) => state.newProduct);
+  const { loading, error, success } = useSelector((state) => state?.newProduct);
 
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const toggleSidebar = () => {
@@ -126,7 +126,7 @@ const NewProduct = () => {
                   />
                 </div>
 
-                <div className="form-group">
+                <div className="form-group mb-4">
                   <label htmlFor="description_field">Descripción</label>
                   <textarea
                     className="form-control font-sans font-light text-sm"

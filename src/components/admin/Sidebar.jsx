@@ -64,13 +64,13 @@ const Sidebar = ({ sidebarOpen, toggleSidebar }) => {
         <ul
           className={`list-unstyled mt-4 ${sidebarOpen ? "visible" : "ml-1"}`}
         >
-          <li className="hover:bg-blue-gray-200 flex items-center">
+          <li className="hover:bg-gray-200 hover:text-black flex items-center">
             <Link to="/" className="flex items-center">
               <FaHome className="mr-2 text-2xl" />
               {sidebarOpen && <p>Inicio</p>}
             </Link>
           </li>
-          <li className="mb-4 flex items-center hover:bg-blue-gray-200 mt-6">
+          <li className="mb-4 flex items-center hover:bg-gray-200 hover:text-black mt-6">
             <Link to="/dashboard" className="flex items-center">
               <FaTachometerAlt className="mr-2 text-xl" />
               {sidebarOpen && <p>Dashboard</p>}
@@ -79,7 +79,7 @@ const Sidebar = ({ sidebarOpen, toggleSidebar }) => {
           <li className="mb-4">
             <div
               onClick={toggleProduct}
-              className="text-white flex items-center cursor-pointer hover:bg-blue-gray-200 mt-8"
+              className="text-white flex items-center cursor-pointer hover:bg-gray-200 hover:text-black mt-8"
             >
               <FaProductHunt className="mr-2 text-xl" />
               {sidebarOpen && <p>Productos</p>}
@@ -93,7 +93,7 @@ const Sidebar = ({ sidebarOpen, toggleSidebar }) => {
             </div>
             {productOpen && (
               <ul className="pl-4">
-                <li className="hover:bg-blue-gray-200">
+                <li className="hover:bg-gray-200 hover:text-black">
                   <Link
                     to="/admin/products"
                     className="text-white flex items-center mt-2"
@@ -102,7 +102,7 @@ const Sidebar = ({ sidebarOpen, toggleSidebar }) => {
                     {sidebarOpen && <p>Todos</p>}
                   </Link>
                 </li>
-                <li className="hover:bg-blue-gray-200 mt-4">
+                <li className="hover:bg-gray-200 hover:text-black mt-4">
                   <Link
                     to="/admin/product"
                     className="text-white flex items-center"
@@ -117,7 +117,7 @@ const Sidebar = ({ sidebarOpen, toggleSidebar }) => {
           <li className="mb-4">
             <div
               onClick={toggleCategory}
-              className="text-white flex items-center cursor-pointer hover:bg-blue-gray-200 mt-8"
+              className="text-white flex items-center cursor-pointer hover:bg-gray-200 hover:text-black mt-8"
             >
               <FaBoxesStacked className="mr-2 text-xl" />
               {sidebarOpen && <p>Categorias</p>}
@@ -131,7 +131,7 @@ const Sidebar = ({ sidebarOpen, toggleSidebar }) => {
             </div>
             {categoryOpen && (
               <ul className="pl-4">
-                <li className="hover:bg-blue-gray-200 mt-2">
+                <li className="hover:bg-gray-200 hover:text-black mt-2">
                   <Link
                     to="/admin/category"
                     className="text-white flex items-center"
@@ -140,7 +140,7 @@ const Sidebar = ({ sidebarOpen, toggleSidebar }) => {
                     {sidebarOpen && <p className="ml-2">Todas</p>}
                   </Link>
                 </li>
-                <li className="hover:bg-blue-gray-200 mt-4">
+                <li className="hover:bg-gray-200 hover:text-black mt-4">
                   <Link
                     to="/admin/category/new"
                     className="text-white flex items-center"
@@ -152,19 +152,19 @@ const Sidebar = ({ sidebarOpen, toggleSidebar }) => {
               </ul>
             )}
           </li>
-          <li className="hover:bg-blue-gray-200 flex items-center mt-8">
+          <li className="hover:bg-gray-200 hover:text-black flex items-center mt-8">
             <Link to="/admin/orders" className="text-white flex items-center">
               <FaShoppingBasket className="text-2xl" />{" "}
               {sidebarOpen && <p className="ml-2">Pedidos</p>}
             </Link>
           </li>
-          <li className="hover:bg-blue-gray-200 flex items-center mt-8">
+          <li className="hover:bg-gray-200 hover:text-black flex items-center mt-8">
             <Link to="/admin/users" className="text-white flex items-center">
               <FaUsers className="text-2xl" />
               {sidebarOpen && <p className="ml-2">usuarios</p>}
             </Link>
           </li>
-          <li className="hover:bg-blue-gray-200 flex items-center mt-8">
+          <li className="hover:bg-gray-200 hover:text-black flex items-center mt-8">
             <Link to="/admin/reviews" className="text-white flex items-center">
               <FaStar className="text-2xl" />
               {sidebarOpen && <p className="ml-2">Reseñas</p>}
@@ -188,7 +188,7 @@ const Sidebar = ({ sidebarOpen, toggleSidebar }) => {
 
           <li className="flex items-center mt-6">
             <button
-              className="text-white hover:bg-blue-gray-200 flex items-center"
+              className="text-white hover:bg-gray-200 hover:text-black flex items-center"
               onClick={handleLogout}
             >
               <FaSignOutAlt className="text-xl" />{" "}
