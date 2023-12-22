@@ -93,8 +93,8 @@ const ProductsList = () => {
       minWidth: 150,
       flex: 0.5,
     },
-    { field: "stock", headerName: "Stock", minWidth: 150, flex: 0.5 },
-    { field: "price", headerName: "Precio", minWidth: 150, flex: 0.5 },
+    { field: "stock", headerName: "Stock", minWidth: 100, flex: 0.5 },
+    { field: "price", headerName: "Precio", minWidth: 100, flex: 0.5 },
     {
       field: "ratings",
       headerName: "Calificacion",
@@ -108,16 +108,36 @@ const ProductsList = () => {
         </span>
       ),
     },
-    {
-      field: "numOfReviews",
-      headerName: "# Reseñas",
-      minWidth: 150,
-      flex: 0.5,
-    },
     { field: "seller", headerName: "Fabricante", minWidth: 150, flex: 0.5 },
     {
+      field: "images",
+      headerName: "Imagenes",
+      minWidth: 100,
+      flex: 0.5,
+      renderCell: (params) => (
+        <div>
+          {params.value && params.value.length > 0 ? (
+            params.value.map((image, index) => (
+              <img
+                key={index}
+                src={image}
+                alt={`Imagen ${index + 1}`}
+                className="w-16 h-12 mx-1"
+              />
+            ))
+          ) : (
+            <img
+              src="https://res.cloudinary.com/dxe4igvmq/image/upload/v1701550801/SoftContAgro/nge2uvmygtkzovgywh3w.png"
+              alt="Imagen por defecto"
+              className="w-16 h-12 mx-1"
+            />
+          )}
+        </div>
+      ),
+    },
+    {
       field: "actions",
-      headerName: "Actions",
+      headerName: "Acciones",
       width: 95,
       renderCell: (params) => (
         <div className="flex items-center gap-2">
@@ -140,6 +160,7 @@ const ProductsList = () => {
       id: product?._id,
       name: product?.name,
       description: product?.description,
+      images: product?.images?.map((image) => image?.url),
       stock: product?.stock,
       price: `$${product?.price}`,
       ratings: product?.totalPrice,
@@ -187,7 +208,7 @@ const ProductsList = () => {
           </div>
         )}
       </div>
-      <Toaster position="top-right" richColors closeButton/>
+      <Toaster position="top-right" richColors closeButton />
       <Dialog
         open={openModal}
         animate={{

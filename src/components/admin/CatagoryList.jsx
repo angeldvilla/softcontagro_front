@@ -92,10 +92,30 @@ const CategorysList = () => {
       headerName: "Imagenes",
       minWidth: 250,
       flex: 0.5,
+      renderCell: (params) => (
+        <div>
+          {params.value && params.value.length > 0 ? (
+            params.value.map((image, index) => (
+              <img
+                key={index}
+                src={image}
+                alt={`Imagen ${index + 1}`}
+                className="w-8 h-8 mx-1"
+              />
+            ))
+          ) : (
+            <img
+              src="https://res.cloudinary.com/dxe4igvmq/image/upload/v1701550801/SoftContAgro/nge2uvmygtkzovgywh3w.png"
+              alt="Imagen por defecto"
+              className="w-8 h-8 mx-1"
+            />
+          )}
+        </div>
+      ),
     },
     {
       field: "actions",
-      headerName: "Actions",
+      headerName: "Acciones",
       width: 95,
       renderCell: (params) => (
         <div className="flex items-center gap-2">
