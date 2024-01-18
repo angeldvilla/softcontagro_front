@@ -11,9 +11,9 @@ import { useLocation, useParams } from "react-router-dom";
 
 const ListProducts = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [price, setPrice] = useState([1, 10000]);
+ /*  const [price, setPrice] = useState([1, 10000]);
   const [catagory, setCatagory] = useState("");
-  const [rating, setRating] = useState(0);
+  const [rating, setRating] = useState(0); */
   const location = useLocation();
   const { keyword } = useParams();
 
@@ -33,8 +33,8 @@ const ListProducts = () => {
     if (error) {
       return toast.error("error");
     }
-    dispatch(getProducts(keyword, currentPage, price, catagory, rating));
-  }, [dispatch, error, keyword, currentPage, price, catagory, rating]);
+    dispatch(getProducts(keyword, currentPage));
+  }, [dispatch, error, keyword, currentPage]);
 
   function setCurrentPageNo(pageNumber) {
     setCurrentPage(pageNumber);

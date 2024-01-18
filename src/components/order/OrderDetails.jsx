@@ -137,13 +137,13 @@ const OrderDetails = () => {
               </h4>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                 {orderItems &&
-                  orderItems.map((item) => (
+                  orderItems.map((item, index) => (
                     <Link
+                      key={index}
                       to={`/product/${item.product}`}
                       className="text-blue-500 font-semibold block mb-2"
                     >
                       <div
-                        key={item.product}
                         className="bg-white p-4 rounded-lg shadow-md hover:scale-105 duration-150"
                       >
                         <img

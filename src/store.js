@@ -56,7 +56,7 @@ const reducer = combineReducers({
 	dltCategory: dltCategoryReducer,
 });
 
-let initialState = {
+/* let initialState = {
 	cart: {
 		cartItems: localStorage.getItem("cartItems")
 			? JSON.parse(localStorage.getItem("cartItems"))
@@ -65,7 +65,7 @@ let initialState = {
 			? JSON.parse(localStorage.getItem("shippingInfo"))
 			: {},
 	},
-};
+}; */
 
 
 
