@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "sonner";
@@ -25,9 +25,13 @@ const Header = () => {
     toast.success("Sesión cerrada!");
   };
 
-  const toggleMobileMenu = () => {
+  /* const toggleMobileMenu = () => {
     setMobileMenuOpen(!isMobileMenuOpen);
-  };
+  }; */
+
+  const toggleMobileMenu = useCallback(() => {
+    setMobileMenuOpen((prevIsMobileMenuOpen) => !prevIsMobileMenuOpen);
+  }, []);
 
   useEffect(() => {
     const closeMenuOnOutsideClick = (event) => {

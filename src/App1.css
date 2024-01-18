@@ -4305,7 +4305,7 @@ option {
   display: flex;
   -webkit-box-pack: start;
   -ms-flex-pack: start;
-  justify-content: start;
+  justify-content: flex-start;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   -webkit-box-align: center;
@@ -4502,7 +4502,7 @@ option {
   display: flex;
   -webkit-box-pack: start;
   -ms-flex-pack: start;
-  justify-content: start;
+  justify-content: flex-start;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   -webkit-box-align: center;
@@ -6254,7 +6254,7 @@ textarea {
   display: flex;
   -webkit-box-pack: start;
   -ms-flex-pack: start;
-  justify-content: start;
+  justify-content: flex-start;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   -webkit-box-align: center;
@@ -6920,7 +6920,7 @@ textarea {
   display: flex;
   -webkit-box-pack: start;
   -ms-flex-pack: start;
-  justify-content: start;
+  justify-content: flex-start;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   -webkit-box-align: center;
