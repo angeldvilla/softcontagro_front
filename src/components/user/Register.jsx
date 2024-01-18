@@ -13,7 +13,7 @@ import {
   FaEyeSlash,
 } from "react-icons/fa";
 
-const RegisterForm = ({ history }) => {
+const RegisterForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [user, setUser] = useState({
     name: "",

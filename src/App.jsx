@@ -39,6 +39,7 @@ import UpdateUser from "./components/admin/UpdateUser";
 import ProductReviews from "./components/admin/ProductReviews";
 import NewCategory from "./components/admin/NewCategory";
 import CategorysList from "./components/admin/CatagoryList";
+import NewUser from "./components/admin/NewUser";
 
 import ProtectedRoute from "./components/route/ProtectedRoute";
 import { loadStripeApiKey /* loadUser */ } from "./actions/userActions";
@@ -225,6 +226,14 @@ function App() {
         element={
           <ProtectedRoute>
             <UsersList />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/user/new"
+        element={
+          <ProtectedRoute>
+            <NewUser />
           </ProtectedRoute>
         }
       />

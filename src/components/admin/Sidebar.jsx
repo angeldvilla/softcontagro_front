@@ -49,7 +49,7 @@ const Sidebar = ({ sidebarOpen, toggleSidebar }) => {
   return (
     <div
       className={`transition-all duration-300 ${
-        sidebarOpen ? "w-52" : "w-24"
+        sidebarOpen ? "w-64" : "w-24"
       } min-h-screen bg-blue-gray-900 text-white`}
     >
       <nav

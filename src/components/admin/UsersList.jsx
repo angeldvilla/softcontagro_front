@@ -15,6 +15,7 @@ import {
   DialogFooter,
 } from "@material-tailwind/react";
 import { FaPencilAlt, FaTrash } from "react-icons/fa";
+import { HiUserAdd } from "react-icons/hi";
 import Loader from "../layout/Loader";
 import Sidebar from "./Sidebar";
 import { allUsers, deleteUser, clearErrors } from "../../actions/userActions";
@@ -139,16 +140,21 @@ const UsersList = () => {
       name: user?.name,
       email: user?.email,
       role: user?.role,
-      images: Array.isArray(user?.avatar) ? user?.avatar.map((item) => item?.url) : [user?.avatar?.url],
-        
+      images: Array.isArray(user?.avatar)
+        ? user?.avatar.map((item) => item?.url)
+        : [user?.avatar?.url],
     })) ?? [];
 
   return (
     <div className="flex mx-w-full">
       <Sidebar sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
       <div className="flex flex-col items-center w-full p-4">
-        <p className="my-5 text-center mt-16 text-2xl">
+        <p className="my-5 text-center mt-16 text-2xl flex items-center justify-center">
           <b>Todos los usuarios</b>
+          <HiUserAdd
+            className="inline ml-5 mr-auto cursor-pointer"
+            onClick={() => navigate("/admin/user/new")}
+          />
         </p>
         {loading ? (
           <Loader />
