@@ -14,9 +14,9 @@ import { useLocation, useParams } from "react-router-dom";
 
 const Home = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [price, setPrice] = useState([1, 10000]);
+/*   const [price, setPrice] = useState([1, 10000]);
   const [catagory, setCatagory] = useState("");
-  const [rating, setRating] = useState(0);
+  const [rating, setRating] = useState(0); */
   const location = useLocation();
   const { keyword } = useParams();
 
@@ -31,7 +31,7 @@ const Home = () => {
     filteredProductsCount,
   } = useSelector((state) => state?.products);
 
-  const { category } = useSelector((state) => state?.category);
+  /* const { category } = useSelector((state) => state?.category); */
 
   /* const categoryName = category.find((cat) => cat?.name === keyword)?.name; */
 
@@ -41,8 +41,8 @@ const Home = () => {
     }
 
     dispatch(getCategory());
-    dispatch(getProducts(keyword, currentPage, price, catagory, rating));
-  }, [dispatch, error, keyword, currentPage, price, catagory, rating]);
+    dispatch(getProducts(keyword, currentPage));
+  }, [dispatch, error, keyword, currentPage]);
 
   function setCurrentPageNo(pageNumber) {
     setCurrentPage(pageNumber);
