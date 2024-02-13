@@ -34,6 +34,7 @@ import {
     CLEAR_ERRORS
 
 } from '../constants/productConstants'
+import { LOGOUT_SUCCESS } from '../constants/userConstants'
 
 export const productsReducer = (state = { products: [] }, action) => {
     switch (action.type) {
@@ -69,6 +70,11 @@ export const productsReducer = (state = { products: [] }, action) => {
             return {
                 ...state,
                 error: null
+            }
+
+        case LOGOUT_SUCCESS:
+            return {
+                products: []
             }
 
         default:
@@ -108,6 +114,10 @@ export const newProductReducer = (state = { product: {}, error: null }, action) 
             return {
                 ...state,
                 error: null
+            }
+        case LOGOUT_SUCCESS:
+            return {
+                product: {}
             }
 
         default:
@@ -195,6 +205,11 @@ export const productDetailsReducer = (state = { product: {}, error: null }, acti
             return {
                 ...state,
                 error: null
+            }
+
+        case LOGOUT_SUCCESS:
+            return {
+                product: {}
             }
 
         default:

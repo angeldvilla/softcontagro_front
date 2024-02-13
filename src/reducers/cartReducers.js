@@ -1,4 +1,5 @@
 import { ADD_TO_CART, REMOVE_ITEM_CART, SAVE_SHIPPING_INFO } from '../constants/cartConstants'
+import { LOGOUT_SUCCESS } from '../constants/userConstants';
 
 export const cartReducer = (state = { cartItems: [], shippingInfo: {} }, action) => {
     switch (action.type) {
@@ -33,6 +34,11 @@ export const cartReducer = (state = { cartItems: [], shippingInfo: {} }, action)
                 shippingInfo: action.payload
             }
 
+        case LOGOUT_SUCCESS:
+            return {
+                cartItems: [],
+                shippingInfo: {}
+            }
 
         default:
             return state

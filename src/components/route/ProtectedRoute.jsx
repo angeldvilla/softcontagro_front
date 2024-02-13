@@ -3,13 +3,13 @@ import { Navigate } from "react-router-dom";
 import Loader from "../layout/Loader";
 
 const ProtectedRoute = ({ children }) => {
-  const { isAuthenticated, loading, /* user */ } = useSelector((state) => state.auth);
+  const { loading, user } = useSelector((state) => state.auth);
 
   if (loading) {
     return <Loader />;
   }
 
-  if (!isAuthenticated) {
+  if (!user?.token) {
     return <Navigate to="/login" />;
   }
 

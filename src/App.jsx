@@ -124,7 +124,7 @@ function App() {
         }
       />
       <Route
-        path="/me/update"
+        path="/me/update/:id"
         element={
           <ProtectedRoute>
             <UpdateProfile />

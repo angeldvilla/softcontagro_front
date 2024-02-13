@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { toast } from 'sonner';
 import {
     LOGIN_REQUEST,
     LOGIN_SUCCESS,
@@ -40,6 +41,7 @@ import {
     LOAD_STRIPE_API_KEY_SUCCESS
 } from '../constants/userConstants'
 import { path } from "../constants/path";
+import { removeValueFromLocalStorage } from '../localStorage';
 
 // Inicio de sesion
 export const login = (userData) => {
@@ -48,7 +50,9 @@ export const login = (userData) => {
 
             dispatch({ type: LOGIN_REQUEST })
 
+            toast.success("Inicio de sesión exitoso");
             const { data } = await axios.post(`${path}/api/v1/login`, userData);
+
 
             dispatch({
                 type: LOGIN_SUCCESS,
@@ -77,7 +81,10 @@ export const register = (userData) => async (dispatch) => {
             }
         }
 
-        const { data } = await axios.post(`${path}/api/v1/register`, userData, config)
+        toast.success("Registro exitoso!");
+
+        const { data } = await axios.post(`${path}/api/v1/register`, userData, config);
+
 
         dispatch({
             type: REGISTER_USER_SUCCESS,
@@ -99,7 +106,6 @@ export const loadUser = () => async (dispatch) => {
         /* dispatch({ type: LOAD_USER_REQUEST }) */
 
         const { data } = await axios.get(`${path}/api/v1/me`);
-        console.log(data);
 
         dispatch({
             type: LOAD_USER_SUCCESS,
@@ -115,7 +121,7 @@ export const loadUser = () => async (dispatch) => {
 }
 
 // Actualizar perfil
-export const updateProfile = (userData) => async (dispatch) => {
+export const updateProfile = (userData, id, navigate) => async (dispatch) => {
     try {
 
         dispatch({ type: UPDATE_PROFILE_REQUEST })
@@ -126,12 +132,16 @@ export const updateProfile = (userData) => async (dispatch) => {
             }
         }
 
-        const { data } = await axios.put(`${path}/api/v1/me/update`, userData, config)
-
+        const { data } = await axios.put(`${path}/api/v1/me/update/${id}`, userData, config)
+        console.log(data)
+        toast.success("Perfil actualizado exitosamente");
+        
         dispatch({
             type: UPDATE_PROFILE_SUCCESS,
-            payload: data.success
+            payload: data.user
         })
+
+        navigate("/me")
 
     } catch (error) {
         dispatch({
@@ -211,7 +221,7 @@ export const resetPassword = (token, passwords) => async (dispatch) => {
 
         dispatch({
             type: NEW_PASSWORD_SUCCESS,
-            payload: data.success
+            payload: data.user
         })
 
     } catch (error) {
@@ -226,7 +236,12 @@ export const resetPassword = (token, passwords) => async (dispatch) => {
 export const logout = () => async (dispatch) => {
     try {
 
-        await axios.get(`${path}/api/v1/logout`)
+        toast.success("Sesión cerrada!");
+
+        await axios.get(`${path}/api/v1/logout`);
+
+        localStorage.clear();
+        removeValueFromLocalStorage('state');
 
         dispatch({
             type: LOGOUT_SUCCESS,
@@ -262,7 +277,7 @@ export const allUsers = () => async (dispatch) => {
 }
 
 // Actualizar usuario - ADMIN
-export const updateUser = (id, userData) => async (dispatch) => {
+export const updateUser = (id, userData, navigate) => async (dispatch) => {
     try {
 
         dispatch({ type: UPDATE_USER_REQUEST })
@@ -273,12 +288,16 @@ export const updateUser = (id, userData) => async (dispatch) => {
             }
         }
 
+        toast.success("Usuario actualizado correctamente");
         const { data } = await axios.put(`${path}/api/v1/admin/user/${id}`, userData, config)
 
         dispatch({
             type: UPDATE_USER_SUCCESS,
             payload: data.success
         })
+        setTimeout(() => {
+            navigate("/admin/users");
+        }, 2000)
 
     } catch (error) {
         dispatch({
@@ -320,7 +339,7 @@ export const deleteUser = (id) => async (dispatch) => {
 
         dispatch({
             type: DELETE_USER_SUCCESS,
-            payload: data.success
+            payload: data
         })
 
     } catch (error) {

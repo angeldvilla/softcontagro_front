@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { toast } from "sonner";
 import { logout } from "../../actions/userActions";
 import { getCategory } from "../../actions/categoryActions";
 import { FaUser, FaShoppingCart, FaBars, FaTimes } from "react-icons/fa";
@@ -22,7 +21,6 @@ const Header = () => {
 
   const logoutHandler = () => {
     dispatch(logout());
-    toast.success("Sesión cerrada!");
   };
 
   /* const toggleMobileMenu = () => {
@@ -248,7 +246,7 @@ const Header = () => {
                           </Link>
                         </p>
                       )}
-                     {/*  <p className="flex items-center text-sm hover:text-gray-600">
+                      {/*  <p className="flex items-center text-sm hover:text-gray-600">
                         <Link
                           to="/me/favorites"
                           onClick={() => toggleMobileMenu()}
@@ -326,7 +324,7 @@ const Header = () => {
                         </Link>
                       </p>
                     )}
-                   {/*  <p className="flex items-center text-sm hover:text-gray-600">
+                    {/*  <p className="flex items-center text-sm hover:text-gray-600">
                       <Link
                         to="/me/favorites"
                         onClick={() => toggleMobileMenu()}

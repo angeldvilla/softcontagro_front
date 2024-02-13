@@ -47,15 +47,14 @@ export const authReducer = (state = { user: {} }, action) => {
   switch (action.type) {
     case LOGIN_REQUEST:
     case REGISTER_USER_REQUEST:
-    /* case LOAD_USER_REQUEST:
-    case LOAD_STRIPE_API_KEY: */
+      /* case LOAD_USER_REQUEST:
+      case LOAD_STRIPE_API_KEY: */
       return {
         loading: false,
         isAuthenticated: false,
       };
 
     case LOGIN_SUCCESS:
-    case REGISTER_USER_SUCCESS:
     case LOAD_USER_SUCCESS:
       return {
         ...state,
@@ -64,6 +63,25 @@ export const authReducer = (state = { user: {} }, action) => {
         user: action.payload,
         error: null,
       };
+
+    case REGISTER_USER_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isAuthenticated: true,
+        user: action.payload,
+        error: null,
+      }
+
+    case UPDATE_PROFILE_SUCCESS:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          user: action.payload
+        }
+      }
+
 
     case LOAD_STRIPE_API_KEY_SUCCESS:
       return {
@@ -241,6 +259,19 @@ export const allUsersReducer = (state = { users: [], loading: false, error: null
         error: action.payload,
       };
 
+    case LOGOUT_SUCCESS:
+      return {
+        loading: false,
+        isAuthenticated: false,
+        users: null,
+      };
+
+    case DELETE_USER_SUCCESS:
+      return {
+        ...state,
+        users: state.users.filter((user) => user._id !== action.payload._id),
+      }
+
     case CLEAR_ERRORS:
       return {
         ...state,
@@ -272,6 +303,19 @@ export const userDetailsReducer = (state = { user: {}, loading: false, error: nu
         ...state,
         loading: false,
         error: action.payload,
+      };
+
+    case LOGIN_SUCCESS:
+    case REGISTER_USER_SUCCESS:
+      return {
+        loading: false,
+        user: action.payload,
+      }
+
+    case LOGOUT_SUCCESS:
+      return {
+        loading: false,
+        user: null,
       };
 
     case CLEAR_ERRORS:

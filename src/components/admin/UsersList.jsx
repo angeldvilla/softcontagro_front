@@ -67,7 +67,7 @@ const UsersList = () => {
     }
   };
   const deleteUserHandler = async () => {
-    if (deleteId === null) {
+    if (deleteId !== null) {
       dispatch(deleteUser(deleteId));
     }
     setOpenModal(false);

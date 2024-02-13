@@ -21,6 +21,7 @@ import {
     ORDER_DETAILS_FAIL,
     CLEAR_ERRORS
 } from '../constants/orderConstants'
+import { LOGOUT_SUCCESS } from '../constants/userConstants'
 
 export const newOrderReducer = (state = { loading: false, order: {}, error: null }, action) => {
     switch (action.type) {
@@ -46,6 +47,13 @@ export const newOrderReducer = (state = { loading: false, order: {}, error: null
         case CLEAR_ERRORS:
             return {
                 ...state,
+                error: null
+            }
+
+        case LOGOUT_SUCCESS:
+            return {
+                loading: false,
+                order: {},
                 error: null
             }
 
@@ -80,6 +88,11 @@ export const myOrdersReducer = (state = { orders: [] }, action) => {
                 error: null
             }
 
+        case LOGOUT_SUCCESS:
+            return {
+                orders: null
+            }
+
         default:
             return state;
     }
@@ -108,6 +121,11 @@ export const orderDetailsReducer = (state = { order: {} }, action) => {
             return {
                 ...state,
                 error: null
+            }
+
+        case LOGOUT_SUCCESS:
+            return {
+                order: {}
             }
 
         default:
@@ -139,6 +157,11 @@ export const allOrdersReducer = (state = { orders: [] }, action) => {
             return {
                 ...state,
                 error: null
+            }
+        
+        case LOGOUT_SUCCESS:
+            return {
+                orders: []
             }
 
         default:

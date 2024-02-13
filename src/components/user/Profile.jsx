@@ -7,7 +7,7 @@ import Footer from "../layout/Footer";
 import { Card } from "@material-tailwind/react";
 
 const Profile = () => {
-  const { user, loading } = useSelector((state) => state.auth);
+  const { user, loading } = useSelector((state) => state?.auth?.user);
 
   return (
     <div>
@@ -22,11 +22,11 @@ const Profile = () => {
               <div className="w-full md:w-1/4">
                 <img
                   className="rounded-full w-48 h-50"
-                  src={user?.user?.avatar?.url}
-                  alt={user?.user?.name}
+                  src={user ? user?.avatar?.url : null}
+                  alt={user ? user?.name : null}
                 />
 
-                <Link to="/me/update">
+                <Link to={`/me/update/${user?._id}`}>
                   <button className="text-white bg-orange-500 hover:bg-orange-700 border-0 py-2 px-4 focus:outline-none rounded-full text-md mt-5 md:mt-8 md:ml-6">
                     <p>Editar perfil</p>
                   </button>
@@ -36,21 +36,23 @@ const Profile = () => {
               <div className="w-full md:w-1/2">
                 <div className="mb-5">
                   <p className="text-xl font-bold">Nombre Completo</p>
-                  <p>{user?.user?.name}</p>
+                  <p>{user ? user?.name : null}</p>
                 </div>
 
                 <div className="mb-5">
                   <p className="text-xl font-bold">Correo Electronico</p>
-                  <p>{user?.user?.email}</p>
+                  <p>{user ? user?.email : null}</p>
                 </div>
 
                 <div className="mb-5">
                   <p className="text-xl font-bold">Se unió</p>
-                  <p>{String(user?.user?.createdAt).substring(0, 10)}</p>
+                  <p>
+                    {String(user ? user?.createdAt : null).substring(0, 10)}
+                  </p>
                 </div>
 
                 {user.role !== "admin" && (
-                  <Link to={`/orders/me/${user?.user?._id}`}>
+                  <Link to={`/orders/me/${user?._id}`}>
                     <button className="text-white bg-green-500 hover:bg-green-700 border-0 py-2 px-4 focus:outline-none rounded-full text-lg mt-5 md:mt-8">
                       <p>Mis pedidos</p>
                     </button>

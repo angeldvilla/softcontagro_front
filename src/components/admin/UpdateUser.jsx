@@ -7,7 +7,6 @@ import {
   getUserDetails,
   clearErrors,
 } from "../../actions/userActions";
-import { UPDATE_USER_RESET } from "../../constants/userConstants";
 import { toast, Toaster } from "sonner";
 
 const UpdateUser = () => {
@@ -18,11 +17,11 @@ const UpdateUser = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
-
-  const { error, isUpdated } = useSelector((state) => state.user);
-  const { user } = useSelector((state) => state.userDetails);
-
   const userId = id;
+
+  const { error } = useSelector((state) => state?.user);
+  const { user } = useSelector((state) => state?.userDetails);
+
 
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const toggleSidebar = () => {
@@ -30,30 +29,19 @@ const UpdateUser = () => {
   };
 
   useEffect(() => {
-    console.log(user && user._id !== userId);
     if (user && user._id !== userId) {
       dispatch(getUserDetails(userId));
     } else {
-      setName(user.name);
-      setEmail(user.email);
-      setRole(user.role);
+      setName(user?.name);
+      setEmail(user?.email);
+      setRole(user?.role);
     }
 
     if (error) {
       toast.error("Error al actualizar el usuario");
       dispatch(clearErrors());
     }
-
-    if (isUpdated) {
-      toast.success("Usuario actualizado correctamente");
-
-      navigate("/admin/users");
-
-      dispatch({
-        type: UPDATE_USER_RESET,
-      });
-    }
-  }, [dispatch, error, navigate, isUpdated, userId, user]);
+  }, [dispatch, error, navigate, userId, user]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -63,7 +51,7 @@ const UpdateUser = () => {
     formData.set("email", email);
     formData.set("role", role);
 
-    dispatch(updateUser(user.id, formData));
+    dispatch(updateUser(userId, formData, navigate));
   };
 
   return (
@@ -74,10 +62,14 @@ const UpdateUser = () => {
         <div className="row wrapper">
           <div className="col-10 col-lg-5">
             <form className="shadow-lg" onSubmit={submitHandler}>
-              <h1 className="mt-2 mb-5 font-sans text-2xl">Actualizar Usuario</h1>
+              <h1 className="mt-2 mb-5 font-sans text-2xl">
+                Actualizar Usuario
+              </h1>
 
               <div className="form-group mb-8">
-                <label htmlFor="name_field" className="text-xl">Nombre</label>
+                <label htmlFor="name_field" className="text-xl">
+                  Nombre
+                </label>
                 <input
                   type="name"
                   id="name_field"
@@ -89,7 +81,9 @@ const UpdateUser = () => {
               </div>
 
               <div className="form-group mb-8">
-                <label htmlFor="email_field"  className="text-xl">Correo Electrónico</label>
+                <label htmlFor="email_field" className="text-xl">
+                  Correo Electrónico
+                </label>
                 <input
                   type="email"
                   id="email_field"
@@ -101,7 +95,9 @@ const UpdateUser = () => {
               </div>
 
               <div className="form-group mb-8">
-                <label htmlFor="role_field"  className="text-xl">Rol</label>
+                <label htmlFor="role_field" className="text-xl">
+                  Rol
+                </label>
 
                 <select
                   id="role_field"

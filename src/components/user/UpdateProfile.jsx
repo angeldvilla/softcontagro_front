@@ -1,16 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { toast, Toaster } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  updateProfile,
-  loadUser,
-  clearErrors,
-} from "../../actions/userActions";
-import { UPDATE_PROFILE_RESET } from "../../constants/userConstants";
-import { useNavigate } from "react-router-dom";
+import { updateProfile, clearErrors } from "../../actions/userActions";
+import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "@material-tailwind/react";
 
-const UpdateProfile = ({ history }) => {
+const UpdateProfile = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [avatar, setAvatar] = useState("");
@@ -21,8 +16,11 @@ const UpdateProfile = ({ history }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { user } = useSelector((state) => state.auth);
-  const { error, isUpdated, loading } = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state?.auth);
+  const { error } = useSelector((state) => state?.user);
+
+  const { id } = useParams();
+  const userId = id;
 
   useEffect(() => {
     if (user) {
@@ -35,18 +33,7 @@ const UpdateProfile = ({ history }) => {
       toast.error("Error para actualizar datos del perfil");
       dispatch(clearErrors());
     }
-
-    if (isUpdated) {
-      toast.success("Perfil actualizada con exito");
-      dispatch(loadUser());
-
-      navigate("/me");
-
-      dispatch({
-        type: UPDATE_PROFILE_RESET,
-      });
-    }
-  }, [dispatch, error, navigate, isUpdated, user]);
+  }, [dispatch, error, navigate, user]);
 
   const submitHandler = (e) => {
     try {
@@ -57,8 +44,8 @@ const UpdateProfile = ({ history }) => {
       formData.set("email", email);
       formData.set("avatar", avatar);
 
-      dispatch(updateProfile(formData));
-      toast.success("Perfil actualizada con exito");
+      dispatch(updateProfile(formData, userId, navigate));
+      /* toast.success("Perfil actualizada con exito"); */
     } catch (error) {
       console.log(error);
       toast.error("Error al actualizar perfil");
@@ -85,7 +72,9 @@ const UpdateProfile = ({ history }) => {
             <p className="mt-2 mb-5 text-2xl">Actualiza tu perfil</p>
 
             <div className="form-group mb-4">
-              <label htmlFor="email_field" className="text-lg">Nombre Completo</label>
+              <label htmlFor="email_field" className="text-lg">
+                Nombre Completo
+              </label>
               <input
                 type="name"
                 id="name_field"
@@ -97,7 +86,9 @@ const UpdateProfile = ({ history }) => {
             </div>
 
             <div className="form-group mb-4">
-              <label htmlFor="email_field" className="text-lg">Correo Electronico</label>
+              <label htmlFor="email_field" className="text-lg">
+                Correo Electronico
+              </label>
               <input
                 type="email"
                 id="email_field"
@@ -108,7 +99,9 @@ const UpdateProfile = ({ history }) => {
               />
             </div>
             <div className="form-group mt-6">
-              <label htmlFor="avatar_upload" className="text-lg">Foto</label>
+              <label htmlFor="avatar_upload" className="text-lg">
+                Foto
+              </label>
               <div className="d-flex align-items-center">
                 <div>
                   <figure className="avatar mr-3 item-rtl">
@@ -120,7 +113,10 @@ const UpdateProfile = ({ history }) => {
                   </figure>
                 </div>
                 <div className="custom-file mt-4">
-                  <label className="custom-file-label text-lg" htmlFor="customFile" >
+                  <label
+                    className="custom-file-label text-lg"
+                    htmlFor="customFile"
+                  >
                     Elegir Foto
                   </label>
                   <input
@@ -138,7 +134,7 @@ const UpdateProfile = ({ history }) => {
             <Button
               type="submit"
               className="text-white bg-orange-500 hover:bg-orange-700 border-0 py-2 px-4 focus:outline-none rounded-full text-md mt-5 md:mt-8"
-              disabled={loading ? true : false}
+              disabled={!name || !email}
             >
               Actualizar
             </Button>

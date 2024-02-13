@@ -33,7 +33,7 @@ const Login = () => {
     }
   }, [dispatch, isAuthenticated, error, redirect, navigate, user]);
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
     if (!email && !password) {
       toast.error("Por favor, rellene todos los campos");
@@ -46,11 +46,7 @@ const Login = () => {
         email,
         password,
       };
-      dispatch(login(userData));
-
-      if (!error) {
-        toast.success("Inicio de sesión exitoso");
-      }
+      await dispatch(login(userData));
     }
   };
 

@@ -12,6 +12,7 @@ import {
   DELETE_CATEGORY_RESET,
   CLEAR_ERRORS,
 } from "../constants/categoryConstants";
+import { LOGOUT_SUCCESS } from "../constants/userConstants";
 
 export const newCategoryReducer = (state = { category: {} }, action) => {
   switch (action.type) {
@@ -76,6 +77,11 @@ export const categoryReducer = (state = { category: [] }, action) => {
         ...state,
         error: null,
       };
+
+    case LOGOUT_SUCCESS:
+      return {
+        category: [],
+      }
 
     default:
       return state;
