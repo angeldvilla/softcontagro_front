@@ -16,6 +16,8 @@
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.21.1",
     "chart.js": "^3.5.1",
+    "jspdf": "^2.5.1",
+    "jspdf-autotable": "^3.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.10.1",
@@ -32,6 +34,7 @@
     "redux-thunk": "^2.4.2",
     "sonner": "^0.6.2",
     "toastify-js": "^1.12.0",
+    "xlsx": "^0.18.5",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

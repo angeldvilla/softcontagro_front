@@ -22,6 +22,11 @@ import {
   dltCategory,
   clearErrors,
 } from "../../actions/categoryActions";
+import { utils, writeFileXLSX } from "xlsx";
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
+import { RiFileExcel2Fill } from "react-icons/ri";
+import { FaRegFilePdf } from "react-icons/fa6";
 import { DELETE_CATEGORY_RESET } from "../../constants/categoryConstants";
 import { toast, Toaster } from "sonner";
 import { esES } from "@mui/x-data-grid";
@@ -78,7 +83,7 @@ const CategorysList = () => {
   };
 
   const deleteCategoryHandler = async () => {
-    if (deleteId === null) {
+    if (deleteId !== null) {
       await dispatch(dltCategory(deleteId));
     }
     setOpenModal(false);
@@ -137,6 +142,33 @@ const CategorysList = () => {
       images: categorie?.images?.map((image) => image?.url),
     })) ?? [];
 
+  const onExportCSV = () => {
+    const wb = utils.book_new();
+
+    utils.book_append_sheet(
+      wb,
+      utils.json_to_sheet(category),
+      "Datos de Categorias"
+    );
+
+    writeFileXLSX(wb, "DatosCategorias.xlsx");
+  };
+
+  const onExportPDF = () => {
+    const unit = "pt";
+    const size = "A4";
+    const orientation = "portrait";
+
+    const doc = new jsPDF(orientation, unit, size);
+
+    autoTable(doc, {
+      head: [columns.map((col) => col.header)],
+      body: category.map((row) => columns.map((col) => row[col.field])),
+    });
+
+    doc.save("DatosCategorias.pdf");
+  };
+
   return (
     <div className="flex mx-w-full">
       <Sidebar sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
@@ -148,6 +180,22 @@ const CategorysList = () => {
           <Loader />
         ) : (
           <div className="w-full max-w-screen-xl flex flex-col items-center">
+            <div className="flex items-center justify-between gap-2 mb-4 mt-4">
+              <span className="font-sans mt-2 mb-2">Exportar</span>
+              <button
+                className="bg-green-600 hover:bg-green-700 text-white px-2 py-2 rounded-md hover:scale-105 duration-300"
+                onClick={onExportCSV}
+              >
+                <RiFileExcel2Fill className="text-xl hover:scale-105 duration-300" />
+              </button>
+
+              <button
+                className="bg-red-600 hover:bg-red-700 text-white px-2 py-2 rounded-md hover:scale-105 duration-300"
+                onClick={onExportPDF}
+              >
+                <FaRegFilePdf className="text-xl hover:scale-105 duration-300" />
+              </button>
+            </div>
             <DataGrid
               localeText={esES.components.MuiDataGrid.defaultProps.localeText}
               columns={columns}
