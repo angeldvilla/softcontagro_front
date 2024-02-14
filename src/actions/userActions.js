@@ -41,7 +41,6 @@ import {
     LOAD_STRIPE_API_KEY_SUCCESS
 } from '../constants/userConstants'
 import { path } from "../constants/path";
-import { removeValueFromLocalStorage } from '../localStorage';
 
 // Inicio de sesion
 export const login = (userData) => {
@@ -241,7 +240,6 @@ export const logout = () => async (dispatch) => {
         await axios.get(`${path}/api/v1/logout`);
 
         localStorage.removeItem('state');
-        removeValueFromLocalStorage('state');
         localStorage.clear();
 
         dispatch({
