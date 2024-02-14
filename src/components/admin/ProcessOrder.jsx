@@ -56,7 +56,7 @@ const ProcessOrder = () => {
     }
 
     if (isUpdated) {
-      toast.success("Order updated successfully");
+      toast.success("Pedido actualizado correctamente");
       dispatch({ type: UPDATE_ORDER_RESET });
     }
   }, [dispatch, error, isUpdated, orderId]);
