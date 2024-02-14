@@ -173,32 +173,63 @@ const ProductsList = () => {
       seller: product?.seller,
     })) ?? [];
 
-    const onExportCSV = () => {
-      const wb = utils.book_new();
-  
-      utils.book_append_sheet(
-        wb,
-        utils.json_to_sheet(products),
-        "Datos de Productos"
-      );
-  
-      writeFileXLSX(wb, "DatosProductos.xlsx");
-    };
-  
-    const onExportPDF = () => {
-      const unit = "pt";
-      const size = "A4";
-      const orientation = "portrait";
-  
-      const doc = new jsPDF(orientation, unit, size);
-  
-      autoTable(doc, {
-        head: [columns.map((col) => col.header)],
-        body: products.map((row) => columns.map((col) => row[col.field])),
-      });
-  
-      doc.save("DatosProductos.pdf");
-    };
+  const onExportCSV = () => {
+    const wb = utils.book_new();
+
+    const sheetData = rows.map((product) => ({
+      ID: product.id,
+      Nombre: product.name,
+      Descripción: product.description,
+      Stock: product.stock,
+      Precio: product.price,
+      Calificación: product.ratings ? product.ratings.toFixed(2) : "No hay calificaciones",
+      Fabricante: product.seller,
+      Imágenes: product.images.join(", "),
+    }));
+
+    utils.book_append_sheet(
+      wb,
+      utils.json_to_sheet(sheetData),
+      "Datos de Productos"
+    );
+
+    writeFileXLSX(wb, "DatosProductos.xlsx");
+  };
+
+  const onExportPDF = () => {
+    const unit = "pt";
+    const size = "";
+    const orientation = "portrait";
+
+    const doc = new jsPDF(orientation, unit, size);
+
+    autoTable(doc, {
+      head: [
+        [
+          "ID",
+          "Nombre",
+          "Descripción",
+          "Stock",
+          "Precio",
+          "Calificación",
+          "Fabricante",
+          "Imágenes",
+        ],
+      ],
+      body: rows.map((product) => [
+        product.id,
+        product.name,
+        product.description,
+        product.stock,
+        product.price,
+        product.ratings ? product.ratings.toFixed(2) : "No hay calificaciones",
+        product.seller,
+        product.images.join(", "),
+      ]),
+    });
+
+    doc.save("DatosProductos.pdf");
+  };
 
   return (
     <div className="flex mx-w-full">

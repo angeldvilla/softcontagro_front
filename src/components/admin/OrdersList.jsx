@@ -207,33 +207,96 @@ const OrdersList = () => {
       images: order?.orderItems?.map((item) => item?.image),
     })) ?? [];
 
-    const onExportCSV = () => {
-      const wb = utils.book_new();
-  
-      utils.book_append_sheet(
-        wb,
-        utils.json_to_sheet(orders),
-        "Datos de Pedidos"
-      );
-  
-      writeFileXLSX(wb, "DatosPedidos.xlsx");
-    };
-  
-    const onExportPDF = () => {
-      const unit = "pt";
-      const size = "A4";
-      const orientation = "portrait";
-  
-      const doc = new jsPDF(orientation, unit, size);
-  
-      autoTable(doc, {
-        head: [columns.map((col) => col.header)],
-        body: orders.map((row) => columns.map((col) => row[col.field])),
+  const onExportCSV = () => {
+    const wb = utils.book_new();
+
+    const sheetData = rows.map((order) => ({
+      ID: order.id,
+      Usuario: order.user,
+      InfoCompra: order.shippingInfo,
+      Productos: order.orderItems,
+      EstadoPago: order.paymentInfo,
+      EstadoOrden: order.orderStatus,
+      Precio: order.itemsPrice,
+      Total: order.totalPrice,
+      Imágenes: order.images.join(", "),
+    }));
+
+    utils.book_append_sheet(
+      wb,
+      utils.json_to_sheet(sheetData),
+      "Datos de Pedidos"
+    );
+
+    writeFileXLSX(wb, "DatosPedidos.xlsx");
+  };
+
+  const onExportPDF = () => {
+    const unit = "pt";
+    const size = "A4";
+    const orientation = "portrait";
+
+    const doc = new jsPDF(orientation, unit, size);
+
+    const loadImages = (images, callback) => {
+      const loadedImages = [];
+      let loadedCount = 0;
+
+      images.forEach((imageUrl, index) => {
+        const img = new Image();
+        img.onload = () => {
+          loadedCount++;
+          loadedImages[index] = img;
+          if (loadedCount === images.length) {
+            callback(loadedImages);
+          }
+        };
+        img.src = imageUrl;
       });
-  
-      doc.save("DatosPedidos.pdf");
     };
 
+    autoTable(doc, {
+      head: [
+        [
+          "ID",
+          "Usuario",
+          "InfoCompra",
+          "Productos",
+          "EstadoPago",
+          "EstadoOrden",
+          "Precio",
+          "Total",
+          "Imágenes",
+        ],
+      ],
+      body: rows.map((row) => [
+        row.id,
+        row.user,
+        row.shippingInfo,
+        row.orderItems,
+        row.paymentInfo,
+        row.orderStatus,
+        row.itemsPrice,
+        row.totalPrice,
+        row.images.join(", "),
+      ]),
+      didDrawCell: (data) => {
+        if (data.column.index === 2) {
+          // Si es la columna de imágenes
+          const images = data.cell.raw.split(", "); // Separamos las URLs de las imágenes
+
+          loadImages(images, (loadedImages) => {
+            let y = data.cell.y + 2; // Ajustamos la posición vertical
+            loadedImages.forEach((img) => {
+              doc.addImage(img, data.cell.x + 2, y, 10, 10); // Agregamos la imagen al PDF
+              y += 12; // Incrementamos la posición vertical para la siguiente imagen
+            });
+          });
+        }
+      },
+    });
+    doc.save("DatosPedidos.pdf");
+  };
 
   return (
     <div className="flex mx-w-full">

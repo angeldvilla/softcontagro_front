@@ -153,9 +153,17 @@ const UsersList = () => {
   const onExportCSV = () => {
     const wb = utils.book_new();
 
+    const sheetData = rows.map((row) => ({
+      ID: row.id,
+      Nombre: row.name,
+      Correo: row.email,
+      Rol: row.role,
+      Imágenes: row.images.join(", "),
+    }));
+
     utils.book_append_sheet(
       wb,
-      utils.json_to_sheet(users),
+      utils.json_to_sheet(sheetData),
       "Datos de Usuarios"
     );
 
@@ -169,11 +177,47 @@ const UsersList = () => {
 
     const doc = new jsPDF(orientation, unit, size);
 
-    autoTable(doc, {
-      head: [columns.map((col) => col.header)],
-      body: users.map((row) => columns.map((col) => row[col.field])),
-    });
+    const loadImages = (images, callback) => {
+      const loadedImages = [];
+      let loadedCount = 0;
 
+      images.forEach((imageUrl, index) => {
+        const img = new Image();
+        img.onload = () => {
+          loadedCount++;
+          loadedImages[index] = img;
+          if (loadedCount === images.length) {
+            callback(loadedImages);
+          }
+        };
+        img.src = imageUrl;
+      });
+    };
+
+    autoTable(doc, {
+      head: [["ID", "Nombre", "Correo", "Rol", "Imágenes"]],
+      body: rows.map((row) => [
+        row.id,
+        row.name,
+        row.email,
+        row.role,
+        row.images.join(", "),
+      ]),
+      didDrawCell: (data) => {
+        if (data.column.index === 2) {
+          // Si es la columna de imágenes
+          const images = data.cell.raw.split(", "); // Separamos las URLs de las imágenes
+
+          loadImages(images, (loadedImages) => {
+            let y = data.cell.y + 2; // Ajustamos la posición vertical
+            loadedImages.forEach((img) => {
+              doc.addImage(img, data.cell.x + 2, y, 10, 10); // Agregamos la imagen al PDF
+              y += 12; // Incrementamos la posición vertical para la siguiente imagen
+            });
+          });
+        }
+      },
+    });
     doc.save("DatosUsuarios.pdf");
   };
 
