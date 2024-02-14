@@ -92,8 +92,7 @@ export const authReducer = (state = { user: {}, isAuthenticated: false }, action
 
     case LOGOUT_SUCCESS:
       return {
-        ...state,
-        isAuthenticated: false,
+        isAuthenticated: null,
         user: null,
         stripeKey: null, 
       };
