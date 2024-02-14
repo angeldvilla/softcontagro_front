@@ -92,9 +92,10 @@ export const authReducer = (state = { user: {}, isAuthenticated: false }, action
 
     case LOGOUT_SUCCESS:
       return {
-        loading: false,
+        ...state,
         isAuthenticated: false,
         user: null,
+        stripeKey: null, 
       };
 
     case LOAD_USER_FAIL:
