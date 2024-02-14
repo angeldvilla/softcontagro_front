@@ -240,8 +240,9 @@ export const logout = () => async (dispatch) => {
 
         await axios.get(`${path}/api/v1/logout`);
 
-        localStorage.clear();
+        localStorage.removeItem('state');
         removeValueFromLocalStorage('state');
+        localStorage.clear();
 
         dispatch({
             type: LOGOUT_SUCCESS,

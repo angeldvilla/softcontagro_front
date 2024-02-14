@@ -110,7 +110,6 @@ const ListOrders = () => {
             }}
             pageSizeOptions={[25, 50, 100]}
             autoHeight
-            loading={rows.length === 0}
             pagination
           />
         </div>

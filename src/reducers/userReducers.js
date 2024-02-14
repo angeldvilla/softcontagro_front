@@ -306,6 +306,11 @@ export const userDetailsReducer = (state = { user: {}, loading: false, error: nu
       };
 
     case LOGIN_SUCCESS:
+      return {
+        loading: false,
+        user: action.payload,
+      }
+
     case REGISTER_USER_SUCCESS:
       return {
         loading: false,
