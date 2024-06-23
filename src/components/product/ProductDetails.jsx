@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Loader from "../layout/Loader";
-/* import ListReviews from "../review/ListReviews"; */
-/* import RelatedProducts from "./RelatedProducts"; */
 import Header from "../layout/Header";
 import Footer from "../layout/Footer";
 import { toast, Toaster } from "sonner";
@@ -95,44 +93,6 @@ const ProductDetails = () => {
     const qty = count.valueAsNumber - 1;
     setQuantity(qty);
   };
-
-  /*  function setUserRatings() {
-    const stars = document.querySelectorAll(".star");
-
-    stars.forEach((star, index) => {
-      star.starValue = index + 1;
-
-      ["click", "mouseover", "mouseout"].forEach(function (e) {
-        star.addEventListener(e, showRatings);
-      });
-    });
-
-    function showRatings(e) {
-      stars.forEach((star, index) => {
-        if (e.type === "click") {
-          if (index < this.starValue) {
-            star.classList.add("text-orange-500");
-
-            setRating(this.starValue);
-          } else {
-            star.classList.remove("text-orange-500");
-          }
-        }
-
-        if (e.type === "mouseover") {
-          if (index < this.starValue) {
-            star.classList.add("text-yellow-500");
-          } else {
-            star.classList.remove("text-yellow-500");
-          }
-        }
-
-        if (e.type === "mouseout") {
-          star.classList.remove("text-yellow-500");
-        }
-      });
-    }
-  } */
 
   const setUserRatings = (value) => {
     setRating(value === rating ? 0 : value);
@@ -347,12 +307,6 @@ const ProductDetails = () => {
               </div>
             </div>
           </section>
-
-          {/*  <RelatedProducts category={product?.product?.category} />
-
-          {product?.product?.reviews && product?.product?.reviews.length > 0 && (
-            <ListReviews reviews={product?.product?.reviews} />
-          )} */}
           <Footer />
           <Toaster position="top-right" richColors closeButton />
         </div>
