@@ -31,10 +31,6 @@ const Home = () => {
     filteredProductsCount,
   } = useSelector((state) => state?.products);
 
-  /* const { category } = useSelector((state) => state?.category); */
-
-  /* const categoryName = category.find((cat) => cat?.name === keyword)?.name; */
-
   useEffect(() => {
     if (error) {
       toast.error("Error al cargar los productos");
