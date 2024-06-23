@@ -17,7 +17,6 @@ const ListProducts = () => {
   const location = useLocation();
   const { keyword } = useParams();
 
-  /*   const { category } = useSelector((state) => state?.category); */
   const dispatch = useDispatch();
 
   const {
