@@ -43,7 +43,7 @@ import {
   CLEAR_ERRORS,
 } from "../constants/userConstants";
 
-export const authReducer = (state = { user: {} }, action) => {
+export const authReducer = (state = { user: {}, isAuthenticated: false }, action) => {
   switch (action.type) {
     case LOGIN_REQUEST:
     case REGISTER_USER_REQUEST:
@@ -67,8 +67,7 @@ export const authReducer = (state = { user: {} }, action) => {
     case REGISTER_USER_SUCCESS:
       return {
         ...state,
-        loading: false,
-        isAuthenticated: true,
+        loading: false, 
         user: action.payload,
         error: null,
       }
@@ -93,9 +92,10 @@ export const authReducer = (state = { user: {} }, action) => {
 
     case LOGOUT_SUCCESS:
       return {
-        loading: false,
-        isAuthenticated: false,
+        ...state,
+        isAuthenticated: null,
         user: null,
+        stripeKey: null, 
       };
 
     case LOAD_USER_FAIL:
@@ -261,8 +261,6 @@ export const allUsersReducer = (state = { users: [], loading: false, error: null
 
     case LOGOUT_SUCCESS:
       return {
-        loading: false,
-        isAuthenticated: false,
         users: null,
       };
 
