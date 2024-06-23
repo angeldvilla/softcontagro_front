@@ -25,17 +25,13 @@ const CategorySection = () => {
               >
                 <div className=" flex flex-col items-center justify-center">
                   <p className="text-xl mb-4">
-                    {/* <Link to={`/search/${category?.name}`}> */}
                       {category?.name}
-                    {/* </Link> */}
                   </p>
-                  {/* <Link to={`/search/${category?.name}`}> */}
                     <img
                       src={category?.images[0]?.url}
                       alt="imagenes-categorias"
                       className="w-96 rounded-md"
                     />
-                  {/* </Link> */}
                 </div>
               </div>
             );
