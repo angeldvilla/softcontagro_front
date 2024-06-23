@@ -45,7 +45,7 @@ const Search = () => {
         onClick={searchHandler}
         className="bg-blue-gray-600 hover:bg-blue-gray-400 transition-colors duration-300 p-4 rounded-full"
       >
-        buscar
+        Buscar
       </Button>
     </form>
   );
