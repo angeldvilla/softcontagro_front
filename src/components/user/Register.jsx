@@ -60,7 +60,6 @@ const RegisterForm = () => {
       formData.set("avatar", avatar);
 
       dispatch(register(formData));
-      /* toast.success("Registro exitoso!"); */
     } catch (error) {
       toast.error("Error al registrar el usuario");
       console.error("Error en el registro:", error);
