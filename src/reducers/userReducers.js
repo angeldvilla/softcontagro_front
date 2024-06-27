@@ -5,10 +5,8 @@ import {
   REGISTER_USER_REQUEST,
   REGISTER_USER_SUCCESS,
   REGISTER_USER_FAIL,
-  /* LOAD_USER_REQUEST, */
   LOAD_USER_SUCCESS,
   LOAD_USER_FAIL,
-  /* LOAD_STRIPE_API_KEY, */
   LOAD_STRIPE_API_KEY_SUCCESS,
   UPDATE_PASSWORD_REQUEST,
   UPDATE_PASSWORD_SUCCESS,
@@ -47,8 +45,6 @@ export const authReducer = (state = { user: {}, isAuthenticated: false }, action
   switch (action.type) {
     case LOGIN_REQUEST:
     case REGISTER_USER_REQUEST:
-      /* case LOAD_USER_REQUEST:
-      case LOAD_STRIPE_API_KEY: */
       return {
         loading: false,
         isAuthenticated: false,
