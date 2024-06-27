@@ -45,7 +45,6 @@ const UpdateProfile = () => {
       formData.set("avatar", avatar);
 
       dispatch(updateProfile(formData, userId, navigate));
-      /* toast.success("Perfil actualizada con exito"); */
     } catch (error) {
       console.log(error);
       toast.error("Error al actualizar perfil");
