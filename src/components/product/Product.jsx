@@ -45,7 +45,7 @@ const Product = ({ product, col, className }) => {
             <div className="product-add-btn ml-16">
               <Link
                 to={`/product/${product?._id}`}
-                className="flex items-center justify-center bg-blue-gray-900 text-white px-4 py-2 rounded-full hover:bg-blue-gray-800 hover:text-white hover:scale-105 duration-150"
+                className="flex items-center justify-center bg-blue-gray-900 text-white px-4 py-2 rounded-full hover:bg-blue-gray-800 hover:text-white hover:scale-95 duration-150"
               >
                 Ver Detalles <FaArrowAltCircleRight className="ml-2" />
               </Link>
